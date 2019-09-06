@@ -1,0 +1,137 @@
+< ProSe-Subscriber-Information-Request > ::= < Diameter-Header: 8388664, REQ, PXY, 16777355 >
+< Session-Id >
+[ DRMP ]
+[ Vendor-Specific-Application-Id ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ Destination-Host ]
+{ Destination-Realm }
+{ User-Name }
+*[ Supported-Features ]
+[ OC-Supported-Features ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[ AVP ]
+
+< ProSe-Subscriber-Information-Answer > ::= < Diameter-Header: 8388664, PXY, 16777355 >
+< Session-Id >
+[ DRMP ]
+[ Vendor-Specific-Application-Id ]
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ V2X-Subscription-Data ]
+[ MSISDN ]
+[ Visited-PLMN-Id ]
+*[ Supported-Features ]
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Load ]
+*[ Reset-ID ]
+*[ AVP ]
+[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+
+< Update-ProSe-Subscriber-Data-Request > ::= < Diameter-Header: 8388665, REQ, PXY, 16777355 >
+< Session-Id >
+[ DRMP ]
+[ Vendor-Specific-Application-Id ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Host }
+{ Destination-Realm }
+{ User-Name }
+*[ Supported-Features ]
+[ V2X-Subscription-Data ]
+[ Visited-PLMN-Id ]
+{ V2X-Update-Flags }
+*[ Reset-ID ]
+*[ AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+
+< Update-ProSe-Subscriber-Data-Answer > ::= < Diameter-Header: 8388665, PXY, 16777355 >
+< Session-Id >
+[ DRMP ]
+[ Vendor-Specific-Application-Id ]
+*[ Supported-Features ]
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+*[ AVP ]
+[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+
+< ProSe-Notify-Request > ::= < Diameter-Header: 8388666, REQ, PXY, 16777355 >
+< Session-Id >
+[ DRMP ]
+[ Vendor-Specific-Application-Id ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ Destination-Host ]
+{ Destination-Realm }
+[ User-Name ]
+[ Visited-PLMN-Id ]
+[ V2X-Notify-Flags ]
+*[ Supported-Features ]
+[ OC-Supported-Features ]
+*[ AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+
+< ProSe-Notify-Answer > ::= < Diameter-Header: 8388666, PXY, 16777355 >
+< Session-Id >
+[ DRMP ]
+[ Vendor-Specific-Application-Id ]
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+*[ Supported-Features ]
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Load ]
+*[ AVP ]
+[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+
+< Reset-Request > ::= < Diameter-Header: 322, REQ, PXY, 16777355 >
+< Session-Id >
+[ DRMP ]
+[ Vendor-Specific-Application-Id ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Host }
+{ Destination-Realm }
+*[ Supported-Features ]
+*[ User-Id ]
+*[ Reset-ID ]
+*[ AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+
+< Reset-Answer > ::= < Diameter-Header: 322, PXY, 16777355 >
+< Session-Id >
+[ DRMP ]
+[ Vendor-Specific-Application-Id ]
+*[ Supported-Features ]
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+*[ AVP ]
+[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]

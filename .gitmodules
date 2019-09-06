@@ -1,0 +1,6 @@
+[submodule "compare_data_sources/wireshark"]
+	path = compare_data_sources/wireshark
+	url = https://github.com/wireshark/wireshark
+[submodule "compare_data_sources/diafuzzer"]
+	path = compare_data_sources/diafuzzer
+	url = https://github.com/Orange-OpenSource/diafuzzer

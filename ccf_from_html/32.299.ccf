@@ -1,0 +1,154 @@
+< ACR > ::= < Diameter-Header: 271, REQ, PXY >
+< Session-Id >
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Accounting-Record-Type }
+{ Accounting-Record-Number }
+[ Acct-Application-Id ]
+[ Vendor-Specific-Application-Id ]
+[ User-Name ]
+[ Destination-Host ]
+[ Accounting-Sub-Session-Id ]
+[ Acct-Session-Id ]
+[ Acct-Multi-Session-Id ]
+[ Acct-Interim-Interval ]
+[ Accounting-Realtime-Required ]
+[ Origin-State-Id ]
+[ Event-Timestamp ]
+* [ Proxy-Info ]
+* [ Route-Record ]
+[ Service-Context-Id ]
+[ Service-Information ]
+* [ AVP ]
+
+< ACA > ::= < Diameter-Header: 271, PXY >
+< Session-Id >
+{ Result-Code }
+[ Experimental-Result ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Accounting-Record-Type }
+{ Accounting-Record-Number }
+[ Acct-Application-Id ]
+[ Vendor-Specific-Application-Id ]
+[ User-Name ]
+[ Accounting-Sub-Session-Id ]
+[ Acct-Session-Id ]
+[ Acct-Multi-Session-Id ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+[ Acct-Interim-Interval ]
+[ Failed-AVP ]
+[ Accounting-Realtime-Required ]
+[ Origin-State-Id ]
+[ Event-Timestamp ]
+* [ Proxy-Info ]
+* [ AVP ]
+
+< CCR > ::= < Diameter-Header: 272, REQ, PXY >
+< Session-Id >
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Auth-Application-Id }
+{ Service-Context-Id }
+{ CC-Request-Type }
+{ CC-Request-Number }
+[ Destination-Host ]
+[ User-Name ]
+[ CC-Sub-Session-Id ]
+[ Acct-Multi-Session-Id ]
+[ Origin-State-Id ]
+[ Event-Timestamp ]
+*[ Subscription-Id ]
+[ Service-Identifier ]
+[ Termination-Cause ]
+[ Requested-Service-Unit ]
+[ Requested-Action ]
+*[ Used-Service-Unit ]
+[ AoC-Request-Type ]
+[ Multiple-Services-Indicator ]
+*[ Multiple-Services-Credit-Control ]
+*[ Service-Parameter-Info ]
+[ CC-Correlation-Id ]
+[ User-Equipment-Info ]
+[ OC-Supported-Features ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+[ Service-Information ]
+*[ AVP ]
+
+< CCA > ::= < Diameter-Header: 272, PXY >
+< Session-Id >
+{ Result-Code }
+[ Experimental-Result ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Auth-Application-Id }
+{ CC-Request-Type }
+{ CC-Request-Number }
+[ User-Name ]
+[ CC-Session-Failover ]
+[ CC-Sub-Session-Id ]
+[ Acct-Multi-Session-Id ]
+[ Origin-State-Id ]
+[ Event-Timestamp ]
+[ Granted-Service-Unit ]
+*[ Multiple-Services-Credit-Control ]
+[ Cost-Information]
+[ Low-Balance-Indication ]
+[ Remaining-Balance ]
+[ Final-Unit-Indication ]
+[ Check-Balance-Result ]
+[ Credit-Control-Failure-Handling ]
+[ Direct-Debiting-Failure-Handling ]
+[ Validity-Time]
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Redirect-Host]
+[ Redirect-Host-Usage ]
+[ Redirect-Max-Cache-Time ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+[ Failed-AVP ]
+[ Service-Information ]
+*[ AVP ]
+
+< RAR > ::= < Diameter-Header: 258, REQ, PXY >
+< Session-Id >
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Destination-Host }
+{ Auth-Application-Id }
+{ Re-Auth-Request-Type }
+[ User-Name ]
+[ Origin-State-Id ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+[ CC-Sub-Session-Id ]
+[ G-S-U-Pool-Identifier ]
+[ Service-Identifier ]
+[ Rating-Group ]
+*[ AVP ]
+
+< RAA > ::= < Diameter-Header: 258, PXY >
+< Session-Id >
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+[ User-Name ]
+[ Origin-State-Id ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+[ Failed-AVP ]
+*[ Redirect-Host ]
+[ Redirect-Host-Usage ]
+[ Redirect-Host-Cache-Time ]
+*[ Proxy-Info ]
+[ CC-Sub-Session-Id ]
+[ G-S-U-Pool-Identifier ]
+[ Service-Identifier ]
+[ Rating-Group ]
+*[ AVP ]

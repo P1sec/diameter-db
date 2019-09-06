@@ -1,0 +1,34 @@
+< User-Data-Answer > ::= < Diameter-Header: 306, PXY, 16777217 >
+< Session-Id >
+{ Vendor-Specific-Application-Id }
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+*[ Supported-Features ]
+[ User-Data ]
+[ Framed-IP-Address ]
+[ Framed-IPv6-Prefix ]
+[ Framed-Interface-Id ]
+*[ AVP ]
+*[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+
+< Push-Notification-Request > ::= < Diameter-Header: 309, REQ, PXY, 16777217 >
+< Session-Id >
+{ Vendor-Specific-Application-Id }
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Host }
+{ Destination-Realm }
+{ User-Identity }
+[ Framed-IP-Address ]
+[ Framed-IPv6-Prefix ]
+[ Framed-Interface-Id ]
+*[ AVP ]
+*[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]

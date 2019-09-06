@@ -1,0 +1,87 @@
+< AA-Answer > ::= < Diameter-Header: 265, PXY >
+< Session-Id >
+{ Auth-Application-Id }
+{ Origin-Host }
+{ Origin-Realm }
+[ Result-Code ]
+[ Experimental-Result ]
+*[ Access-Network-Charging-Identifier ]
+[ Access-Network-Charging-Address ]
+[ Acceptable-Service-Info ]
+[ IP-CAN-Type ]
+[ RAT-Type ]
+*[ Event-Trigger ]
+*[ Charging-Rule-Remove ]
+*[ Charging-Rule-Install ]
+*[ QoS-Information ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+*[ Failed-AVP ]
+[ Origin-State-Id ]
+*[ Redirect-Host ]
+[ Redirect-Host-Usage ]
+[ Redirect-Max-Cache-Time ]
+*[ Proxy-Info ]
+*[ AVP ]
+
+< RA-Request > ::= < Diameter-Header: 258, REQ, PXY >
+< Session-Id >
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Destination-Host }
+{ Auth-Application-Id }
+{ Specific-Action }
+*[ Access-Network-Charging-Identifier ]
+[ Access-Network-Charging-Address ]
+*[ Flows ]
+*[ Subscription-ID ]
+[ Abort-Cause ]
+[ IP-CAN-Type ]
+[ RAT-Type ]
+[ Origin-State-Id ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[ AVP ]
+
+< CC-Request > ::= < Diameter-Header: 272, REQ, PXY >
+< Session-Id >
+{ Auth-Application-Id }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ CC-Request-Type }
+{ CC-Request-Number }
+[ Destination-Host ]
+[ Origin-State-Id ]
+*[ Subscription-Id ]
+[ Bearer-Control-Mode ]
+[ Network-Request-Support ]
+[ Bearer-Identifier ]
+[ Bearer-Operation ]
+[ Framed-IP-Address ]
+[ Framed-IPv6-Prefix ]
+[ IP-CAN-Type ]
+[ RAT-Type ]
+[ Termination-Cause ]
+[ User-Equipment-Info ]
+[ QoS-Information ]
+[ QoS-Negotiation ]
+[ QoS-Upgrade ]
+[ 3GPP-SGSN-MCC-MNC ]
+[ 3GPP-SGSN-Address ]
+[ 3GPP-SGSN-IPv6-Address ]
+[ RAI ]
+[ 3GPP-User-Location-Info]
+[ Called-Station-ID ]
+[ Bearer-Usage ]
+[ Online ]
+[ Offline ]
+*[ TFT-Packet-Filter-Information ]
+*[ Charging-Rule-Report]
+*[ Event-Trigger]
+[ Access-Network-Charging-Address ]
+*[ Access-Network-Charging-Identifier-Gx ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[ AVP ]

@@ -1,0 +1,93 @@
+< Data-Pull-Request > ::= < Diameter-Header: 8388728, REQ, PXY, 16777351 >
+< Session-Id >
+[ DRMP ]
+[ Vendor-Specific-Application-Id ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ Destination-Host ]
+{ Destination-Realm }
+*[ Supported-Features ]
+[ User-Identifier ]
+*[ Data-Identification ]
+[ DPR-Flags ]
+[ OC-Supported-Features ]
+*[ AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+
+< Data-Pull-Answer > ::= < Diameter-Header: 8388728, PXY, 16777351 >
+< Session-Id >
+
+< Data-Update-Request > ::= < Diameter-Header: 8388729, REQ, PXY, 16777351 >
+< Session-Id >
+[ DRMP ]
+[ Vendor-Specific-Application-Id ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ Destination-Host ]
+{ Destination-Realm }
+*[ Supported-Features ]
+[ User-Identifier ]
+[ Data ]
+[ DUR-Flags ]
+[ OC-Supported-Features ]
+*[ AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+
+< Data-Update-Answer > ::= < Diameter-Header: 8388729, PXY, 16777351 >
+< Session-Id >
+[ DRMP ]
+[ Vendor-Specific-Application-Id ]
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+*[ Data-Identification ]
+*[ MC-Service-User-Profile-Data ]
+[ DUA-Flags ]
+*[ Supported-Features ]
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Load ]
+*[ AVP ]
+[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+
+< Notification-Data-Request > ::= < Diameter-Header: 8388730, REQ, PXY, 16777351 >
+< Session-Id >
+[ DRMP ]
+[ Vendor-Specific-Application-Id ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Host }
+{ Destination-Realm }
+*[ Supported-Features ]
+[ User-Identifier ]
+[ Data ]
+[ NDR-Flags ]
+*[ AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+
+< Notification-Data-Answer > ::= < Diameter-Header: 8388730, PXY, 16777351 >
+< Session-Id >
+[ DRMP ]
+[ Vendor-Specific-Application-Id ]
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+*[ Data-Identification ]
+[ NDA-Flags ]
+*[ Supported-Features ]
+*[ AVP ]
+[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]

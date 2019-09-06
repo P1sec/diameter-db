@@ -1,0 +1,111 @@
+< SL-Request > ::= < Diameter-Header: 8388635, REQ, PXY >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+[ Destination-Host ]
+[ Origin-State-Id ]
+[ OC-Supported-Features ]
+*[ Supported-Features ]
+{ SL-Request-Type }
+*[ Subscription-Id ]
+*[ Policy-Counter-Identifier ]
+[ Logical-Access-ID ]
+[ Physical-Access-ID ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[ AVP ]
+
+< SL-Answer > ::= < Diameter-Header: 8388635, PXY >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Origin-Host }
+{ Origin-Realm }
+[ Result-Code ]
+[ Experimental-Result ]
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Supported-Features ]
+*[ Policy-Counter-Status-Report ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+[ Failed-AVP ]
+[ Origin-State-Id ]
+*[ Redirect-Host ]
+[ Redirect-Host-Usage ]
+[ Redirect-Max-Cache-Time ]
+*[ Proxy-Info ]
+*[ Load ]
+*[ AVP ]
+
+< SN-Request > ::= < Diameter-Header: 8388636, REQ, PXY >
+< Session-Id >
+[ DRMP ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Destination-Host }
+{ Auth-Application-Id }
+[ Origin-State-Id ]
+[ OC-Supported-Features ]
+*[ Policy-Counter-Status-Report ]
+[ SN-Request-Type ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[ AVP ]
+
+< SN-Answer > ::= < Diameter-Header: 8388636, PXY >
+< Session-Id >
+[ DRMP ]
+{ Origin-Host }
+{ Origin-Realm }
+[ Result-Code ]
+[ Experimental-Result ]
+[ Origin-State-Id ]
+[ OC-Supported-Features ]
+[ OC-OLR ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+*[ Redirect-Host ]
+[ Redirect-Host-Usage ]
+[ Redirect-Max-Cache-Time ]
+[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ AVP ]
+
+< ST-Request > ::= < Diameter-Header: 275, REQ, PXY >
+< Session-Id >
+[ DRMP ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Auth-Application-Id }
+{ Termination-Cause }
+[ Destination-Host ]
+[ OC-Supported-Features ]
+[ Origin-State-Id ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[ AVP ]
+
+< ST-Answer > ::= < Diameter-Header: 275, PXY >
+< Session-Id >
+[ DRMP ]
+{ Origin-Host }
+{ Origin-Realm }
+[ Result-Code ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+[ Failed-AVP ]
+[ Origin-State-Id ]
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Redirect-Host ]
+[ Redirect-Host-Usage ]
+[ Redirect-Max-Cache-Time ]
+*[ Proxy-Info ]
+*[ Load ]
+*[ AVP ]

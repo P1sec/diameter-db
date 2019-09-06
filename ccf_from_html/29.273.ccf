@@ -1,0 +1,741 @@
+< Diameter-EAP-Request > ::= < Diameter-Header: 268, REQ, PXY >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Auth-Request-Type }
+{ EAP-Payload }
+[ User-Name ]
+[ Calling-Station-Id ]
+[ RAT-Type ]
+
+< Diameter-EAP-Answer > ::= < Diameter-Header: 268, PXY >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Result-Code }
+[ Experimental-Result ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Auth-Request-Type }
+[ EAP-Payload ]
+[ User-Name ]
+[ Session-Timeout ]
+[ Accounting-Interim-Interval ]
+[ EAP-Master-Session-Key ]
+*[ Redirect-Host ]
+[ AN-Trusted ]
+*[ Supported-Features ]
+[Mobile-Node-Identifier]
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Load ]
+
+< Re-Auth-Request > ::= < Diameter-Header: 258, REQ, PXY, 16777250 >
+< Session-Id >
+[ DRMP ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Destination-Host }
+{ Auth-Application-Id }
+{ Re-Auth-Request-Type }
+[ User-Name ]
+
+< Re-Auth-Answer > ::= < Diameter-Header: 258, PXY, 16777250 >
+< Session-Id >
+[ DRMP ]
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+
+< Diameter-EAP-Request > ::= < Diameter-Header: 268, REQ, PXY, 16777250 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+[ Destination-Host ]
+{ Auth-Request-Type }
+{ EAP-Payload }
+[ User-Name ]
+[ Calling-Station-Id ]
+
+< Diameter-EAP-Answer > ::= < Diameter-Header: 268, PXY, 16777250 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Result-Code }
+[ Experimental-Result ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Auth-Request-Type }
+[ EAP-Payload ]
+[ User-Name ]
+[ Session-Timeout ]
+[ Accounting-Interim-Interval ]
+[ EAP-Master-Session-Key ]
+[ Context-Identifier ]
+[ APN-OI-Replacement ]
+*[ APN-Configuration ]
+[MIP6-Agent-Info ]
+[ MIP6-Feature-Vector ]
+[ Mobile-Node-Identifier ]
+[ 3GPP-Charging-Characteristics ]
+[ AMBR ]
+*[ Redirect-Host ]
+[ AN-Trusted ]
+[ Trace-Info ]
+[ Subscription-ID ]
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Load ]
+*[ Supported-Features ]
+[ MIP-FA-RK ]
+[ MIP-FA-RK-SPI ]
+[ NSWO-Authorization ]
+[ DEA-Flags ]
+[ TWAN-Connection-Mode ]
+[ TWAN-Connectivity-Parameters ]
+[ WLCP-Key ]
+[ Terminal-Information ]
+[ UE-Usage-Type ]
+[ Emergency-Services ]
+[ Emergency-Info ]
+[ Key ]
+[ ERP-Realm ]
+
+< Abort-Session-Request > ::= < Diameter-Header: 274, REQ, PXY, 16777250 >
+< Session-Id >
+[ DRMP ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Destination-Host }
+{ Auth-Application-Id }
+[ User-Name ]
+[ Auth-Session-State ]
+
+< Abort-Session-Answer > ::= < Diameter-Header: 274, PXY, 16777250 >
+< Session-Id >
+[ DRMP ]
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+
+< Session-Termination-Request > ::= < Diameter-Header: 275, REQ, PXY, 16777250 >
+< Session-Id >
+[ DRMP ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+[ Destination-Host ]
+{ Auth-Application-Id }
+{ Termination-Cause }
+[ User-Name ]
+[ OC-Supported-Features ]
+
+< Session-Termination-Answer > ::= < Diameter-Header: 275, PXY, 16777250 >
+< Session-Id >
+[ DRMP ]
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Load ]
+*[ AVP ]
+
+< Re-Auth-Request > ::= < Diameter-Header: 258, REQ, PXY, 16777250 >
+< Session-Id >
+[ DRMP ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Destination-Host }
+{ Auth-Application-Id }
+{ Re-Auth-Request-Type }
+[ User-Name ]
+
+< Re-Auth-Answer > ::= < Diameter-Header: 258, PXY, 16777250 >
+< Session-Id >
+[ DRMP ]
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+
+< AA-Request > ::= < Diameter-Header: 265, REQ, PXY, 16777250 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Auth-Request-Type }
+[ Destination-Host ]
+[ User-Name ]
+[ MIP6-Feature-Vector ]
+[ Access-Network-Info ]
+[ Local-Time-Zone ]
+[ OC-Supported-Features ]
+
+< AA-Answer > ::= < Diameter-Header: 265, PXY, 16777250 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Auth-Request-Type }
+{ Result-Code }
+[ Experimental-Result ]
+{ Origin-Host }
+{ Origin-Realm }
+[ Session-Timeout ]
+[ Accounting-Interim-Interval ]
+[ Context-Identifier ]
+[ APN-OI-Replacement ]
+*[ APN-Configuration ]
+[ 3GPP-Charging-Characteristics ]
+[ Trace-Info ]
+[ Subscription-ID ]
+[ OC-Supported-Features ]
+[ OC-OLR ]
+[ UE-Usage-Type ]
+[ Emergency-Info]
+*[ Load ]
+
+< Session-Termination-Request > ::= < Diameter-Header: 275, REQ, PXY, 16777250 >
+< Session-Id >
+[ DRMP ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+[ Destination-Host ]
+{ Auth-Application-Id }
+{ Termination-Cause }
+[ User-Name ]
+[ OC-Supported-Features ]
+
+< Session-Termination-Answer > ::= < Diameter-Header: 275, PXY, 16777250 >
+< Session-Id >
+[ DRMP ]
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Load ]
+*[ AVP ]
+
+< Diameter-EAP-Request > ::= < Diameter-Header: 268, REQ, PXY, 16777250 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+[ Destination-Host ]
+{ Auth-Request-Type }
+{ EAP-Payload }
+[ User-Name ]
+[ Calling-Station-Id ]
+
+< Diameter-EAP-Answer > ::= < Diameter-Header: 268, PXY, 16777250 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Result-Code }
+[ Experimental-Result ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Auth-Request-Type }
+[ EAP-Payload ]
+[ User-Name ]
+[ Session-Timeout ]
+[ Accounting-Interim-Interval ]
+[ EAP-Master-Session-Key ]
+[ Context-Identifier ]
+[ APN-OI-Replacement ]
+*[ APN-Configuration ]
+[ MIP6-Feature-Vector ]
+[ Mobile-Node-Identifier ]
+*[ Redirect-Host ]
+
+< Diameter-EAP-Request > ::= < Diameter-Header: 268, REQ, PXY, 16777264 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+[ Destination-Host ]
+{ Auth-Request-Type }
+{ EAP-Payload }
+[ User-Name ]
+[ RAT-Type ]
+[ Service-Selection ]
+[ MIP6-Feature-Vector ]
+[ QoS-Capability ]
+[ Visited-Network-Identifier ]
+[ AAA-Failure-Indication ]
+*[ Supported-Features ]
+[ UE-Local-IP-Address ]
+[ OC-Supported-Features ]
+[ Terminal-Information ]
+[ Emergency- Services ]
+
+< Diameter-EAP-Answer > ::= < Diameter-Header: 268, PXY, 16777264 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Auth-Request-Type }
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+[ EAP-Payload ]
+[ User-Name ]
+[ EAP-Master-Session-Key ]
+[ APN-OI-Replacement ]
+[ APN-Configuration ]
+[ MIP6-Feature-Vector ]
+[ Mobile-Node-Identifier ]
+[ Trace-Info ]
+[ Subscription-ID ]
+[ Session-Timeout ]
+[ MIP6-Agent-Info ]
+[ 3GPP-Charging-Characteristics ]
+*[ Redirect-Host ]
+*[ Supported-Features ]
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Load ]
+[ Access-Network-Info ]
+[ User-Location-Info-Time ]
+[ UE-Usage-Type ]
+[ Emergency-Info ]
+[ Core-Network-Restrictions ]
+
+< AA-Request > ::= < Diameter-Header: 265, REQ, PXY, 16777264 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+[ Destination-Host ]
+{ Auth-Request-Type }
+[ User-Name ]
+[ OC-Supported-Features ]
+[ AAR-Flags ]
+[ UE-Local-IP-Address ]
+
+< AA-Answer > ::= < Diameter-Header: 265, REQ, PXY, 16777264 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Auth-Request-Type }
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+[ User-Name ]
+[ APN-OI-Replacement ]
+[ APN-Configuration ]
+[ Trace-Info ]
+[ Subscription-ID ]
+[ 3GPP-Charging-Characteristics ]
+[ Session-Timeout ]
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Load ]
+[ Access-Network-Info ]
+[ User-Location-Info-Time ]
+
+< Session-Termination-Request > ::= < Diameter-Header: 275, REQ, PXY, 16777264 >
+< Session-Id >
+[ DRMP ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+[ Destination-Host ]
+{ Auth-Application-Id }
+{ Termination-Cause }
+[ User-Name ]
+[ OC-Supported-Features ]
+
+< Session-Termination-Answer > ::= < Diameter-Header: 275, PXY, 16777264 >
+< Session-Id >
+[ DRMP ]
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Load ]
+
+< Abort-Session-Request > ::= < Diameter-Header: 274, REQ, PXY, 16777264 >
+< Session-Id >
+[ DRMP ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Destination-Host }
+{ Auth-Application-Id }
+[ User-Name ]
+[ Auth-Session-State ]
+
+< Abort-Session-Answer > ::= < Diameter-Header: 274, PXY, 16777264 >
+< Session-Id >
+[ DRMP ]
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+
+< Session-Termination-Request > ::= < Diameter-Header: 275, REQ, PXY, 16777264 >
+< Session-Id >
+[ DRMP ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+[ Destination-Host ]
+{ Auth-Application-Id }
+{ Termination-Cause }
+[ User-Name ]
+[ OC-Supported-Features ]
+
+< Session-Termination-Answer > ::= < Diameter-Header: 275, PXY, 16777264 >
+< Session-Id >
+[ DRMP ]
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Load ]
+*[ AVP ]
+
+< Re-Auth-Request > ::= < Diameter-Header: 258, REQ, PXY, 16777264 >
+< Session-Id >
+[ DRMP ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Destination-Host }
+{ Auth-Application-Id }
+{ Re-Auth-Request-Type }
+[ User-Name ]
+
+< Re-Auth-Answer > ::= < Diameter-Header: 258, PXY, 16777264 >
+< Session-Id >
+[ DRMP ]
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+[ User-Name ]
+
+< Multimedia-Auth-Request > ::= < Diameter-Header: 303, REQ, PXY, 16777265 >
+< Session-Id >
+[ DRMP ]
+{ Vendor-Specific-Application-Id }
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+[ Destination-Host ]
+{ User-Name }
+[ RAT-Type ]
+[ ANID ]
+[ Visited-Network-Identifier]
+[ Terminal-Information ]
+{ SIP-Auth-Data-Item }
+{ SIP-Number-Auth-Items }
+[AAA-Failure-Indication ]
+[ OC-Supported-Features ]
+*[ Supported-Features ]
+
+< Multimedia-Auth-Answer > ::= < Diameter-Header: 303, PXY, 16777265 >
+< Session-Id >
+[ DRMP ]
+{ Vendor-Specific-Application-Id }
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+{ User-Name}
+[ SIP-Number-Auth-Items ]
+*[ SIP-Auth-Data-Item ]
+[ 3GPP-AAA-Server-Name ]
+[ OC-Supported-Features ]
+[ OC-OLR ]
+
+< Push-Profile-Request > ::= < Diameter-Header: 305, REQ, 16777265 >
+< Session-Id >
+[ DRMP ]
+{ Vendor-Specific-Application-Id }
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Host }
+{ Destination-Realm }
+{ User-Name }
+[ Non-3GPP-User-Data ]
+[ PPR-Flags ]
+*[ Supported-Features ]
+
+< Push-Profile-Answer > ::= < Diameter-Header: 305, PXY, 16777265 >
+< Session-Id >
+[ DRMP ]
+{ Vendor-Specific-Application-Id }
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ Access-Network-Info ]
+[ Local-Time-Zone ]
+*[ Supported-Features ]
+
+< Server-Assignment-Request > ::= < Diameter-Header: 301, REQ, PXY, 16777265 >
+< Session-Id >
+[ DRMP ]
+{ Vendor-Specific-Application-Id }
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ Destination-Host ]
+{ Destination-Realm }
+[ Service-Selection ]
+[ Context-Identifier ]
+[ MIP6-Agent-Info ]
+[ Visited-Network-Identifier ]
+{ User-Name}
+{ Server-Assignment-Type }
+*[ Active-APN ]
+[ OC-Supported-Features ]
+*[ Supported-Features ]
+[ Terminal-Information ]
+[ Emergency-Services ]
+
+< Server-Assignment-Answer > ::= < Diameter-Header: 301, PXY, 16777265 >
+< Session-Id >
+[ DRMP ]
+{ Vendor-Specific-Application-Id }
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+{ User-Name}
+[ Non-3GPP-User-Data ]
+[ 3GPP-AAA-Server-Name ]
+[ OC-Supported-Features ]
+[ OC-OLR ]
+
+< Registration-Termination-Request > ::= < Diameter-Header: 304, REQ, PXY, 16777265 >
+< Session-Id >
+[ DRMP ]
+{ Vendor-Specific-Application-Id }
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Host }
+{ Destination-Realm }
+{ User-Name }
+{ Deregistration-Reason }
+*[ Supported-Features ]
+
+< Registration-Termination-Answer > ::= < Diameter-Header: 304, PXY, 16777265 >
+< Session-Id >
+[ DRMP ]
+{ Vendor-Specific-Application-Id }
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+*[ Supported-Features ]
+
+< Diameter-EAP-Request > ::= < Diameter-Header: 268, REQ, PXY, 16777272 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Auth-Request-Type }
+[ RAT-Type ]
+[ User-Name ]
+[ Service-Selection ]
+{ EAP-Payload }
+[ MIP6-Feature-Vector ]
+[ MIP6-Agent-Info ]
+[ QoS-Capability ]
+[ Visited-Network-Identifier ]
+[ MIP-Careof-Address ]
+[ AAA-Failure-Indication ]
+*[ Supported-Features ]
+[DER-S6b-Flags]
+[ UE-Local-IP-Address]
+
+< Diameter-EAP-Answer > ::= < Diameter-Header: 268, PXY, 16777272 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Auth-Request-Type }
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+[ User-Name ]
+[ EAP-Payload ]
+[ EAP-Master-Session-Key ]
+[ Mobile-Node-Identifier ]
+[ APN-Configuration ]
+[ MIP6-Agent-Info ]
+[ MIP6-Feature-Vector ]
+[ 3GPP-Charging-Characteristics ]
+*[ QoS-Resources ]
+*[ Redirect-Host ]
+[ Trace-Info ]
+*[ Supported-Features ]
+
+< AA-Request > ::= < Diameter-Header: 265, REQ, PXY, 16777272 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Auth-Request-Type }
+[ User-Name ]
+[ MIP6-Agent-Info ]
+[ MIP6-Feature-Vector ]
+[ Visited-Network-Identifier ]
+[ QoS-Capability ]
+[ Service-Selection ]
+[ OC-Supported-Features ]
+[ Origination-Time-Stamp ]
+[ Maximum-Wait-Time ]
+*[ Supported-Features ]
+[ Emergency- Services ]
+
+< AA-Answer > ::= < Diameter-Header: 265, PXY, 16777272 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Auth-Request-Type }
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+
+< Session-Termination-Request > ::= < Diameter-Header: 275, REQ, PXY, 16777272 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Termination-Cause }
+[ User-Name ]
+[ OC-Supported-Features ]
+
+< Session-Termination-Answer > ::= < Diameter-Header: 275, PXY, 16777272 >
+< Session-Id >
+[ DRMP ]
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Load ]
+*[ AVP ]
+
+< Abort-Session-Request > ::= < Diameter-Header: 274, REQ, PXY, 16777272 >
+< Session-Id >
+[ DRMP ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Destination-Host }
+{ Auth-Application-Id }
+[ User-Name ]
+[ Auth-Session-State ]
+
+< Abort-Session-Answer > ::= < Diameter-Header: 274, PXY, 16777272 >
+< Session-Id >
+[ DRMP ]
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+
+< Session-Termination-Request > ::= < Diameter-Header: 275, REQ, PXY, 16777272 >
+< Session-Id >
+[ DRMP ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Auth-Application-Id }
+{ Termination-Cause }
+[ User-Name ]
+[ OC-Supported-Features ]
+
+< Session-Termination-Answer > ::= < Diameter-Header: 275, PXY, 16777272 >
+< Session-Id >
+[ DRMP ]
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Load ]
+*[ AVP ]
+
+< AA-Request > ::= < Diameter-Header: 265, REQ, PXY, 16777272 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Auth-Request-Type }
+[ User-Name ]
+[ MIP6-Agent-Info ]
+[ MIP6-Feature-Vector ]
+[ Visited-Network-Identifier ]
+[ QoS-Capability ]
+[ Service-Selection ]
+*[ Supported-Features ]
+[MIP-MN-HA-SPI]
+[ OC-Supported-Features ]
+
+< AA-Answer > ::= < Diameter-Header: 265, PXY, 16777272 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Application-Id }
+{ Auth-Request-Type }
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Load ]
+
+< Re-Auth-Request > ::= < Diameter-Header: 258, REQ, PXY, 16777272 >
+< Session-Id >
+[ DRMP ]
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Destination-Host }
+{ Auth-Application-Id }
+{ Re-Auth-Request-Type }
+[ User-Name ]
+[RAR-Flags ]
+
+< Re-Auth-Answer > ::= < Diameter-Header: 258, PXY, 16777272 >
+< Session-Id >
+[ DRMP ]
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+[ User-Name ]

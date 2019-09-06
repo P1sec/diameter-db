@@ -1,0 +1,74 @@
+< CC-Request > ::= < Diameter-Header: 272, REQ, PXY >
+< Session-Id >
+{ Auth-Application-Id }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ CC-Request-Type }
+{ CC-Request-Number }
+[ Destination-Host ]
+[ Origin-State-Id ]
+*[ Subscription-Id ]
+[ Framed-IP-Address ]
+[ Framed-IPv6-Prefix ]
+[ 3GPP-RAT-Type ]
+[ Termination-Cause ]
+[ User-Equipment-Info ]
+[ 3GPP-GPRS-Negotiated-QoS-Profile ]
+[ 3GPP-SGSN-MCC-MNC ]
+[ 3GPP-SGSN-Address ]
+[ 3GPP-SGSN-IPv6-Address ]
+[ Called-Station-ID ]
+[ Bearer-Usage ]
+[ PDP-Session-Operation ]
+*[ TFT-Packet-Filter-Information ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[ AVP ]
+
+< CC-Answer > ::= < Diameter-Header: 272, PXY >
+< Session-Id >
+{ Auth-Application-Id }
+{ Origin-Host }
+{ Origin-Realm }
+[ Result-Code ]
+[ Experimental-Result ]
+{ CC-Request-Type }
+{ CC-Request-Number }
+*[ Event-Trigger ]
+[ Origin-State-Id ]
+*[ Charging-Rule-Remove ]
+*[ Charging-Rule-Install ]
+[ Charging-Information ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+*[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[ AVP ]
+
+< RA-Request > ::= < Diameter-Header: 258, REQ, PXY >
+< Session-Id >
+{ Auth-Application-Id }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Destination-Host }
+{ Re-Auth-Request-Type }
+[ Origin-State-Id ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[ AVP]
+
+< RA-Answer > ::= < Diameter-Header: 258, PXY >
+< Session-Id >
+{ Origin-Host }
+{ Origin-Realm }
+[ Result-Code ]
+[ Experimental-Result ]
+[ Origin-State-Id ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+*[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ AVP ]

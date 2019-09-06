@@ -1,0 +1,36 @@
+< CER > ::= < Diameter-Header : 257, REQ >
+{ Origin-Host }
+{ Origin-Realm }
+1* { Host-IP-Address }
+{ Vendor-Id }
+{ Product-Name }
+[ Origin-State-Id ]
+* [ Supported-Vendor-Id ]
+* [ Supported-Application-Variant]
+* [ Vendor-Specific-Application-Variant]
+* [ Auth-Application-Id ]
+* [ Inband-Security-Id ]
+* [ Acct-Application-Id ]
+* [ Vendor-Specific-Application-Id ]
+[ Firmware-Revision ]
+* [ AVP ]
+
+< CEA > ::= < Diameter-Header: 257 >
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+1* { Host-IP-Address }
+{ Vendor-Id }
+{ Product-Name }
+[ Origin-State-Id ]
+[ Error-Message ]
+* [ Failed-AVP ]
+* [ Supported-Vendor-Id ]
+* [ Supported-Application-Variant]
+* [ Vendor-Specific-Application-Variant]
+* [ Auth-Application-Id ]
+* [ Inband-Security-Id ]
+* [ Acct-Application-Id ]
+* [ Vendor-Specific-Application-Id ]
+[ Firmware-Revision ]
+* [ AVP ]
