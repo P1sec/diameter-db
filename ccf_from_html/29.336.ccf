@@ -1,0 +1,160 @@
+< Subscriber-Information-Request > ::= < Diameter-Header: 8388641, REQ, PXY, 16777310 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ Destination-Host ]
+{ Destination-Realm }
+{ User-Identifier }
+[ Service-ID ]
+[ SCS-Identity ]
+[ Service-Parameters ]
+{ SIR-Flags }
+[ OC-Supported-Features ]
+*[ Supported-Features ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[ AVP ]
+
+< Subscriber-Information-Answer > ::= < Diameter-Header: 8388641, PXY, 16777310 >
+< Session-Id >
+[ DRMP ]
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Load ]
+*[ Supported-Features ]
+*[ User-Identifier ]
+[ Service-Data ]
+[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[ AVP ]
+
+< Configuration-Information-Request > ::= < Diameter-Header: 8388718, REQ, PXY, 16777345 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ Destination-Host ]
+{ Destination-Realm }
+{ User-Identifier }
+[ OC-Supported-Features ]
+*[ Supported-Features ]
+*[ Monitoring-Event-Configuration ]
+[ CIR-Flags ]
+*[ AESE-Communication-Pattern ]
+[ Enhanced-Coverage-Restriction ]
+[ Group-Reporting-Guard-Timer ]
+[ AdditionalIdentifiers ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+[ Suggested-Network-Configuration ]
+*[AVP]
+
+< Configuration-Information-Answer > ::= < Diameter-Header: 8388718, PXY, 16777345 >
+< Session-Id >
+[ DRMP ]
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Load ]
+*[ Supported-Features ]
+[ User-Identifier ]
+[ Number-of-UEs ]
+*[ Monitoring-Event-Report ]
+*[ Monitoring-Event-Config-Status ]
+*[ AESE-Communication-Pattern-Config-Status ]
+*[ Supported-Services ]
+[ S6t-HSS-Cause ]
+[ Enhanced-Coverage-Restriction-Data ]
+[ CIA-Flags ]
+*[ IMSI-Group-Id]
+[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+[ Suggested-Network-Configuration ]
+*[AVP]
+
+< Reporting-Information-Request > ::= < Diameter-Header: 8388719, PXY, 16777345 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Host }
+{ Destination-Realm }
+*[ Supported-Features ]
+[ User-Identifier ]
+*[ Monitoring-Event-Report ]
+*[ Group-Monitoring-Event-Report ]
+[ RIR-Flags ]
+*[ Supported-Services ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[AVP]
+
+< Reporting-Information-Answer > ::= < Diameter-Header: 8388719, PXY, 16777345 >
+< Session-Id >
+[ DRMP ]
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+*[ Supported-Features ]
+*[ Monitoring-Event-Report-Status ]
+[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[AVP]
+
+< NIDD-Information-Request > ::= < Diameter-Header: 8388726, REQ, PXY, 16777345 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ Destination-Host ]
+{ Destination-Realm }
+{ User-Identifier }
+[ OC-Supported-Features ]
+*[ Supported-Features ]
+[ NIDD-Authorization-Request ]
+[ NIDD-Authorization-Update ]
+[ NIR-Flags ]
+*[ Group-User-Identifier ]
+[ MTC-Provider-Info ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[AVP]
+
+< NIDD-Information-Answer > ::= < Diameter-Header: 8388726, PXY, 16777345 >
+< Session-Id >
+[ DRMP ]
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Load ]
+*[ Supported-Features ]
+[ NIDD-Authorization-Response ]
+*[ Group-User-Identifier ]
+[ NIA-Flags ]
+[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[AVP]

@@ -1,0 +1,8 @@
+database.sqlite3
+html_from_doc/
+
+.~lock.*
+*.pyc
+__pycache__/
+
+*.swp

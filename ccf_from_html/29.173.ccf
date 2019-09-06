@@ -1,0 +1,37 @@
+< LCS-Routing-Info-Request > ::= < Diameter-Header: 8388622, REQ, PXY, 16777291 >
+< Session-Id >
+[ Vendor-Specific-Application-Id ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ Destination-Host ]
+{ Destination-Realm }
+[ User-Name ]
+[ MSISDN ]
+[ GMLC-Number ]
+*[ Supported-Features ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[ AVP ]
+
+< LCS-Routing-Info-Answer > ::= < Diameter-Header: 8388622, PXY, 16777291 >
+< Session-Id >
+[ Vendor-Specific-Application-Id ]
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+*[ Supported-Features ]
+[ User-Name ]
+[ MSISDN ]
+[ LMSI ]
+[ Serving-Node ]
+*[ Additional-Serving-Node ]
+[ GMLC-Address ]
+[ PPR-Address ]
+[ RIA-Flags ]
+*[ AVP ]
+[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]

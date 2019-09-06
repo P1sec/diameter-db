@@ -1,0 +1,74 @@
+< Device-Trigger-Request > ::= < Diameter-Header: 8388643, REQ, PXY, 16777311 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ Destination-Host ]
+{ Destination-Realm }
+{ User-Identifier }
+{ SM-RP-SMEA }
+{ Payload }
+[ Serving-Node ]
+*[ Additional-Serving-Node ]
+[ Reference-Number ]
+[ Validity-Time ]
+[ Priority-Indication ]
+[ SMS-Application-Port-ID ]
+[ Old-Rference-Number ]
+[ Trigger-Action ]
+*[ Supported-Features ]
+*[ AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+
+< Device-Trigger-Answer > ::= < Diameter-Header: 8388643, PXY, 16777311 >
+< Session-Id >
+[ DRMP ]
+[ Vendor-Specific-Application-Id ]
+[ Result-Code ]
+[ Experimental-Result ]
+[ MTC-Error-Diagnostic ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ Old-Reference-Number ]
+[ Trigger-Action ]
+*[ Supported-Features ]
+*[ AVP ]
+[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+
+< Delivery-Report-Request > ::= < Diameter-Header: 8388644, REQ, PXY, 16777311 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Host }
+{ Destination-Realm }
+{ User-Identifier }
+{ SM-RP-SMEA }
+{ SM-Delivery-Outcome-T4 }
+[ Absent-Subscriber-Diagnostic-T4 ]
+[ Reference-Number ]
+*[ Supported-Features ]
+*[ AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+
+< Delivery-Report-Answer > ::= < Diameter-Header: 8388644, PXY, 16777311 >
+< Session-Id >
+[ DRMP ]
+[ Vendor-Specific-Application-Id ]
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+*[ Supported-Features ]
+*[ AVP ]
+[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]

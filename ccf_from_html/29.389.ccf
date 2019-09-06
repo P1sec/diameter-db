@@ -1,0 +1,35 @@
+< ProSe-Authorization-Request > ::= < Diameter-Header: 8388668, REQ, PXY, 16777356 >
+< Session-Id >
+[ DRMP ]
+[ Vendor-Specific-Application-Id ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ Destination-Host ]
+{ Destination-Realm }
+*[ Supported-Features ]
+[ OC-Supported-Features ]
+{ User-Identifier }
+{ Visited-PLMN-Id }
+*[ AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+
+< ProSe-Authorization-Answer > ::= < Diameter-Header: 8388668, PXY, 16777356 >
+< Session-Id >
+[ DRMP ]
+[ Vendor-Specific-Application-Id ]
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+*[ Supported-Features ]
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Load ]
+[ V2X-Authorization-Data ]
+*[ AVP ]
+[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]

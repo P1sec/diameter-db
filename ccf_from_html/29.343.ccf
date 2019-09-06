@@ -1,0 +1,87 @@
+< PX-Request > ::= < Diameter-Header: 8388676, REQ, PXY >
+< Session-Id >
+{ Auth-Application-Id }
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+[ Destination-Host ]
+[ Origin-State-Id ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+{ ProSe-Request-Type }
+[ Origin-App-Layer-User-Id ]
+[ Target-App-Layer-User-Id ]
+[ Requesting-EPUID ]
+[ ProSe-Function-ID ]
+[ Requesting-RPAUID ]
+[ ProSe-App-Id ]
+[ Application-Data ]
+[ Allowed-Suffix-Number]
+[ Target-RPAUID ]
+*[ Banned-User-Target ]
+*[ AVP ]
+
+< PX-Answer > ::= < Diameter-Header: 8388676, PXY >
+< Session-Id >
+{ Auth-Application-Id }
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ Result-Code ]
+[ Experimental-Result ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+[ Failed-AVP ]
+[ Origin-State-Id ]
+*[ Redirect-Host ]
+[ Redirect-Host-Usage ]
+[ Redirect-Max-Cache-Time ]
+*[ Proxy-Info ]
+{ ProSe-Request-Type }
+[ Targeted-EPUID ]
+[ ProSe-Function-ID ]
+*[ PDUID ]
+*[ ProSe-Restricted-Code-Suffix-Range ]
+*[ ProSe-Application-Code-Suffix-Range ]
+*[ ProSe-Code-Suffix-Mask ]
+*[ Monitor-Target ]
+*[ Target-PDUID ]
+[ProSe-Application-Metadata ]
+[Application-Data ]
+*[ Load ]
+*[ AVP ]
+
+< XA-Request > ::= < Diameter-Header: 8388727, REQ, PXY >
+< Session-Id >
+{ Auth-Application-Id }
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+[ Destination-Host ]
+[ Origin-State-Id ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+{ ProSe-Request-Type }
+[ Requesting-RPAUID ]
+*[ Banned-User-Target} *[ AVP ]
+
+< XA-Answer > ::= < Diameter-Header: 8388727, PXY >
+< Session-Id >
+{ Auth-Application-Id }
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ Result-Code ]
+[ Experimental-Result ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+[ Failed-AVP ]
+[ Origin-State-Id ]
+*[ Redirect-Host ]
+[ Redirect-Host-Usage ]
+[ Redirect-Max-Cache-Time ]
+*[ Proxy-Info ]
+{ ProSe-Request-Type }
+*[ AVP ]
