@@ -19,11 +19,11 @@ git submodule update --recursive --remote --merge
 
 ## Data generation procedure
 
-In order to regenerate the SQLite database, please run (note: you need a public key with the ability to connect through SSH to `p1sec@protorisk.p1sec.com` in order to be able to mount HTML specifications from Protorisk):
+In order to regenerate the SQLite database, please run (note: you need a public key with the ability to connect through SSH to `p1sec@protorisk.p1sec.com` in order to be able to mount HTML specifications from Protorisk, and to query the Protorisk MySQL database through the `sshtunel` Python module):
 
 ```
 sudo apt install fuse python3 python3.7 sshfs
-sudo python3.7 -m pip intall --upgrade sqlalchemy
+sudo python3.7 -m pip install --upgrade sqlalchemy sshtunnel
 ./regenerate.sh
 ```
 

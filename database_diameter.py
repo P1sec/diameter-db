@@ -51,7 +51,8 @@ class VersionedDiameterObject(Base):
     
     spec_url = Column(String, index = True)
     short_spec_name = Column(String, index = True) # "TS 29.272"
-    long_spec_name = Column(String, index = True) # "3GPP TS 28.272: Interface between..."
+    long_spec_name_prefix = Column(String, index = True) # "3GPP TS 28.272", "IETF RFC 3877"...
+    long_spec_name_suffix = Column(String, index = True) # "Interface between MME and SGSN..."
     alternate_spec_url = Column(String, index = True)
     
     updates = relationship('DiameterObjectUpdate', uselist = True, backref = 'diameter_object')
@@ -98,8 +99,6 @@ class DiameterCommand(VersionedDiameterObject):
     __mapper_args__ = {'polymorphic_identity': __tablename__, 'inherit_condition': (object_id == VersionedDiameterObject.object_id)}
 
 
-
-    application_id = Column(Integer, ForeignKey('diameter_application.application_id'), index = True, nullable = True)
     vendor_id = Column(Integer, ForeignKey('diameter_vendor.vendor_id'), index = True, nullable = True)
     
     command_code = Column(Integer, index = True, nullable = False)
@@ -111,9 +110,19 @@ class DiameterCommand(VersionedDiameterObject):
     pxy_bit = Column(Boolean, index = True, nullable = True)
     err_bit = Column(Boolean, index = True, nullable = True)
     
-    application = relationship('DiameterApplication', uselist = False, backref = 'commands')
+    applications = relationship('DiameterApplication', uselist = True, secondary = 'diameter_command_avp_occurrence', backref = 'commands')
     vendor = relationship('DiameterVendor', uselist = False, backref = 'commands')
     avp_occurrences = relationship('DiameterCommandAVPOccurrence', uselist = True)
+
+class DiameterCommandApplicationOccurence(VersionedDiameterObject):
+    __tablename__ = 'diameter_command_application_occurrence'
+    
+    object_id = Column(String, primary_key = True) # "cmd_app_<command_code>_<request_flag_0_or_1>_<application_id>"
+    __mapper_args__ = {'polymorphic_identity': __tablename__, 'inherit_condition': (object_id == VersionedDiameterObject.object_id)}
+    
+    command_code = Column(String, ForeignKey('diameter_command.command_code'), index = True, nullable = False)
+    
+    application_id = Column(Integer, ForeignKey('diameter_application.application_id'), index = True, nullable = False)
 
 class DiameterAVPRequirement(IntEnum):
     
