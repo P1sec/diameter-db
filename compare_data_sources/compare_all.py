@@ -53,6 +53,8 @@ for spec_file in listdir(OLD_DIAFUZZER_DATA_DIR):
     that we will be able to rely on it
 """
 
+cmd_ids_only_in_live_3gpp = set()
+
 for file_name in listdir(EXTRACTED_CCF_FROM_3GPP_PATH):
     
     with open(EXTRACTED_CCF_FROM_3GPP_PATH + '/' + file_name) as fd:
@@ -62,11 +64,15 @@ for file_name in listdir(EXTRACTED_CCF_FROM_3GPP_PATH):
         for cmd_code, app_id in findall('Diameter[ -]Header\s*:\s*(\d+).+?(\d+)\s*>', ccf_data, flags = IGNORECASE):
             
             old_diafuzzer_cmd_ids.add(int(cmd_code))
-            old_diafuzzer_cmd_ids.add(int(app_id))
+            old_diafuzzer_app_ids.add(int(app_id))
+            
+            cmd_ids_only_in_live_3gpp.add(int(cmd_code))
         
         for command_code_id in findall('<\s*Diameter[\s-]*Header\s*:\s*(\d+)', ccf_data, flags = IGNORECASE):
             
             old_diafuzzer_cmd_ids.add(int(command_code_id))
+            
+            cmd_ids_only_in_live_3gpp.add(int(cmd_code))
 
 
 """
@@ -126,6 +132,7 @@ print('AVPs codes in IANA but not in Wireshark:', sorted(iana_avp_ids - wireshar
 print('AVPs codes in Wireshark but not in IANA:', sorted(wireshark_avp_ids - iana_avp_ids))
 
 print('Command codes only in Diafuzzer + refreshed 3GPP specs:', sorted(old_diafuzzer_cmd_ids - wireshark_cmd_ids))
+print('Command codes only in refreshed 3GPP specs but not Diafuzzer:', sorted(old_diafuzzer_cmd_ids - wireshark_cmd_ids))
 print('Command codes only in Wireshark:', sorted(wireshark_cmd_ids - old_diafuzzer_cmd_ids))
 print('Command codes in IANA but not in Wireshark:', sorted(iana_cmd_ids - wireshark_cmd_ids))
 print('Command codes in Wireshark but not in IANA:', sorted(wireshark_cmd_ids - iana_cmd_ids))

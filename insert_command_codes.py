@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 #-*- encoding: Utf-8 -*-
-from re import findall, IGNORECASE, MULTILINE
+from re import findall, match, IGNORECASE, MULTILINE
 from lxml.etree import XMLParser, parse, dump
 from os.path import dirname, realpath
 from typing import Dict, Set, List
@@ -13,6 +13,8 @@ from io import StringIO
 from typing import Set
 from time import time
 
+from database_protorisk import obtain_spec_from_code
+
 SCRIPT_DIR = dirname(realpath(__file__))
 
 OLD_DIAFUZZER_DATA_DIR = realpath(SCRIPT_DIR + '/compare_data_sources/diafuzzer/specs/')
@@ -22,7 +24,7 @@ EXTRACTED_CCF_FROM_3GPP_PATH = realpath(SCRIPT_DIR + '/ccf_from_html')
 
 """
     We'll parse the custom Diameter ABNF (CCF)
-    from stripped 3GPP speciications (downloaded
+    from stripped 3GPP specifications (downloaded
     by the "./extract_abnf_from_3gpp.py" script
     which will be called if needed) and/or
     resources from Diafuzzer
@@ -60,11 +62,83 @@ sql_session = Session()
 
 try:
     
-    for file_name in listdir(EXTRACTED_CCF_FROM_3GPP_PATH): # ['29.272.html']: # DEBUG
+    """
+        This function will either create, update or dismiss
+        the information into the SQL database, depending
+        on whether information is changed and/or the available
+        command code name is longer than the existing one
         
-        with open(EXTRACTED_CCF_FROM_3GPP_PATH + '/' + file_name) as fd:
+        @param command_row_dict: Dict resembling DiameterCommand
+        @param command_application_row_dict: Dict resembling
+            DiameterCommandApplicationOccurence
+        @param source_row_dict: Dict resembling DiameterObjectUpdate
+            (without the "object_id" column, because it will be used both
+            as a base to set the objects derivating "command_row_dict"
+            and "command_application_row_dict")
+    """
+    
+
+    
+    def create_or_merge_command_code(command_row_dict, command_application_row_dict, source_row_dict : dict):
+        
+        ### To be implemented
+        
+        # Is there an existing row for this command code?
+        
+        
+        diameter_command = sql_session.query(DiameterCommand).filter_by(object_id = command_row_dict['object_id']).first()
+        
+        object_modified = False
+        
+        if not diameter_command:
             
-            file_contents = fd.read()
+            sql_session.add(DiameterCommand(**command_row_dict))
+            
+            object_modified = True
+            
+        else:
+            
+            for key, value in command_row_dict.items():
+                    
+                if (key == 'command_name' and len(value) > len(diameter_command.command_name)) or (value and not getattr(command_name, key)):
+                    
+                    object_modified = True
+
+                    setattr(diameter_command, key, value)
+                    
+        
+        if object_modified:
+        
+            sql_session.add(DiameterObjectUpdate({
+                **source_row_dict,
+                'object_id': command_row_dict['object_id']
+            }))
+            
+            
+            
+        
+        
+        # Is there an existing row for this "Command code - Application ID" association?
+        
+        diameter_command_to_application = sql_session.query(DiameterObjectUpdate).filter_by(object_id = command_application_row_dict['object_id']).first()
+        
+        if not diameter_command_to_application:
+            
+            sql_session.add(DiameterCommandApplicationOccurence(**command_application_row_dict))
+            
+            sql_session.add(DiameterObjectUpdate({
+                **source_row_dict,
+                'object_id': command_row_dict['object_id']
+            }))
+    
+    """
+        This function will take a file containing CCF (custom Diameter
+        ABNF) command code and AVPs definition, and insert into the
+        SQLAlchemy database the command code definitions extracted from
+        it
+    """
+    
+    def parse_extracted_ccf(file_contents : str, tgpp_spec_name : str = None):
             
             for cmd_code_name, cmd_code_header, cmd_code_elements in findall(CCF_MESSAGE_REGEX, file_contents, flags = IGNORECASE):
                 print('Parse and insert this:', repr((cmd_code_name, cmd_code_header, findall(CCF_AVP_REGEX, cmd_code_elements))))
@@ -84,16 +158,94 @@ try:
                 pxy_bit = 'PXY' in header_informations
                 # err_bit = 'ERR' in header_informations # Not present?
                 
-                DiameterCommand(
-                    object_id = 'cmd_%d_%d' % (command_code, req_bit),
-                    req_bit = req_bit,
-                    pxy_bit = pxy_bit,
-                    application_id = application_id
+                cmd_code_name = cmd_code_name.strip()
+                
+                three_char_prefix_regex = match('^([A-Z]{2})-([RA])(?:equest|nswer)', cmd_code_name, flags = MULTILINE)
+                
+                command_three_char_abbreviation = None
+                if len(cmd_code_name) == 3 and cmd_code_name.isupper():
+                    command_three_char_abbreviation = cmd_code_name
+                elif three_char_prefix_regex:
+                    command_three_char_abbreviation = three_char_prefix_regex.group(1) + three_char_prefix_regex.group(2)
+                
+                if tgpp_spec_name:
+                    protorisk_spec_object = obtain_spec_from_code('%02d.%03d' % map(int, tgpp_spec_name.split('.')))
+
+                create_or_merge_command_code(
+                    dict( # DiameterCommand row
+                        object_id = 'cmd_%d_%d' % (command_code, req_bit),
+                        command_code = command_code,
+                        req_bit = req_bit,
+                        pxy_bit = pxy_bit,
+                        command_name = cmd_code_name,
+                        command_three_char_abbreviation = command_three_char_abbreviation,
+                        
+                        spec_ = 'http://www.3gpp.org/DynaReport/%02d%03d.htm' % map(int, tgpp_spec_name.split('.')) if tgpp_spec_name else None,
+                        alternate_spec_url = 'https://protorisk.p1sec.com/3gpp/%02d.%03d.htm' % map(int, tgpp_spec_name.split('.')) if tgpp_spec_name else None,
+                        short_spec_name = '%s %s' % (protorisk_spec_object.type, protorisk_spec_object.code) if tgpp_spec_name else None,
+                        long_spec_name_prefix = '3GPP %s %s' % (protorisk_spec_object.type, protorisk_spec_object.code) if tgpp_spec_name else None,
+                        long_spec_name_suffix = protorisk_spec_object.name if tgpp_spec_name else None
+                    ),
+                    
+                    dict( # DiameterCommandApplicationOccurence row
+                        object_id = 'cmd_%d_%d' % (command_code, req_bit),
+                        source = DiameterDataSource.tgpp_specifications,
+                        source_url = 'http://www.3gpp.org/DynaReport/%02d%03d.htm' % map(int, tgpp_spec_name.split('.')),
+                        # source_update_date = ,
+                        insertion_date = datetime.now()
+                    ),
+                    
+                    dict( # DiameterObjectUpdate without "object_id"
+                        #  object_id = 'cmd_app_%d_%d_%d' % (command_code, req_bit, application_id),
+                        application_id = application_id,
+                        command_code = command_code
+                    )
                 )
                 
                 # TODO parse AVPs?
+
+    
+    
+    
+    
+    """
+        1. Add information from 3GPP (the best quality information)
+    """
+    
+    for file_name in listdir(EXTRACTED_CCF_FROM_3GPP_PATH): # ['29.272.html']: # DEBUG
+        
+        with open(EXTRACTED_CCF_FROM_3GPP_PATH + '/' + file_name) as fd:
+            
+            file_contents = fd.read()
+            
+            parse_extracted_ccf(file_contents, file_name.rsplit('.', 1)[0])
                 
     sql_session.commit()
+    
+    """
+        2) Add information from Diafuzzer (a subset of 3GPP information
+        but also covering IETF specs)
+    """
+    
+    for file_name in listdir(OLD_DIAFUZZER_DATA_DIR): # ['29.272.html']: # DEBUG
+        
+        with open(OLD_DIAFUZZER_DATA_DIR + '/' + file_name) as fd:
+            
+            file_contents = fd.read()
+            
+            parse_extracted_ccf(file_contents)
+                
+    sql_session.commit()
+    
+    """
+        3) Add information from Wireshark
+    """
+    
+    
+    
+    """
+        4) Add information from IANA
+    """
     
 
 finally:

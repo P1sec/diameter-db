@@ -26,8 +26,9 @@ sql_session = Session()
 
 try:
     
+    
     """
-        Obtan application IDs from Wireshark
+        Obtain application IDs from Wireshark
     """
 
     xml_parser = XMLParser()  # load_dtd = True, no_network = False
@@ -75,7 +76,7 @@ try:
         
 
     """
-        Obtain IANA information for comparison
+        Obtain IANA information in order to fill up missing application IDs
     """
     
     iana_app_ids : Set[int] =  set()
