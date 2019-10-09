@@ -19,14 +19,6 @@ ssh_tunnel_forwarder.start()
 
 sleep(0.75)
 
-from signal import SIGINT, SIGTERM, SIGKILL
-from os import kill, getpid
-register(lambda: kill(getpid(), SIGTERM)) #   Avoid to have the program handing due to a background thread    (likely?)  
-#register(lambda: exit(0))
-
-#register(ssh_tunnel_forwarder.stop)
-
-
 
 
 
@@ -38,10 +30,6 @@ BaseProtorisk = declarative_base(metadata = metadata_protorisk)
 
 SessionProtorisk = sessionmaker()
 SessionProtorisk.configure(bind = engine_protorisk)
-
-#####register(engine_protorisk.dispose)
-
-#######register(lambda: print('test a'))     #       DEBUG
 
 
 
