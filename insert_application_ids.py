@@ -1,5 +1,8 @@
-#!/usr/bin/python3
+#!/usr/bin/python3.7 -Su
 #-*- encoding: Utf-8 -*-
+
+import usercustomize
+
 from re import findall, IGNORECASE, MULTILINE
 from lxml.etree import XMLParser, parse, dump
 from os.path import dirname, realpath

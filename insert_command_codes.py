@@ -1,5 +1,8 @@
-#!/usr/bin/python3
+#!/usr/bin/python3.7 -Su
 #-*- encoding: Utf-8 -*-
+
+import usercustomize
+
 from re import findall, match, IGNORECASE, MULTILINE
 from lxml.etree import XMLParser, parse, dump
 from os.path import dirname, realpath
@@ -68,9 +71,11 @@ try:
         on whether information is changed and/or the available
         command code name is longer than the existing one
         
+        It does not do "sql_session.commit()"
+        
         @param command_row_dict: Dict resembling DiameterCommand
         @param command_application_row_dict: Dict resembling
-            DiameterCommandApplicationOccurence
+            DiameterCommandApplicationOccurrence
         @param source_row_dict: Dict resembling DiameterObjectUpdate
             (without the "object_id" column, because it will be used both
             as a base to set the objects derivating "command_row_dict"
@@ -80,8 +85,6 @@ try:
 
     
     def create_or_merge_command_code(command_row_dict, command_application_row_dict, source_row_dict : dict):
-        
-        ### To be implemented
         
         # Is there an existing row for this command code?
         
@@ -100,7 +103,7 @@ try:
             
             for key, value in command_row_dict.items():
                     
-                if (key == 'command_name' and len(value) > len(diameter_command.command_name)) or (value and not getattr(command_name, key)):
+                if (key == 'command_name' and len(value) > len(diameter_command.command_name)) or (value and not getattr(diameter_command, key)):
                     
                     object_modified = True
 
@@ -109,27 +112,31 @@ try:
         
         if object_modified:
         
-            sql_session.add(DiameterObjectUpdate({
+            sql_session.add(DiameterObjectUpdate(
                 **source_row_dict,
-                'object_id': command_row_dict['object_id']
-            }))
+                object_id = command_row_dict['object_id']
+            ))
             
             
             
         
         
-        # Is there an existing row for this "Command code - Application ID" association?
-        
-        diameter_command_to_application = sql_session.query(DiameterObjectUpdate).filter_by(object_id = command_application_row_dict['object_id']).first()
-        
-        if not diameter_command_to_application:
+        if command_application_row_dict:
             
-            sql_session.add(DiameterCommandApplicationOccurence(**command_application_row_dict))
+            # Is there an existing row for this "Command code - Application ID" association?
             
-            sql_session.add(DiameterObjectUpdate({
-                **source_row_dict,
-                'object_id': command_row_dict['object_id']
-            }))
+            diameter_command_to_application = sql_session.query(DiameterCommandApplicationOccurrence).filter_by(object_id = command_application_row_dict['object_id']).first()
+            
+            if not diameter_command_to_application:
+                
+                sql_session.add(DiameterCommandApplicationOccurrence(**command_application_row_dict))
+                
+                sql_session.add(DiameterObjectUpdate(
+                    **source_row_dict,
+                    object_id = command_row_dict['object_id']
+                ))
+        
+        sql_session.commit()
     
     """
         This function will take a file containing CCF (custom Diameter
@@ -168,8 +175,10 @@ try:
                 elif three_char_prefix_regex:
                     command_three_char_abbreviation = three_char_prefix_regex.group(1) + three_char_prefix_regex.group(2)
                 
+                assert tgpp_spec_name.count('.') == 1
+                
                 if tgpp_spec_name:
-                    protorisk_spec_object = obtain_spec_from_code('%02d.%03d' % map(int, tgpp_spec_name.split('.')))
+                    protorisk_spec_object = obtain_spec_from_code(tgpp_spec_name)
 
                 create_or_merge_command_code(
                     dict( # DiameterCommand row
@@ -180,25 +189,25 @@ try:
                         command_name = cmd_code_name,
                         command_three_char_abbreviation = command_three_char_abbreviation,
                         
-                        spec_ = 'http://www.3gpp.org/DynaReport/%02d%03d.htm' % map(int, tgpp_spec_name.split('.')) if tgpp_spec_name else None,
-                        alternate_spec_url = 'https://protorisk.p1sec.com/3gpp/%02d.%03d.htm' % map(int, tgpp_spec_name.split('.')) if tgpp_spec_name else None,
+                        spec_url = 'http://www.3gpp.org/DynaReport/%s.htm' % tgpp_spec_name if tgpp_spec_name else None,
+                        alternate_spec_url = 'https://protorisk.p1sec.com/3gpp/%s.htm' % tgpp_spec_name if tgpp_spec_name else None,
                         short_spec_name = '%s %s' % (protorisk_spec_object.type, protorisk_spec_object.code) if tgpp_spec_name else None,
                         long_spec_name_prefix = '3GPP %s %s' % (protorisk_spec_object.type, protorisk_spec_object.code) if tgpp_spec_name else None,
                         long_spec_name_suffix = protorisk_spec_object.name if tgpp_spec_name else None
                     ),
                     
-                    dict( # DiameterCommandApplicationOccurence row
-                        object_id = 'cmd_%d_%d' % (command_code, req_bit),
-                        source = DiameterDataSource.tgpp_specifications,
-                        source_url = 'http://www.3gpp.org/DynaReport/%02d%03d.htm' % map(int, tgpp_spec_name.split('.')),
-                        # source_update_date = ,
-                        insertion_date = datetime.now()
-                    ),
-                    
-                    dict( # DiameterObjectUpdate without "object_id"
-                        #  object_id = 'cmd_app_%d_%d_%d' % (command_code, req_bit, application_id),
+                    dict( # DiameterCommandApplicationOccurrence row
+                        object_id = 'cmd_app_%d_%d_%d' % (command_code, req_bit, application_id),
                         application_id = application_id,
                         command_code = command_code
+                    ) if application_id else None,
+                    
+                    dict( # DiameterObjectUpdate without "object_id"
+                        #   object_id = 'cmd_%d_%d' % (command_code, req_bit),
+                        source = DiameterDataSource.tgpp_specifications,
+                        source_url = 'http://www.3gpp.org/DynaReport/%s.htm' % tgpp_spec_name,
+                        # source_update_date = ,
+                        insertion_date = datetime.now()
                     )
                 )
                 
@@ -240,7 +249,25 @@ try:
     """
         3) Add information from Wireshark
     """
-    
+
+    xml_parser = XMLParser()  # load_dtd = True, no_network = False
+
+    xml_file = parse(WIRESHARK_DATA_DIR + '/' + 'dictionary.xml', parser = xml_parser)
+
+
+    for cmd in xml_file.iterfind('.//command'):
+        
+        cmd_id = int(cmd.get('code'))
+        cmd_name = cmd.get('name')
+        cmd_vendor_id = cmd.get('vendor-id') if cmd.get('vendor-id') and cmd.get('vendor-id') != 'None' else None
+        
+        
+        parent_base_tag = cmd.xpath('ancestor::base')
+        parent_application_tag = cmd.xpath('ancestor::application')
+        parent_vendor_tag = cmd.xpath('ancestor::vendor')
+        
+        print(cmd, '=>', parent_base_tag, parent_application_tag, parent_vendor_tag)
+
     
     
     """

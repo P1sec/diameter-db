@@ -1,21 +1,36 @@
+
+
+
+
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.dialects.mysql import TIMESTAMP
-from sshtunnel import SSHTunnelForwarder
+from sshtunnel import open_tunnel
 from atexit import register
+from time import sleep
 from sqlalchemy import *
 
 
 REMOTE_PROTORISK_HOST = ('protorisk.p1sec.com', 47478)
 
-ssh_tunnel_forwarder = SSHTunnelForwarder(REMOTE_PROTORISK_HOST, ssh_username = 'p1sec', remote_bind_address = ('127.0.0.1', 3306))
+ssh_tunnel_forwarder = open_tunnel(REMOTE_PROTORISK_HOST, ssh_username = 'p1sec', remote_bind_address = ('127.0.0.1', 3306), block_on_close = False)
 
 ssh_tunnel_forwarder.start()
 
-register(ssh_tunnel_forwarder.stop)
+sleep(0.75)
+
+from signal import SIGINT, SIGTERM, SIGKILL
+from os import kill, getpid
+register(lambda: kill(getpid(), SIGTERM)) #   Avoid to have the program handing due to a background thread    (likely?)  
+#register(lambda: exit(0))
+
+#register(ssh_tunnel_forwarder.stop)
 
 
-engine_protorisk = create_engine('mysql://%s@%s:%d/%s' % ('p1sec', 'localhost', ssh_tunnel_forwarder.local_bind_port, 'web_3gpp'))
+
+
+
+engine_protorisk = create_engine('mysql://%s:%s@%s:%d/%s' % ('root', 'LS6GxOhgzNW8inZN', '127.0.0.1', ssh_tunnel_forwarder.local_bind_port, 'web_3gpp'))
 # Append the ", echo = True" keyword argument to print sql requests to stdout
 
 metadata_protorisk = MetaData(bind = engine_protorisk)
@@ -23,6 +38,11 @@ BaseProtorisk = declarative_base(metadata = metadata_protorisk)
 
 SessionProtorisk = sessionmaker()
 SessionProtorisk.configure(bind = engine_protorisk)
+
+#####register(engine_protorisk.dispose)
+
+#######register(lambda: print('test a'))     #       DEBUG
+
 
 
 class Spec(BaseProtorisk):
@@ -54,6 +74,10 @@ def obtain_spec_from_code(spec_code) -> Spec:
     
     sql_session = SessionProtorisk()
     
-    spec = sql_session.query(Spec).filter_by(code = spec_code).first()
+    try:
+        spec = sql_session.query(Spec).filter_by(code = spec_code).first()
+    
+    finally:
+        sql_session.close()
     
     return spec
