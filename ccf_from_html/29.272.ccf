@@ -381,7 +381,7 @@
 { Destination-Realm }
 { User-Name }
 [ OC-Supported-Features ]
-* [ Supported-Features ]
+*[ Supported-Features ]
 [ Terminal-Information ]
 [ MIP6-Agent-Info ]
 [ Visited-Network-Identifier ]
