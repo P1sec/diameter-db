@@ -1,5 +1,8 @@
-#!/usr/bin/python3
-#-*- encoding: utf-8 -*-
+#!/usr/bin/python3.7 -Su
+#-*- encoding: Utf-8 -*-
+
+import usercustomize
+
 from re import sub, findall, IGNORECASE, MULTILINE, DOTALL
 from html import unescape
 from os import listdir

@@ -110,11 +110,11 @@ class DiameterCommand(VersionedDiameterObject):
     pxy_bit = Column(Boolean, index = True, nullable = True)
     err_bit = Column(Boolean, index = True, nullable = True)
     
-    applications = relationship('DiameterApplication', uselist = True, secondary = 'diameter_command_avp_occurrence', backref = 'commands')
+    applications = relationship('DiameterApplication', uselist = True, secondary = 'diameter_command_application_occurrence', backref = 'commands')
     vendor = relationship('DiameterVendor', uselist = False, backref = 'commands')
     avp_occurrences = relationship('DiameterCommandAVPOccurrence', uselist = True)
 
-class DiameterCommandApplicationOccurence(VersionedDiameterObject):
+class DiameterCommandApplicationOccurrence(VersionedDiameterObject):
     __tablename__ = 'diameter_command_application_occurrence'
     
     object_id = Column(String, primary_key = True) # "cmd_app_<command_code>_<request_flag_0_or_1>_<application_id>"
