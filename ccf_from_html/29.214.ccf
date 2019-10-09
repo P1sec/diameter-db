@@ -27,8 +27,6 @@
 [ GCS-Identifier ]
 [ MCPTT-Identifier ]
 [ MCVideo-Identifier ]
-[ IMS-Content-Identifier ]
-[ IMS-Content-Type ]
 [ Rx-Request-Type ]
 *[ Required-Access-Info ]
 [AF-Requested-Data ]
