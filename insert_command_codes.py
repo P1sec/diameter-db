@@ -3,8 +3,8 @@
 
 import usercustomize
 
-from re import findall, match, IGNORECASE, MULTILINE
-from lxml.etree import XMLParser, parse, dump
+from lxml.etree import XMLParser, parse, dump, tostring, _Comment
+from re import findall, search, match, IGNORECASE, MULTILINE
 from os.path import dirname, realpath
 from typing import Dict, Set, List
 from os import listdir, scandir
@@ -80,11 +80,12 @@ try:
             (without the "object_id" column, because it will be used both
             as a base to set the objects derivating "command_row_dict"
             and "command_application_row_dict")
+        @param vendor_row_dict: Dict resembling DiameterVendor
     """
     
 
     
-    def create_or_merge_command_code(command_row_dict, command_application_row_dict, source_row_dict : dict):
+    def create_or_merge_command_code(command_row_dict, command_application_row_dict, source_row_dict : dict, vendor_row_dict : dict = None):
         
         # Is there an existing row for this command code?
         
@@ -133,7 +134,24 @@ try:
                 
                 sql_session.add(DiameterObjectUpdate(
                     **source_row_dict,
-                    object_id = command_row_dict['object_id']
+                    object_id = command_application_row_dict['object_id']
+                ))
+            
+        
+        
+        if vendor_row_dict:
+            
+            # Is there an existing row for this "Vendor ID - Vendor Name" association?
+            
+            diameter_vendor_row = sql_session.query(DiameterVendor).filter_by(object_id = vendor_row_dict['object_id']).first()
+            
+            if not diameter_vendor_row:
+                
+                sql_session.add(DiameterVendor(**vendor_row_dict))
+                
+                sql_session.add(DiameterObjectUpdate(
+                    **source_row_dict,
+                    object_id = vendor_row_dict['object_id']
                 ))
         
         sql_session.commit()
@@ -147,74 +165,180 @@ try:
     
     def parse_extracted_ccf(file_contents : str, tgpp_spec_name : str = None):
             
-            for cmd_code_name, cmd_code_header, cmd_code_elements in findall(CCF_MESSAGE_REGEX, file_contents, flags = IGNORECASE):
-                print('Parse and insert this:', repr((cmd_code_name, cmd_code_header, findall(CCF_AVP_REGEX, cmd_code_elements))))
-                
-                header_informations = list(map(str.strip, cmd_code_header.strip('\r\n\t \xa0-:').upper().split(',')))
-                
-                if header_informations[0] in ('XXX', 'CODE'):
-                    continue
-                
-                command_code = int(header_informations[0])
-                if len(header_informations) > 1 and header_informations[-1].isdigit():
-                    application_id = int(header_informations[-1])
-                else:
-                    application_id = None
-                
-                req_bit = 'REQ' in header_informations
-                pxy_bit = 'PXY' in header_informations
-                # err_bit = 'ERR' in header_informations # Not present?
-                
-                cmd_code_name = cmd_code_name.strip()
-                
-                three_char_prefix_regex = match('^([A-Z]{2})-([RA])(?:equest|nswer)', cmd_code_name, flags = MULTILINE)
-                
-                command_three_char_abbreviation = None
-                if len(cmd_code_name) == 3 and cmd_code_name.isupper():
-                    command_three_char_abbreviation = cmd_code_name
-                elif three_char_prefix_regex:
-                    command_three_char_abbreviation = three_char_prefix_regex.group(1) + three_char_prefix_regex.group(2)
-                
-                assert tgpp_spec_name.count('.') == 1
-                
-                if tgpp_spec_name:
-                    protorisk_spec_object = obtain_spec_from_code(tgpp_spec_name)
+        for cmd_code_name, cmd_code_header, cmd_code_elements in findall(CCF_MESSAGE_REGEX, file_contents, flags = IGNORECASE):
+            print('Parse and insert this:', repr((cmd_code_name, cmd_code_header, findall(CCF_AVP_REGEX, cmd_code_elements))))
+            
+            header_informations = list(map(str.strip, cmd_code_header.strip('\r\n\t \xa0-:').upper().split(',')))
+            
+            if header_informations[0] in ('XXX', 'CODE'):
+                continue
+            
+            command_code = int(header_informations[0])
+            if len(header_informations) > 1 and header_informations[-1].isdigit():
+                application_id = int(header_informations[-1])
+            else:
+                application_id = None
+            
+            req_bit = 'REQ' in header_informations
+            pxy_bit = 'PXY' in header_informations
+            # err_bit = 'ERR' in header_informations # Not present?
+            
+            cmd_code_name = cmd_code_name.strip()
+            
+            three_char_prefix_regex = match('^([A-Z]{2})-([RA])(?:equest|nswer)', cmd_code_name, flags = MULTILINE)
+            
+            command_three_char_abbreviation = None
+            if len(cmd_code_name) == 3 and cmd_code_name.isupper():
+                command_three_char_abbreviation = cmd_code_name
+            elif three_char_prefix_regex:
+                command_three_char_abbreviation = three_char_prefix_regex.group(1) + three_char_prefix_regex.group(2)
+            
+            assert tgpp_spec_name.count('.') == 1
+            
+            if tgpp_spec_name:
+                protorisk_spec_object = obtain_spec_from_code(tgpp_spec_name)
 
-                create_or_merge_command_code(
-                    dict( # DiameterCommand row
-                        object_id = 'cmd_%d_%d' % (command_code, req_bit),
-                        command_code = command_code,
-                        req_bit = req_bit,
-                        pxy_bit = pxy_bit,
-                        command_name = cmd_code_name,
-                        command_three_char_abbreviation = command_three_char_abbreviation,
-                        
-                        spec_url = 'http://www.3gpp.org/DynaReport/%s.htm' % tgpp_spec_name if tgpp_spec_name else None,
-                        alternate_spec_url = 'https://protorisk.p1sec.com/3gpp/%s.htm' % tgpp_spec_name if tgpp_spec_name else None,
-                        short_spec_name = '%s %s' % (protorisk_spec_object.type, protorisk_spec_object.code) if tgpp_spec_name else None,
-                        long_spec_name_prefix = '3GPP %s %s' % (protorisk_spec_object.type, protorisk_spec_object.code) if tgpp_spec_name else None,
-                        long_spec_name_suffix = protorisk_spec_object.name if tgpp_spec_name else None
-                    ),
+            create_or_merge_command_code(
+                dict( # DiameterCommand row
+                    object_id = 'cmd_%d_%d' % (command_code, req_bit),
+                    command_code = command_code,
+                    req_bit = req_bit,
+                    pxy_bit = pxy_bit,
+                    command_name = cmd_code_name,
+                    command_three_char_abbreviation = command_three_char_abbreviation,
                     
-                    dict( # DiameterCommandApplicationOccurrence row
-                        object_id = 'cmd_app_%d_%d_%d' % (command_code, req_bit, application_id),
-                        application_id = application_id,
-                        command_code = command_code
-                    ) if application_id else None,
-                    
-                    dict( # DiameterObjectUpdate without "object_id"
-                        #   object_id = 'cmd_%d_%d' % (command_code, req_bit),
-                        source = DiameterDataSource.tgpp_specifications,
-                        source_url = 'http://www.3gpp.org/DynaReport/%s.htm' % tgpp_spec_name,
-                        # source_update_date = ,
-                        insertion_date = datetime.now()
-                    )
+                    spec_url = 'http://www.3gpp.org/DynaReport/%s.htm' % tgpp_spec_name.replace('.', '') if tgpp_spec_name else None,
+                    alternate_spec_url = 'https://protorisk.p1sec.com/3gpp/%s.htm' % tgpp_spec_name if tgpp_spec_name else None,
+                    short_spec_name = '%s %s' % (protorisk_spec_object.type, protorisk_spec_object.code) if tgpp_spec_name else None,
+                    long_spec_name_prefix = ('3GPP %s %s' % (protorisk_spec_object.type, protorisk_spec_object.code)) if tgpp_spec_name else None,
+                    long_spec_name_suffix = protorisk_spec_object.name if tgpp_spec_name else None
+                ),
+                
+                dict( # DiameterCommandApplicationOccurrence row
+                    object_id = 'cmd_app_%d_%d_%d' % (command_code, req_bit, application_id),
+                    application_id = application_id,
+                    command_code = command_code
+                ) if application_id else None,
+                
+                dict( # DiameterObjectUpdate without "object_id"
+                    #   object_id = 'cmd_%d_%d' % (command_code, req_bit),
+                    source = DiameterDataSource.tgpp_specifications,
+                    source_url = 'http://www.3gpp.org/DynaReport/%s.htm' % tgpp_spec_name.replace('.', ''),
+                    # source_update_date = ,
+                    insertion_date = datetime.now()
                 )
-                
-                # TODO parse AVPs?
+            )
+            
+            # TODO parse AVPs?
 
+    """
+        Parse command codes extracted from wireshark (XML tags or comments)
+    """
     
-    
+    def insert_from_wireshark(is_request_bool : bool, command_name : str, command_trigram : str, command_code : int, command_vendor_id : int, command_vendor_name : str, tgpp_ts_code : str, itu_code : str, rfc_code : str,  base_tag, application_tag):
+        
+        
+        req_bit = int(is_request_bool)
+        
+        # Build a row enabling to jump to the corresponding specifications, if available
+        
+        spec_information = {}
+        
+        if tgpp_ts_code:
+            
+            protorisk_spec_object = obtain_spec_from_code(tgpp_ts_code)
+            
+            spec_information = dict(
+                spec_url = 'http://www.3gpp.org/DynaReport/%s.htm' % tgpp_ts_code.replace('.', ''),
+                alternate_spec_url = 'https://protorisk.p1sec.com/3gpp/%s.htm' % tgpp_ts_code,
+                short_spec_name = '%s %s' % (protorisk_spec_object.type, protorisk_spec_object.code),
+                long_spec_name_prefix = '3GPP %s %s' % (protorisk_spec_object.type, protorisk_spec_object.code),
+                long_spec_name_suffix = protorisk_spec_object.name
+            
+            )
+        
+        elif itu_code:
+            
+            spec_information =  dict(
+                spec_url = 'https://www.itu.int/rec/T-REC-%s' % itu_code,
+                alternate_spec_url = None,
+                short_spec_name = 'Rec.' + itu_code,
+                long_spec_name_prefix = 'ITU-T Rec. %s' %  (itu_code),
+                long_spec_name_suffix = search('<title>(.+?)</title>', get('https://www.itu.int/rec/T-REC-%s' % itu_code).text).group(1).split(':', 1)[1].strip()
+            
+            )
+        
+        elif rfc_code:
+            
+            spec_information =   dict(
+                spec_url = 'https://tools.ietf.org/html/rfc%s' % rfc_code,
+                alternate_spec_url = None,
+                short_spec_name = 'RFC ' + rfc_code,
+                long_spec_name_prefix = 'IETF RFC ' + rfc_code,
+                long_spec_name_suffix = search('<title>(.+?)</title>', get('https://tools.ietf.org/html/rfc%s' % rfc_code).text).group(1).split('-', 1)[1].strip()
+            
+            )
+        
+        # Obtain the Application ID, if available
+        
+        application_id : int = None
+        
+        if application_tag:
+            
+            application_id = int(application_tag.get('id'))
+        
+        
+        # Build a SQL row for the corresponding vendor,
+        # if any is specified
+            
+        
+        vendor_row = None
+        
+        if command_vendor_id is not None and command_vendor_name:
+            
+            vendor_row =   dict( # DiameterVendor row
+                object_id = 'vendor_%d' % command_vendor_id,
+                vendor_id = command_vendor_id,
+                vendor_name = command_vendor_name
+            )
+
+        create_or_merge_command_code(
+            dict( # DiameterCommand row
+                object_id = 'cmd_%d_%d' % (command_code, req_bit),
+                vendor_id = command_vendor_id,
+                
+                
+                command_code = command_code,
+                command_name = command_name,
+                command_three_char_abbreviation = command_trigram,
+                
+                req_bit = is_request_bool,
+                pxy_bit = None,
+                err_bit = None,
+                
+                
+                **spec_information
+            ),
+            
+            dict( # DiameterCommandApplicationOccurrence row
+                object_id = 'cmd_app_%d_%d_%d' % (command_code, req_bit, application_id),
+                application_id = application_id,
+                command_code = command_code
+            ) if application_id else None,
+            
+            dict( # DiameterObjectUpdate without "object_id"
+                #   object_id = 'cmd_%d_%d' % (command_code, req_bit),
+                source = DiameterDataSource.wireshark_database,
+                source_url = 'https://github.com/wireshark/wireshark/tree/master/diameter',
+                # source_update_date = ,
+                insertion_date = datetime.now()
+            ),
+            
+            vendor_row
+        )
+        
+        # TODO parse AVPs?
+
     
     
     """
@@ -259,14 +383,104 @@ try:
         
         cmd_id = int(cmd.get('code'))
         cmd_name = cmd.get('name')
-        cmd_vendor_id = cmd.get('vendor-id') if cmd.get('vendor-id') and cmd.get('vendor-id') != 'None' else None
+        cmd_vendor_id = cmd.get('vendor-id') if cmd.get('vendor-id') and cmd.get('vendor-id') != 'None' else None # Vendor ID (string) per the Wireshark meaning
         
         
         parent_base_tag = cmd.xpath('ancestor::base')
         parent_application_tag = cmd.xpath('ancestor::application')
         parent_vendor_tag = cmd.xpath('ancestor::vendor')
         
-        print(cmd, '=>', parent_base_tag, parent_application_tag, parent_vendor_tag)
+        print(tostring(cmd), '/', cmd.getnext() if isinstance(cmd.getnext(), _Comment) else None, '=>', [tostring(i).decode('utf8').split('>')[0] + '>' for i in parent_base_tag], [tostring(i).decode('utf8').split('>')[0] + '>' for i in parent_application_tag])
+        
+        assert not parent_vendor_tag
+        
+        vendor_code : int = None # Vendor ID (code) per the Diameter meaning
+        vendor_name : str = None
+        
+        if cmd_vendor_id:
+            vendor_tag = xml_file.xpath('.//vendor[@vendor-id="%s"]' %    cmd_vendor_id)[0]
+            
+            vendor_code = int(vendor_tag.get('code'))
+            vendor_name = vendor_tag.get('name')
+        
+        # Is there any reference to a 3GPP specification, a
+        # RFC or to three-character command names in an adjacent
+        # comment?
+        
+        tgpp_ts_code : str = None
+        rfc_code : str = None
+        itu_code : str = None
+        trigram_prefix : str = None # If the command code trigram pair is AAR/AAA, then store "AA" here
+        
+        if isinstance(cmd.getnext(), _Comment):
+            
+            comment_text = cmd.getnext().text
+            
+            if '\n' not in comment_text:
+                
+                if 'TS ' in comment_text:
+                
+                    tgpp_ts_code = search('TS\s*(\d+\.\d+)', comment_text).group(1)
+                
+                elif 'ITU-T Rec.' in comment_text:
+                    
+                    itu_code = search('ITU(?:-T)?\s*Rec\.*\s*(Q\.[\d.]+)', comment_text).group(1)
+                
+                elif 'RFC' in comment_text:
+                    
+                    rfc_code =   search('RFC\s*(\d+)', comment_text).group(1)
+                
+                if search('[A-Z]{2,}R\s*/\s*[A-Z]{2,}[AI]', comment_text):
+                    
+                    trigram_prefix = search('([A-Z]{2,})R\s*/\s*[A-Z]{2,}[AI]', comment_text).group(1)
+                    
+                    # There is a "GPR/GPI" pair in TS 29.230, we'll consider
+                    # it as a mistake for "GPR/GPA"
+                
+                elif search('[A-Z]{2,}[AI]', comment_text):
+                    
+                    trigram_prefix = search('([A-Z]{2,})[AI]', comment_text).group(1)
+                    
+
+            
+        
+        # Split this command in one Request and one Answer
+        # occurrence, if needed
+        
+        if 'request/answer' in cmd_name.lower():
+            assert cmd_name.endswith('-Request/Answer')
+            
+            cmd_name = cmd_name.replace('-Request/Answer', '')
+        
+        assert 'answer' not in cmd_name.lower()
+        assert 'request' not in cmd_name.lower()
+        
+        assert cmd_name[-1] != 'A' or cmd_name == 'AA'
+        assert cmd_name[-1] != 'R'
+        assert '(' not in cmd_name
+        
+        for (command_name, is_request_bool, command_trigram) in [
+            (cmd_name + '-Request', True, (trigram_prefix + 'R') if trigram_prefix else None),
+            (cmd_name + '-Answer', False, (trigram_prefix + 'A') if trigram_prefix else None)]:
+                    
+            insert_from_wireshark(
+                is_request_bool = is_request_bool,
+                command_name = command_name,
+                command_trigram = command_trigram,
+                command_code = cmd_id,
+                command_vendor_id = vendor_code,
+                command_vendor_name = vendor_name,
+                tgpp_ts_code = tgpp_ts_code,
+                itu_code = itu_code,
+                rfc_code = rfc_code,
+                base_tag = parent_base_tag[0] if parent_base_tag else None,
+                application_tag = parent_application_tag[0] if parent_application_tag else None)
+            
+            
+            
+            
+            
+        # , [tostring(i).split('>')[0] + '>' for i in parent_vendor_tag]
 
     
     

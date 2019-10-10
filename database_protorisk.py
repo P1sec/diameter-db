@@ -17,7 +17,7 @@ ssh_tunnel_forwarder = open_tunnel(REMOTE_PROTORISK_HOST, ssh_username = 'p1sec'
 
 ssh_tunnel_forwarder.start()
 
-sleep(0.75)
+sleep(1.25)
 
 
 
