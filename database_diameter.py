@@ -136,12 +136,32 @@ class DiameterCommandAVPOccurrence(VersionedDiameterObject):
     object_id = Column(String, primary_key = True) # "cmd_avp_<command_code>_<request_flag_0_or_1>_<avp_code>"
     __mapper_args__ = {'polymorphic_identity': __tablename__, 'inherit_condition': (object_id == VersionedDiameterObject.object_id)}
     
-    command_code = Column(String, ForeignKey('diameter_command.command_code'), index = True)
+    command_code = Column(Integer, ForeignKey('diameter_command.command_code'), index = True)
     
+    req_bit = Column(Boolean, index = True, nullable = True)
+
     avp_index_within_command = Column(Integer, index = True, nullable = True)
     
     #avp_name = Column(String, ForeignKey('index = True, nullable = False)
     avp_code = Column(Integer, ForeignKey('diameter_avp_definition.avp_code'), index = True)
+    
+    min_occurrences = Column(Integer, index = True, nullable = True)
+    max_occurrences = Column(Integer, index = True, nullable = True)
+    
+    avp_requirement = Column(Enum(DiameterAVPRequirement), index = True)
+
+class DiameterNestedAVPOccurrence(VersionedDiameterObject):
+    __tablename__ = 'diameter_nested_avp_occurrence'
+    
+    object_id = Column(String, primary_key = True) # "nested_avp_<parent_avp_code>_<nested_avp_code>"
+    __mapper_args__ = {'polymorphic_identity': __tablename__, 'inherit_condition': (object_id == VersionedDiameterObject.object_id)}
+    
+    parent_avp_code = Column(Integer, ForeignKey('diameter_avp_definition.avp_code'), index = True)
+    
+    avp_index_within_grouped_avp = Column(Integer, index = True, nullable = True)
+    
+    #avp_name = Column(String, ForeignKey('index = True, nullable = False)
+    nested_avp_code = Column(Integer, ForeignKey('diameter_avp_definition.avp_code'), index = True)
     
     min_occurrences = Column(Integer, index = True, nullable = True)
     max_occurrences = Column(Integer, index = True, nullable = True)
@@ -181,10 +201,14 @@ class DiameterAVPDefinition(VersionedDiameterObject):
     
     avp_type = Column(String, ForeignKey('diameter_avp_type_definition.diameter_type_name'), index = True)
     
+    is_grouped = Column(Boolean, index = True)
+    
     vendor = relationship('DiameterVendor', uselist = False, backref = 'avps')
     application = relationship('DiameterApplication', uselist = False, backref = 'avps')
     type_definition = relationship('DiameterAVPTypeDefinition', uselist = False, backref = 'avps')
     enum_values = relationship('DiameterAVPEnumValue', uselist = True, backref = 'avp')
+
+    nested_avps = relationship('DiameterNestedAVPOccurrence', foreign_keys = [avp_code], primaryjoin = 'DiameterAVPDefinition.avp_code == DiameterNestedAVPOccurrence.nested_avp_code', uselist = True, backref = 'parent_avp')
 
     avp_occurrences = relationship('DiameterCommandAVPOccurrence', uselist = True, backref = 'avp')
 
