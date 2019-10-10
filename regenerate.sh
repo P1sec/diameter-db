@@ -14,3 +14,5 @@ rm -f database.sqlite3
 ./insert_application_ids.py
 
 ./insert_command_codes.py
+
+./insert_avps.py

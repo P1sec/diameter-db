@@ -5,6 +5,7 @@ import usercustomize
 
 from lxml.etree import XMLParser, parse, dump, tostring, _Comment
 from re import findall, search, match, IGNORECASE, MULTILINE
+from typing import Set, List, Dict, Union
 from os.path import dirname, realpath
 from typing import Dict, Set, List
 from os import listdir, scandir
@@ -13,7 +14,6 @@ from subprocess import run
 from csv import DictReader
 from requests import get
 from io import StringIO
-from typing import Set
 from time import time
 
 from database_protorisk import obtain_spec_from_code
@@ -71,8 +71,6 @@ try:
         on whether information is changed and/or the available
         command code name is longer than the existing one
         
-        It does not do "sql_session.commit()"
-        
         @param command_row_dict: Dict resembling DiameterCommand
         @param command_application_row_dict: Dict resembling
             DiameterCommandApplicationOccurrence
@@ -104,7 +102,7 @@ try:
             
             for key, value in command_row_dict.items():
                     
-                if (key == 'command_name' and len(value) > len(diameter_command.command_name)) or (value and not getattr(diameter_command, key)):
+                if (key == 'command_name' and len(value) > len(diameter_command.command_name)) or (value is not None and getattr(diameter_command, key) is None):
                     
                     object_modified = True
 
@@ -228,8 +226,7 @@ try:
                     insertion_date = datetime.now()
                 )
             )
-            
-            # TODO parse AVPs?
+
 
     """
         Parse command codes extracted from wireshark (XML tags or comments)
@@ -243,6 +240,10 @@ try:
         # Build a row enabling to jump to the corresponding specifications, if available
         
         spec_information = {}
+        
+        if not rfc_code and application_tag and application_tag.get('uri') and 'rfc' in application_tag.get('uri'):
+            
+            rfc_code = search('rfc([\d+])', application_tag.get('uri')).group(1)
         
         if tgpp_ts_code:
             
@@ -278,6 +279,8 @@ try:
                 long_spec_name_suffix = search('<title>(.+?)</title>', get('https://tools.ietf.org/html/rfc%s' % rfc_code).text).group(1).split('-', 1)[1].strip()
             
             )
+        
+        
         
         # Obtain the Application ID, if available
         
@@ -337,8 +340,6 @@ try:
             vendor_row
         )
         
-        # TODO parse AVPs?
-
     
     
     """
