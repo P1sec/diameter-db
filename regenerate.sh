@@ -9,6 +9,8 @@ rm -f database.sqlite3
 
 # ./extract_abnf_from_3gpp.py
 
+./download_rfcs.sh
+
 ./database_diameter.py
 
 ./insert_application_ids.py

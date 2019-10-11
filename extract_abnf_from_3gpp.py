@@ -17,9 +17,9 @@ from config import HTML_3GPP_DOCS_PATH, EXTRACTED_CCF_FROM_3GPP_PATH
     CCF is specified here: https://tools.ietf.org/html/rfc6733#section-3.2
 """
 
-CCF_AVP_REGEX = '(?:[\d\s]*\*[\d\s]*)?(?:\s*\[[^\]]+?\s*\]\s*|\s*<[^>]+?\s*>\s*(?!::\s*=)|\s*\{[^\}]*?\s*\}\s*)'
+CCF_AVP_REGEX = '(?:[\d\s]*\*[\d\s]*)?(?:\s*\[[^\]]+?\s*\]\s*|\s*<[^>]+?\s*>(?!\s*::)\s*|\s*\{[^\}]*?\s*\}\s*)'
 
-CCF_MESSAGE_REGEX = r'<\s*([^>]+?)\s*>\s*::\s*=\s*<\s*Diameter[-\s_]*Header([^>]*?)\s*>'
+CCF_MESSAGE_REGEX = r'<?\s*([^>\n]+?)\s*>?\s*::\s*=\s*<\s*Diameter[-\s_]*Header([^>]*?)\s*>'
 CCF_MESSAGE_REGEX += r'((?:' + CCF_AVP_REGEX + ')+)'
 
 for file_name in listdir(HTML_3GPP_DOCS_PATH): # ['29.272.html']: # DEBUG

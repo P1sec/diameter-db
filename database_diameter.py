@@ -133,7 +133,7 @@ class DiameterAVPRequirement(IntEnum):
 class DiameterCommandAVPOccurrence(VersionedDiameterObject):
     __tablename__ = 'diameter_command_avp_occurrence'
     
-    object_id = Column(String, primary_key = True) # "cmd_avp_<command_code>_<request_flag_0_or_1>_<avp_code>"
+    object_id = Column(String, primary_key = True) # "cmd_avp_<command_code>_<request_flag_0_or_1>_<avp_code>_<vendor_id_or_0>"
     __mapper_args__ = {'polymorphic_identity': __tablename__, 'inherit_condition': (object_id == VersionedDiameterObject.object_id)}
     
     command_code = Column(Integer, ForeignKey('diameter_command.command_code'), index = True)
@@ -157,11 +157,13 @@ class DiameterNestedAVPOccurrence(VersionedDiameterObject):
     __mapper_args__ = {'polymorphic_identity': __tablename__, 'inherit_condition': (object_id == VersionedDiameterObject.object_id)}
     
     parent_avp_code = Column(Integer, ForeignKey('diameter_avp_definition.avp_code'), index = True)
+    parent_avp_object_id = Column(String, ForeignKey('diameter_avp_definition.object_id'), index = True)
     
     avp_index_within_grouped_avp = Column(Integer, index = True, nullable = True)
     
     #avp_name = Column(String, ForeignKey('index = True, nullable = False)
     nested_avp_code = Column(Integer, ForeignKey('diameter_avp_definition.avp_code'), index = True)
+    nested_avp_object_id = Column(String, ForeignKey('diameter_avp_definition.object_id'), index = True)
     
     min_occurrences = Column(Integer, index = True, nullable = True)
     max_occurrences = Column(Integer, index = True, nullable = True)
@@ -184,7 +186,7 @@ class DiameterAVPTypeDefinition(VersionedDiameterObject):
 class DiameterAVPDefinition(VersionedDiameterObject):
     __tablename__ = 'diameter_avp_definition'
     
-    object_id = Column(String, primary_key = True) # "avp_<avp_code>"
+    object_id = Column(String, primary_key = True) # "avp_<avp_code>_<vendor_id_or_0>"
     __mapper_args__ = {'polymorphic_identity': __tablename__, 'inherit_condition': (object_id == VersionedDiameterObject.object_id)}
     
     application_id = Column(Integer, ForeignKey('diameter_application.application_id'), index = True)
@@ -215,7 +217,7 @@ class DiameterAVPDefinition(VersionedDiameterObject):
 class DiameterAVPEnumValue(VersionedDiameterObject):
     __tablename__ = 'diameter_avp_enum_value'
     
-    object_id = Column(String, primary_key = True) # "avp_enum_<avp_code>_<enum_value_integer>"
+    object_id = Column(String, primary_key = True) # "avp_enum_<avp_code>_<vendor_id_or_0>_<enum_value_integer>"
     __mapper_args__ = {'polymorphic_identity': __tablename__, 'inherit_condition': (object_id == VersionedDiameterObject.object_id)}
     
     avp_code = Column(Integer, ForeignKey('diameter_avp_definition.avp_code'), index = True)
