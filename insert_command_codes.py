@@ -24,6 +24,7 @@ OLD_DIAFUZZER_DATA_DIR = realpath(SCRIPT_DIR + '/compare_data_sources/diafuzzer/
 WIRESHARK_DATA_DIR = realpath(SCRIPT_DIR + '/compare_data_sources/wireshark/diameter/')
 
 EXTRACTED_CCF_FROM_3GPP_PATH = realpath(SCRIPT_DIR + '/ccf_from_html')
+IETF_RFCS_FOLDER = realpath(SCRIPT_DIR + '/ietf_rfcs')
 
 """
     We'll parse the custom Diameter ABNF (CCF)
@@ -35,9 +36,9 @@ EXTRACTED_CCF_FROM_3GPP_PATH = realpath(SCRIPT_DIR + '/ccf_from_html')
     CCF is specified here: https://tools.ietf.org/html/rfc6733#section-3.2
 """
 
-CCF_AVP_REGEX = '(?:[\d\s]*\*[\d\s]*)?(?:\s*\[[^\]]+?\s*\]\s*|\s*<[^>]+?\s*>\s*(?!::\s*=)|\s*\{[^\}]*?\s*\}\s*)'
+CCF_AVP_REGEX = '(?:[\d\s]*\*[\d\s]*)?(?:\s*\[[^\]]+?\s*\]\s*|\s*<[^>]+?\s*>(?!\s*::)\s*|\s*\{[^\}]*?\s*\}\s*)'
 
-CCF_MESSAGE_REGEX = r'<\s*([^>]+?)\s*>\s*::\s*=\s*<\s*Diameter[-\s_]*Header([^>]*?)\s*>'
+CCF_MESSAGE_REGEX = r'<?\s*([^>\n]+?)\s*>?\s*::\s*=\s*<\s*Diameter[-\s_]*Header([^>]*?)\s*>'
 CCF_MESSAGE_REGEX += r'((?:' + CCF_AVP_REGEX + ')+)'
 
 
@@ -161,7 +162,7 @@ try:
         it
     """
     
-    def parse_extracted_ccf(file_contents : str, tgpp_spec_name : str = None):
+    def parse_extracted_ccf(file_contents : str, source : DiameterDataSource, source_url : str, spec_metadata_row_dict : dict):
             
         for cmd_code_name, cmd_code_header, cmd_code_elements in findall(CCF_MESSAGE_REGEX, file_contents, flags = IGNORECASE):
             print('Parse and insert this:', repr((cmd_code_name, cmd_code_header, findall(CCF_AVP_REGEX, cmd_code_elements))))
@@ -186,15 +187,11 @@ try:
             three_char_prefix_regex = match('^([A-Z]{2})-([RA])(?:equest|nswer)', cmd_code_name, flags = MULTILINE)
             
             command_three_char_abbreviation = None
-            if len(cmd_code_name) == 3 and cmd_code_name.isupper():
+            if len(cmd_code_name) in (3, 4) and cmd_code_name.isupper() and '-' not in    cmd_code_name:
                 command_three_char_abbreviation = cmd_code_name
             elif three_char_prefix_regex:
                 command_three_char_abbreviation = three_char_prefix_regex.group(1) + three_char_prefix_regex.group(2)
             
-            assert tgpp_spec_name.count('.') == 1
-            
-            if tgpp_spec_name:
-                protorisk_spec_object = obtain_spec_from_code(tgpp_spec_name)
 
             create_or_merge_command_code(
                 dict( # DiameterCommand row
@@ -205,11 +202,7 @@ try:
                     command_name = cmd_code_name,
                     command_three_char_abbreviation = command_three_char_abbreviation,
                     
-                    spec_url = 'http://www.3gpp.org/DynaReport/%s.htm' % tgpp_spec_name.replace('.', '') if tgpp_spec_name else None,
-                    alternate_spec_url = 'https://protorisk.p1sec.com/3gpp/%s.htm' % tgpp_spec_name if tgpp_spec_name else None,
-                    short_spec_name = '%s %s' % (protorisk_spec_object.type, protorisk_spec_object.code) if tgpp_spec_name else None,
-                    long_spec_name_prefix = ('3GPP %s %s' % (protorisk_spec_object.type, protorisk_spec_object.code)) if tgpp_spec_name else None,
-                    long_spec_name_suffix = protorisk_spec_object.name if tgpp_spec_name else None
+                    **spec_metadata_row_dict
                 ),
                 
                 dict( # DiameterCommandApplicationOccurrence row
@@ -286,7 +279,7 @@ try:
         
         application_id : int = None
         
-        if application_tag:
+        if application_tag not in ([], None):
             
             application_id = int(application_tag.get('id'))
         
@@ -343,22 +336,52 @@ try:
     
     
     """
-        1. Add information from 3GPP (the best quality information)
+        1. Add information from 3GPP+IETF (the best quality information)
     """
     
-    for file_name in listdir(EXTRACTED_CCF_FROM_3GPP_PATH): # ['29.272.html']: # DEBUG
+    for file_entry in scandir(EXTRACTED_CCF_FROM_3GPP_PATH):
         
-        with open(EXTRACTED_CCF_FROM_3GPP_PATH + '/' + file_name) as fd:
+        with open(file_entry.path) as fd:
             
             file_contents = fd.read()
             
-            parse_extracted_ccf(file_contents, file_name.rsplit('.', 1)[0])
+            tgpp_spec_name =   file_entry.name.rsplit('.', 1)[0]
+            
+            protorisk_spec_object = obtain_spec_from_code(tgpp_spec_name)
+            
+            
+            source_url = 'http://www.3gpp.org/DynaReport/%s.htm' % tgpp_spec_name.replace('.', '')
+            
+            parse_extracted_ccf(file_contents, source = DiameterDataSource.tgpp_specifications, source_url = source_url, spec_metadata_row_dict =  dict(
+                spec_url = source_url,
+                alternate_spec_url = 'https://protorisk.p1sec.com/3gpp/%s.htm' % tgpp_spec_name,
+                short_spec_name = '%s %s' % (protorisk_spec_object.type, protorisk_spec_object.code),
+                long_spec_name_prefix = ('3GPP %s %s' % (protorisk_spec_object.type, protorisk_spec_object.code)),
+                long_spec_name_suffix = protorisk_spec_object.name if tgpp_spec_name else None
+            ))
+
+    for file_entry in scandir(IETF_RFCS_FOLDER):
+        
+        with open(file_entry.path) as fd:
+            
+            file_contents = fd.read()
+            
+            rfc_number = int(search('\d+', file_entry.name).group(0))
+            
+            source_url =  'https://tools.ietf.org/html/rfc%d' % rfc_number
+            
+            parse_extracted_ccf(file_contents, source = DiameterDataSource.ietf_specifications, source_url = source_url, spec_metadata_row_dict  = dict(
+                spec_url =  source_url,
+                short_spec_name = 'RFC %s' % rfc_number,
+                long_spec_name_prefix = ('IETF RFC %s' % rfc_number),
+                long_spec_name_suffix = search('<title>(.+?)</title>', get('https://tools.ietf.org/html/rfc%s' % rfc_number).text).group(1).split('-', 1)[1].strip()
+            )     )
                 
     sql_session.commit()
     
     """
-        2) Add information from Diafuzzer (a subset of 3GPP information
-        but also covering IETF specs)
+        2) Add information from Diafuzzer (a subset of the above,
+           originally in an enriched format)
     """
     
     for file_name in listdir(OLD_DIAFUZZER_DATA_DIR): # ['29.272.html']: # DEBUG
@@ -367,7 +390,9 @@ try:
             
             file_contents = fd.read()
             
-            parse_extracted_ccf(file_contents)
+            parse_extracted_ccf(file_contents, source = DiameterDataSource.diafuzzer_database, source_url = 'https://github.com/Orange-OpenSource/diafuzzer/tree/master/specs', spec_metadata_row_dict = {
+                
+            })
                 
     sql_session.commit()
     
@@ -393,7 +418,7 @@ try:
         
         print(tostring(cmd), '/', cmd.getnext() if isinstance(cmd.getnext(), _Comment) else None, '=>', [tostring(i).decode('utf8').split('>')[0] + '>' for i in parent_base_tag], [tostring(i).decode('utf8').split('>')[0] + '>' for i in parent_application_tag])
         
-        assert not parent_vendor_tag
+        assert parent_vendor_tag == []
         
         vendor_code : int = None # Vendor ID (code) per the Diameter meaning
         vendor_name : str = None
@@ -474,8 +499,8 @@ try:
                 tgpp_ts_code = tgpp_ts_code,
                 itu_code = itu_code,
                 rfc_code = rfc_code,
-                base_tag = parent_base_tag[0] if parent_base_tag else None,
-                application_tag = parent_application_tag[0] if parent_application_tag else None)
+                base_tag = parent_base_tag[0] if parent_base_tag != [] else None,
+                application_tag = parent_application_tag[0] if parent_application_tag != [] else None)
             
             
             
