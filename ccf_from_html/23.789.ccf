@@ -1,0 +1,9 @@
+< MME-Location-Information > ::= < AVP-Header: 1600 10415 >
+[E-UTRAN-Cell-Global-Identity]
+[Tracking-Area-Identity]
+[Geographical-Information]
+[Geodetic-Information]
+[Current-Location-Retrieved]
+[Age-Of-Location-Information]
+[User-CSG-Information]
+*[AVP]

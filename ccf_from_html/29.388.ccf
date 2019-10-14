@@ -135,3 +135,11 @@
 [ Failed-AVP ]
 *[ Proxy-Info ]
 *[ Route-Record ]
+
+< V2X-Subscription-Data > ::= < AVP-Header: 1688 10415 >
+[ V2X-PC5-Allowed-PLMN ]
+*[AVP]
+
+< V2X-PC5-Allowed-PLMN > ::= < AVP-Header: 4600 10415 >
+*[ Visited-PLMN-Id ]
+*[AVP]

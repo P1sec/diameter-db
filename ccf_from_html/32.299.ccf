@@ -152,3 +152,1309 @@
 [ Service-Identifier ]
 [ Rating-Group ]
 *[ AVP ]
+
+< Multiple-Services-Credit-Control > ::= < AVP-Header: 456 >
+[ Granted-Service-Unit ]
+[ Requested-Service-Unit ]
+* [ Used-Service-Unit ]
+[ Tariff-Change-Usage ]
+* [ Service-Identifier ]
+[ Rating-Group ]
+* [ G-S-U-Pool-Reference ]
+[ Validity-Time ]
+[ Result-Code ]
+[ Final-Unit-Indication ]
+[ Time-Quota-Threshold ]
+[ Volume-Quota-Threshold ]
+[ Unit-Quota-Threshold ]
+[ Quota-Holding-Time ]
+[ Quota-Consumption-Time ]
+* [ Reporting-Reason ]
+[ Trigger ]
+[ PS-Furnish-Charging-Information ]
+[ Refund-Information ]
+* [ AF-Correlation-Information]
+* [ Envelope ]
+[ Envelope-Reporting ]
+[ Time-Quota-Mechanism ]
+* [ Service-Specific-Info ]
+[ QoS-Information ]
+* [ Announcement-Information ]
+[ 3GPP-RAT-Type ]
+[ Related-Trigger ]
+* [ AVP ]
+
+< Used-Service-Unit > ::= < AVP-Header: 446 >
+[ Reporting-Reason ]
+[ Tariff-Change-Usage ]
+[ CC-Time ]
+[ CC-Money ]
+[ CC-Total-Octets ]
+[ CC-Input-Octets ]
+[ CC-Output-Octets ]
+[ CC-Service-Specific-Units ]
+*[ Event-Charging-TimeStamp ]
+*[ AVP ]
+
+< User-Equipment-Info > ::= < AVP-Header: 458 >
+{ User-Equipment-Info-Type }
+{ User-Equipment-Info-Value }
+
+< Access-Network-Info-Change > ::= < AVP-Header: 4401 >
+* [ Access-Network-Information ]
+[ Cellular-Network-Information ]
+[ Change-Time ]
+
+< Access-Transfer-Information > ::= < AVP-Header: 2709 >
+[ Access-Transfer-Type ]
+* [ Access-Network-Information ]
+[ Cellular-Network-Information ]
+[ Inter-UE-Transfer ]
+[ User-Equipment-Info ]
+[ Instance-Id ]
+[ Related-IMS-Charging-Identifier ]
+[ Related-IMS-Charging-Identifier-Node ]
+[ Change-Time ]
+
+< Accumulated-Cost > ::= < AVP-Header: 2052 >
+{ Value-Digits }
+[ Exponent ]
+
+< Additional-Content-Information > ::= < AVP-Header: 1207 >
+[ Type-Number ]
+[ Additional-Type-Information ]
+[ Content-Size ]
+
+< Address-Domain > ::= < AVP-Header: 898 >
+[ Domain-Name ]
+[ 3GPP-IMSI-MCC-MNC ]
+
+< AF-Correlation-Information > ::= < AVP-Header: 1276 >
+{ AF-Charging-Identifier }
+* [ Flows ]
+
+< Announcement-Information > ::= < AVP-Header: 3904 >
+{ Announcement-Identifier }
+* [ Variable-Part ]
+[ Time-Indicator ]
+[ Quota-Indicator ]
+[ Announcement-Order ]
+[ Play-Alternative ]
+[ Privacy-Indicator ]
+[ Language ]
+
+< AoC-Cost-Information > ::= < AVP-Header: 2053 >
+[ Accumulated-Cost ]
+* [ Incremental-Cost ]
+[ Currency-Code ]
+
+< AoC-Information > ::= < AVP-Header: 2054 >
+[ AoC-Cost-Information ]
+[ Tariff-Information ]
+[ AoC-Subscription-Information ]
+
+< AoC-Service > ::= < AVP-Header: 2311 >
+[ AoC-Service-Obligatory-Type ]
+[ AoC-Service-Type ]
+
+< AoC-Subscription-Information > ::= < AVP-Header: 2314 >
+* [ AoC-Service ]
+[ AoC-Format ]
+[ Preferred-AoC-Currency ]
+
+< APN-Rate-Control > ::= < AVP-Header: 3933 >
+[ APN-Rate-Control-Uplink ]
+[ APN-Rate-Control-Downlink]
+
+< APN-Rate-Control-Downlink > ::= < AVP-Header: 3934 >
+[ Rate-Control-Time-Unit ]
+[ Rate-Control-Max-Rate ]
+[ Rate-Control-Max-Message-Size ]
+
+< APN-Rate-Control-Uplink > ::= < AVP-Header: 3935 >
+[ Additional-Exception-Reports ]
+[ Rate-Control-Time-Unit ]
+[ Rate-Control-Max-Rate ]
+
+< Application-Server-Information > ::= < AVP-Header: 850 >
+[ Application-Server ]
+* [ Application-Provided-Called-Party-Address ]
+[ Status- AS-Code ]
+
+< Basic-Service-Code > ::= < AVP-Header: 3411 >
+[ Bearer-Service ]
+[ Teleservice ]
+
+< Called-Identity-Change > ::= < AVP-Header: 3917 >
+[ Called-Identity ]
+[ Change-Time ]
+
+< Coverage-Info > ::= < AVP-Header: 3459 >
+[ Coverage-Status ]
+[ Change-Time ]
+* [ Location-Info ]
+
+< CPDT-Information > ::= < AVP-Header: 3927 >
+[ External-Identifier ]
+[ SCEF-ID ]
+[ Serving Node Identity ]
+[ SGW-Change ]
+[ NIDD-submission ]
+
+< Current-Tariff > ::= < AVP-Header: 2056 >
+[ Currency-Code ]
+[ Scale-Factor ]
+* [ Rate-Element ]
+
+< Destination-Interface > ::= < AVP-Header: 2002 >
+[ Interface-Id ]
+[ Interface-Text ]
+[ Interface-Port ]
+[ Interface-Type ]
+
+< Early-Media-Description > ::= < AVP-Header: 1272 >
+[ SDP-TimeStamps ]
+* [ SDP-Media-Component ]
+* [ SDP-Session-Description ]
+
+< Enhanced-Diagnostics > ::= < AVP-Header: 3901 >
+*[ RAN-NAS-Release-Cause ]
+
+< Envelope > ::= < AVP-Header: 1266 >
+{ Envelope-Start-Time }
+[ Envelope-End-Time ]
+[ CC-Total-Octets ]
+[ CC-Input-Octets ]
+[ CC-Output-Octets ]
+[ CC-Service-Specific-Units ]
+
+< Event-Type > ::= < AVP-Header: 823 >
+[ SIP-Method ]
+[ Event ]
+[ Expires ]
+
+< Exposure-Function-API-Information > ::= < AVP-Header: 1316 >
+* [ Supported-Features ]
+[ API-Content ]
+[ API-Direction ]
+[ API-Identifier ]
+[ API-Invocation-Timestamp ]
+[ API-Network-Service-Node ]
+[ API-Result-Code ]
+[ API-Size ]
+[ Network-Element ]
+[ SCEF-Address ]
+[ SCS-AS-Address ]
+[ TLTRI ]
+
+< Incremental-Cost > ::= < AVP-Header: 2062 >
+{ Value-Digits }
+[ Exponent ]
+
+< IMS-Information > ::= < AVP-Header: 876 >
+[ Event-Type ]
+[ Role-Of-Node ]
+{ Node-Functionality }
+[ User-Session-Id ]
+[ Outgoing-Session-Id ]
+[ Session-Priority ]
+* [ Calling-Party-Address ]
+[ Called-Party-Address ]
+* [ Called-Asserted-Identity ]
+[ Called-Identity-Change ]
+[ Number-Portability-Routing-Information ]
+[ Carrier-Select-Routing-Information ]
+[ Alternate-Charged-Party-Address ]
+* [ Requested-Party-Address ]
+* [ Associated-URI ]
+[ Time-Stamps ]
+* [ Application-Server-Information ]
+* [ Inter-Operator-Identifier ]
+* [ Transit-IOI-List ]
+[ IMS-Charging-Identifier ]
+* [ SDP-Session-Description ]
+* [ SDP-Media-Component ]
+[ Served-Party-IP-Address ]
+[ Server-Capabilities ]
+[ Trunk-Group-ID ]
+[ Bearer-Service ]
+[ Service-Id ]
+* [ Service-Specific-Info ]
+* [ Message-Body ]
+[ Cause-Code ]
+* [ Reason-Header ]
+* [ Access-Network-Information ]
+[ Cellular-Network-Information ]
+* [ Early-Media-Description ]
+[ IMS-Communication-Service-Identifier ]
+[ IMS-Application-Reference-Identifier ]
+[ Online-Charging-Flag ]
+[ Real-Time-Tariff-Information ]
+[ Account-Expiration ]
+[ Initial-IMS-Charging-Identifier ]
+* [ NNI-Information ]
+[ From-Address ]
+[ IMS-Emergency-Indicator ]
+[ IMS-Visited-Network-Identifier ]
+* [ Access-Network-Info-Change ]
+* [ Access-Transfer-Information ]
+[ Related-IMS-Charging-Identifier ]
+[ Related-IMS-Charging-Identifier-Node ]
+[ Route-Header-Received ]
+[ Route-Header-Transmitted ]
+[ Instance-Id ]
+[TAD-Identifier]
+[FE-Identifier-List]
+
+< Inter-Operator-Identifier > ::= < AVP-Header: 838 >
+[ Originating-IOI ]
+[ Terminating-IOI ]
+
+< ISUP-Cause > ::= < AVP-Header: 3416 >
+[ ISUP-Cause-Location ]
+[ ISUP-Cause-Value ]
+[ ISUP-Cause-Diagnostics ]
+
+< LCS-Client-ID > ::= < AVP-Header: 1232 >
+[ LCS-Client-Type ]
+[ LCS-Client-External-ID ]
+[ LCS-Client-Dialed-By-MS ]
+[ LCS-Client-Name ]
+[ LCS-APN ]
+[ LCS-Requestor-ID ]
+
+< LCS-Client-Name > ::= < AVP-Header: 1235 >
+[ LCS-Data-Coding-Scheme ]
+[ LCS-Name-String ]
+[ LCS-Format-Indicator ]
+
+< LCS-Information > ::= < AVP-Header: 878 >
+[ LCS-Client-ID ]
+[ Location-Type ]
+[ Location-Estimate ]
+[ Positioning-Data ]
+[ 3GPP-IMSI ]
+[ MSISDN ]
+
+< LCS-Requestor-ID > ::= < AVP-Header: 1239 >
+[ LCS-Data-Coding-Scheme ]
+[ LCS-Requestor-ID-String ]
+
+< Location-Info > ::= < AVP-Header: 3460 >
+[ 3GPP-User-Location-Info ]
+[ Change-Time ]
+
+< Location-Type > ::= < AVP-Header: 1244 >
+[ Location-Estimate-Type ]
+[ Deferred-Location-Event-Type ]
+
+< MBMS-Information > ::= < AVP-Header: 880 >
+[ TMGI ]
+[ MBMS-Service-Type ]
+[ MBMS-User-Service-Type ]
+[ File-Repair-Supported ]
+[ Required-MBMS-Bearer-Capabilities ]
+[ MBMS-2G-3G-Indicator ]
+[ RAI ]
+* [ MBMS-Service-Area ]
+[ MBMS-Session-Identity ]
+[ CN-IP-Multicast-Distribution ]
+[ MBMS-GW-Address ]
+[ MBMS-Charged-Party ]
+* [ MSISDN ]
+[ MBMS-Data-Transfer-Start ]
+[ MBMS-Data-Transfer-Stop ]
+
+< Message-Body > ::= < AVP-Header: 889 >
+{ Content-Type }
+{ Content-Length }
+[ Content-Disposition ]
+[ Originator ]
+
+< Message-Class > ::= < AVP-Header: 1213 >
+[ Class-Identifier ]
+[ Token-Text ]
+
+< MM-Content-Type > ::= < AVP-Header: 1203 >
+[ Type-Number ]
+[ Additional-Type-Information ]
+[ Content-Size ]
+* [ Additional-Content-Information ]
+
+< MMS-Information > ::= < AVP-Header: 877 >
+[ Originator-Address ]
+* [ Recipient-Address ]
+[ Submission-Time ]
+[ MM-Content-Type ]
+[ Priority ]
+[ Message-ID ]
+[ Message-Type ]
+[ Message-Size ]
+[ Message-Class ]
+[ Delivery-Report-Requested ]
+[ Read-Reply-Report-Requested ]
+[ MMBox-Storage-Requested ]
+[ Applic-ID ]
+[ Reply-Applic-ID ]
+[ Aux-Applic-Info ]
+[ Content-Class ]
+[ DRM-Content ]
+[ Adaptations ]
+[ VASP-Id ]
+[ VAS-Id ]
+
+< MMTel-Information > ::= < AVP-Header: 2030 >
+* [ Supplementary-Service ]
+
+< Monitoring-Event-Information > ::= < AVP-Header: 3921 >
+[ Monitoring-Event-Functionality ]
+[ Event-Timestamp ]
+[ Monitoring-Event-Configuration-Activity ]
+[ SCEF-Reference-ID ]
+[ SCEF-ID ]
+[ Monitoring-Type ]
+[ Maximum-Number-of-Reports ]
+[ Monitoring-Duration ]
+[ Charged-Party ]
+[ Maximum-Detection-Time]
+[ UE-Reachability-Configuration ]
+[ MONTE-Location-Type ]
+[ Accuracy ]
+* [ Number-Of-UE-Per-Location-Configuration ]
+* [ Monitoring-Event-Report ]
+
+< Monitoring-Event-Report-Data > ::= < AVP-Header: 3920 >
+[ Event-Timestamp ]
+[ SCEF-Reference-ID ]
+[ SCEF-ID ]
+[ Monitoring-Event-Report-Number ]
+[ Charged-Party ]
+[ Subscription-Id ]
+[ Monitoring-Type ]
+[ Reachability-Information ]
+[ EPS-Location-Information ]
+[ Communication-Failure-Information ]
+* [ Number-Of-UE-Per-Location-Report ]
+
+< Next-Tariff > ::= < AVP-Header: 2057 >
+[ Currency-Code ]
+[ Scale-Factor ]
+* [ Rate-Element ]
+
+< NIDD-Submission > ::= < AVP-Header: 3928 >
+[ Submission-Timestamp ]
+[ Event-Timestamp ]
+[ Accounting-Input-Octets ]
+[ Accounting-Output-Octets ]
+[ Change-Condition ]
+
+< NNI-Information > ::= < AVP-Header: 2703 >
+[ Session-Direction ]
+[ NNI-Type ]
+[ Relationship-Mode ]
+[ Neighbour-Node-Address ]
+
+< Offline-Charging > ::= < AVP-Header: 1278 >
+[ Quota-Consumption-Time ]
+[ Time-Quota-Mechanism ]
+[ Envelope-Reporting ]
+* [ Multiple-Services-Credit-Control ]
+* [ AVP ]
+
+< Originator-Address > ::= < AVP-Header: 886 >
+[ Address-Type ]
+[ Address-Data ]
+[ Address-Domain ]
+
+< Originator-Interface > ::= < AVP-Header: 2009 >
+[ Interface-Id ]
+[ Interface-Text ]
+[ Interface-Port ]
+[ Interface-Type ]
+
+< Originator-Received-Address > ::= < AVP-Header: 2027 >
+[ Address-Type ]
+[ Address-Data ]
+[ Address-Domain ]
+
+< Participant-Group > ::= < AVP-Header: 1260 >
+[ Called-Party-Address ]
+[ Participant-Access-Priority ]
+[ User-Participating-Type ]
+
+< PoC-Information > ::= < AVP-Header: 879 >
+[ PoC-Server-Role ]
+[ PoC-Session-Type ]
+[ PoC-User-Role ]
+[ PoC-Session-Initiation-type ]
+[ PoC-Event-Type ]
+[ Number-Of-Participants ]
+* [ Participants-Involved ]
+* [ Participant-Group ]
+* [ Talk-Burst-Exchange ]
+[ PoC-Controlling-Address ]
+[ PoC-Group-Name ]
+[ PoC-Session-Id ]
+[ Charged-Party ]
+
+< PoC-User-Role > ::= < AVP-Header: 1252 >
+[ PoC-User-Role-Ids ]
+[ PoC-User-Role-info-Units ]
+
+< ProSe-Direct-Communication-Reception-Data-Container > ::= < AVP-Header: 3461 >
+[ Local-Sequence-Number ]
+[ Coverage-Status ]
+[ 3GPP-User-Location-Info ]
+[ Accounting-Input-Octets ]
+[ Change-Time ]
+[ Change-Condition ]
+[ Visited-PLMN-Id ]
+[ Usage-Information-Report-Sequence-Number ]
+[ Radio-Resources-Indicator]
+[ Radio-Frequency ]
+
+< Transmission-Data-Container > ::= < AVP-Header: 3441 >
+[ Local-Sequence-Number ]
+[ Coverage-status ]
+[ 3GPP-User-Location-Info ]
+[ Accounting-Output-Octets ]
+[ Change-Time ]
+[ Change-Condition ]
+[ Visited-PLMN-Id ]
+[ Usage-Information-Report-Sequence-Number ]
+[ Radio-Resources-Indicator ]
+[ Radio-Frequency ]
+
+< ProSe-Information > ::= < AVP-Header: 3447 >
+* [ Supported-Features ]
+[ Announcing-UE-HPLMN-Identifier ]
+[ Announcing-UE-VPLMN-Identifier ]
+[ Monitoring-UE-HPLMN-Identifier ]
+[ Monitoring-UE-VPLMN-Identifier ]
+[ Monitored-HPLMN-Identifier ]
+[ Role-Of-ProSe-Function ]
+[ ProSe-App-Id ]
+[ ProSe-3rd-Party-Application-ID ]
+[ Application-Specific-Data ]
+[ ProSe-Event-Type ]
+[ ProSe-Direct-Discovery-Model ]
+[ ProSe-Function-IP-Address ]
+[ ProSe-Function-ID ]
+[ ProSe-Validity-Timer ]
+[ ProSe-Role-Of-UE ]
+[ ProSe-Request-Timestamp ]
+[ PC3-Control-Protocol-Cause ]
+[ Monitoring-UE-Identifier ]
+[ Prose-Function-PLMN-Identifier ]
+[ Requestor-PLMN-Identifier ]
+[ Origin-App-Layer-User-Id ]
+[ WLAN-Link-Layer-Id ]
+[ Requesting-EPUID ]
+[ Target-App-Layer-User-Id ]
+[ Requested-PLMN-Identifier ]
+[ Time-Window ]
+[ ProSe-Range-Class ]
+[ Proximity-Alert-Indication ]
+[ Proximity-Alert-Timestamp ]
+[ Proximity-Cancellation-Timestamp ]
+[ ProSe-Reason-For-Cancellation ]
+[ PC3-EPC-Control-Protocol-Cause ]
+[ ProSe-UE-ID ]
+[ ProSe-Source-IP-Address ]
+[ Layer-2-Group-ID ]
+[ ProSe-Group-IP-Multicast-Address ]
+* [ Coverage-Info ]
+* [ Radio-Parameter-Set-Info ]
+* [ Transmitter-Info ]
+[ Time-First-Transmission ]
+[ Time-First-Reception ]
+* [ ProSe-Direct-Communication-Transmission-Data-Container ]
+* [ ProSe-Direct-Communication-Reception-Data-Container ]
+[ Announcing-PLMN-ID]
+[ ProSe-Target-Layer-2-ID ]
+[ Relay-IP-address ]
+[ ProSe-UE-to-Network-Relay-UE-ID ]
+[ Target-IP-Address ]
+[ PC5-Radio-Technology ]
+
+< PS-Furnish-Charging-Information > ::= < AVP-Header: 865 >
+{ 3GPP-Charging-Id }
+{ PS-Free-Format-Data }
+[ PS-Append-Free-Format-Data ]
+
+< PS-Information > ::= < AVP-Header: 874 >
+* [ Supported-Features ]
+[ 3GPP-Charging-Id ]
+[ PDN-Connection-Charging-ID ]
+[ Node-Id ]
+[ 3GPP-PDP-Type ]
+* [ PDP-Address ]
+[ PDP-Address-Prefix-Length ]
+[ Dynamic-Address-Flag ]
+[ Dynamic-Address-Flag-Extension ]
+[ QoS-Information ]
+* [ SGSN-Address ]
+* [ GGSN-Address ]
+* [ TDF-IP-Address ]
+* [ SGW-Address ]
+* [ ePDG-Address ]
+* [ TWAG-Address ]
+[ CG-Address ]
+[ Serving-Node-Type ]
+[ SGW-Change ]
+[ 3GPP-IMSI-MCC-MNC ]
+[ IMSI-Unauthenticated-Flag ]
+[ 3GPP-GGSN-MCC-MNC ]
+[ 3GPP-NSAPI ]
+[ Called-Station-Id ]
+[ 3GPP-Session-Stop-Indicator ]
+[ 3GPP-Selection-Mode ]
+[ 3GPP-Charging-Characteristics ]
+[ Charging-Characteristics-Selection-Mode ]
+[ 3GPP-SGSN-MCC-MNC ]
+[ 3GPP-MS-TimeZone ]
+[ Charging-Rule-Base-Name ]
+[ ADC-Rule-Base-Name ]
+[ 3GPP-User-Location-Info ]
+[ User-Location-Info-Time ]
+[ User-CSG-Information ]
+* [ Presence-Reporting-Area-Information ]
+[ 3GPP2-BSID ]
+[ TWAN-User-Location-Info ]
+[ UWAN-User-Location-Info ]
+[ 3GPP-RAT-Type ]
+[ PS-Furnish-Charging-Information ]
+[ PDP-Context-Type ]
+[ Offline-Charging ]
+* [ Traffic-Data-Volumes ]
+* [ Service-Data-Container ]
+[ User-Equipment-Info ]
+[ Terminal-Information ]
+[ Start-Time ]
+[ Stop-Time ]
+[ Change-Condition ]
+[ Diagnostics ]
+[ Low-Priority-Indicator ]
+[ NBIFOM-Mode ]
+[ NBIFOM-Support ]
+[ MME-Number-for-MT-SMS ]
+[ MME-Name ]
+[ MME-Realm ]
+[ Logical-Access-ID ]
+[ Physical-Access-ID ]
+[ Fixed-User-Location-Info ]
+[ CN-Operator-Selection-Entity ]
+[ Enhanced-Diagnostics ]
+[ SGi-PtP-Tunnelling-Method ]
+[ CP-CIoT-EPS-Optimisation-Indicator ]
+[ UNI-PDU-CP-Only-Flag ]
+[ Serving-PLMN-Rate-Control ]
+[ APN-Rate-Control ]
+[ Charging-Per-IP-CAN-Session-Indicator ]
+[ RRC-Cause-Counter ]
+[ 3GPP-PS-Data-Off-Status ]
+[ SCS-AS-Address ]
+[ Unused-Quota-Timer ]
+* [ RAN-Secondary-RAT-Usage-Report ]
+
+< Radio-Parameter-Set-Info > ::= < AVP-Header: 3463 >
+[ Radio-Parameter-Set-Values ]
+[ Change-Time ]
+
+< RAN-Secondary-RAT-Usage-Report > ::= < AVP-Header: 1302 >
+[Secondary-RAT-Type ]
+[ RAN-Start-Timestamp ]
+[ RAN-End-Timestamp ]
+[ Accounting-Input-Octets ]
+[ Accounting-Output-Octets ]
+[ 3GPP-Charging-Id ]
+
+< Rate-Element > ::= < AVP-Header: 2058 >
+{ CC-Unit-Type }
+[ Charge- Reason-Code ]
+[ Unit-Value ]
+[ Unit-Cost ]
+[ Unit-Quota-Threshold ]
+
+< Real-Time-Tariff-Information > ::= < AVP-Header: 2305 >
+[ Tariff-Information ]
+[ Tariff-XML ]
+
+< Recipient-Address > ::= < AVP-Header: 1201 >
+[ Address-Type ]
+[ Address-Data ]
+[ Address-Domain ]
+[ Addressee-Type ]
+
+< Recipient-Info > ::= < AVP-Header: 2026 >
+[ Destination-Interface ]
+* [ Recipient-Address ]
+* [ Recipient-Received-Address ]
+[ Recipient-SCCP-Address ]
+[ SM-Protocol-ID ]
+
+< Recipient-Received-Address > ::= < AVP-Header: 2028 >
+[ Address-Type ]
+[ Address-Data ]
+[ Address-Domain ]
+
+< Information > ::= < AVP-Header: 3925 >
+[ SGSN-Address ]
+*[ Change-Condition]
+[ 3GPP-User-Location-Info ]
+[ 3GPP2-BSID ]
+[ UWAN-User-Location-Info ]
+[ Presence-Reporting-Area-Status ]
+[ User-CSG-Information ]
+[ 3GPP-RAT-Type ]
+
+< Related-Trigger > ::= < AVP-Header: 3926 >
+* [ Trigger-Type ]
+
+< Remaining-Balance > ::= < AVP-Header: 2021 >
+{ Unit-Value }
+{ Currency-Code }
+
+< Scale-Factor > ::= < AVP-Header: 2059 >
+{ Value-Digits }
+[ Exponent ]
+
+< SCS-AS-Address > ::= < AVP-Header: 3940 >
+[ SCS-Realm ]
+[ SCS-Address ]
+
+< SDP-Media-Component > ::= < AVP-Header: 843 >
+[ SDP-Media-Name ]
+* [ SDP-Media-Description ]
+[ Local-GW-Inserted-Indication ]
+[ IP-Realm-Default-Indication ]
+[ Transcoder-Inserted-Indication ]
+[ Media-Initiator-Flag ]
+[ Media-Initiator-Party ]
+[ 3GPP-Charging-Id ]
+[ Access-Network-Charging-Identifier-Value ]
+[ SDP-Type ]
+
+< SDP-TimeStamps > ::= < AVP-Header: 1273 >
+[ SDP-Offer-Timestamp ]
+[ SDP-Answer-Timestamp ]
+
+< Service-Data-Container > ::= < AVP-Header: 2040 >
+[ AF-Correlation-Information ]
+[ Charging-Rule-Base-Name ]
+[ Accounting-Input-Octets ]
+[ Accounting-Output-Octets ]
+[ Local-Sequence-Number ]
+[ QoS-Information ]
+[ Rating-Group ]
+[ Change-Time ]
+[ Service-Identifier ]
+[ Service-Specific-Info ]
+[ ADC-Rule-Base-Name ]
+[ SGSN-Address ]
+[ Time-First-Usage ]
+[ Time-Last-Usage ]
+[ Time-Usage ]
+*[ Change-Condition]
+[ 3GPP-User-Location-Info ]
+[ 3GPP2-BSID ]
+[ UWAN-User-Location-Info ]
+[ TWAN-User-Location-Info ]
+[ Sponsor-Identity ]
+[ Application-Service-Provider-Identity ]
+* [ Presence-Reporting-Area-Information]
+[ Presence-Reporting-Area-Status ]
+[ User-CSG-Information ]
+[ 3GPP-RAT-Type ]
+[ Related-Change-Condition-Information ]
+[ Serving-PLMN-Rate-Control ]
+[ APN-Rate-Control ]
+[ 3GPP-PS-Data-Off-Status ]
+[Traffic-Steering-Policy-Identifier-DL]
+[Traffic-Steering-Policy-Identifier-UL]
+
+< Service-Information > ::= < AVP-Header: 873 >
+* [ Subscription-Id ]
+[ AoC-Information ]
+[ PS-Information ]
+[ IMS-Information ]
+[ MMS-Information ]
+[ LCS-Information ]
+[ PoC-Information ]
+[ MBMS-Information ]
+[ SMS-Information ]
+[ VCS-Information ]
+[ MMTel-Information ]
+[ ProSe-Information ]
+[ Service-Generic-Information ]
+[ IM-Information ]
+[ DCD-Information ]
+[ M2M-Information ]
+[ CPDT-Information ]
+
+< Service-Specific-Info > ::= < AVP-Header: 1249 >
+[ Service-Specific-Data ]
+[ Service-Specific-Type ]
+
+< SM-Device-Trigger-Information > ::= < AVP-Header: 3405 >
+[ MTC-IWF-Address ]
+[ Reference-Number ]
+[ Serving-Node ]
+[ Validity-Time ]
+[ Priority-Indication ]
+[ Application-Port-Identifier ]
+
+< SMS-Information > ::= < AVP-Header: 2000 >
+[ SMS-Node ]
+[ Client-Address ]
+[ Originator-SCCP-Address ]
+[ SMSC-Address ]
+[ Data-Coding-Scheme ]
+[ SM-Discharge-Time ]
+[ SM-Message-Type ]
+[ Originator-Interface ]
+[ SM-Protocol-ID ]
+[ Reply-Path-Requested ]
+[ SM-Status ]
+[ SM-User-Data-Header ]
+[ Number-Of-Messages-Sent ]
+[ SM-Sequence-Number ]
+* [ Recipient-Info ]
+[ Originator-Received-Address ]
+[ SM-Service-Type ]
+[ SMS-Result ]
+[ SM-Device-Trigger-Indicator ]
+[ SM-Device-Trigger-Information ]
+[ MTC-IWF-Address ]
+[ Application-Port-Identifier ]
+[ External-Identifier ]
+
+< Supplementary-Service > ::= < AVP-Header: 2048 >
+[ MMTel-SService-Type ]
+[ Service-Mode ]
+[ Number-Of-Diversions ]
+[ Associated-Party-Address ]
+[ Service-ID ]
+[ Change-Time ]
+[ Number-Of-Participants ]
+[ Participant-Action-Type ]
+[ CUG-Information ]
+[ AoC-Information ]
+
+< Talk-Burst-Exchange > ::= < AVP-Header: 1255 >
+{ PoC-Change-Time }
+[ Number-Of-Talk-Bursts ]
+[ Talk-Burst-Volume ]
+[ Talk-Burst-Time ]
+[ Number-Of-Received-Talk-Bursts ]
+[ Received-Talk-Burst-Volume ]
+[ Received-Talk-Burst-Time ]
+[ Number-Of-Participants ]
+[ PoC-Change-Condition ]
+
+< Tariff-Information > ::= < AVP-Header: 2060 >
+{ Current-Tariff }
+[ Tariff-Time-Change ]
+[ Next-Tariff ]
+
+< Time-Quota-Mechanism > ::= < AVP-Header: 1270 >
+{ Time-Quota-Type }
+{ Base-Time-Interval }
+
+< Time-Stamps > ::= < AVP-Header: 833 >
+[ SIP-Request-Timestamp ]
+[ SIP-Response-Timestamp ]
+[ SIP-Request-Timestamp-Fraction ]
+[ SIP-Response-Timestamp-Fraction ]
+
+< Traffic-Data-Volumes > ::= < AVP-Header: 2046 >
+[ QoS-Information ]
+[ Accounting-Input-Octets ]
+[ Accounting-Output-Octets ]
+[ Change-condition ]
+[ Change-Time ]
+[ 3GPP-User-Location-Info ]
+[ UWAN-User-Location-Info ]
+[ 3GPP-Charging-Id ]
+[ Presence-Reporting-Area-Status ]
+* [ Presence-Reporting-Area-Information ]
+[ User-CSG-Information ]
+[ 3GPP-RAT-Type ]
+[ Access-Availability-Change-Reason ]
+[ Related-Change-Condition-Information ]
+[ Diagnostics ]
+[ Enhanced-Diagnostics ]
+[ CP-CIoT-EPS-Optimisation-Indicator ]
+[ Serving-PLMN-Rate-Control ]
+[ APN-Rate-Control ]
+
+< Transmitter-Info > ::= < AVP-Header: 3468 >
+[ ProSe-Source-IP-Address ]
+[ ProSe-UE-ID ]
+
+< Trigger > ::= < AVP-Header: 1264 >
+* [ Trigger-Type ]
+
+< Trunk-Group-ID > ::= < AVP-Header: 851 >
+[ Incoming-Trunk-Group-ID ]
+[ Outgoing-Trunk-Group-ID ]
+
+< TWAN-User-Location-Info > ::= < AVP-Header: 2714 >
+{ SSID }
+[ BSSID ]
+[ Civic-Address-Information ]
+[ WLAN-Operator-Id ]
+[ Logical-Access-ID ]
+
+< Unit-Cost > ::= < AVP-Header: 2061 >
+{ Value-Digits }
+[ Exponent ]
+
+< User-CSG-Information > ::= < AVP-Header: 2319 >
+{ CSG-Id }
+{ CSG-Access-Mode }
+[ CSG-Membership-Indication ]
+
+< UWAN-User-Location-Info > ::= < AVP-Header: 3918 >
+{ UE-Local-IP-Address }
+[ UDP-Source-Port ]
+[ SSID ]
+[ BSSID ]
+[ TCP-Source-Port ]
+[ Civic-Address-Information ]
+[ WLAN-Operator-Id ]
+[ Logical-Access-ID ]
+
+< Variable-Part > ::= < AVP-Header: 3907 >
+[ Variable-Part-Order ]
+{ Variable-Part-Type }
+{ Variable-Part-Value }
+
+< VCS-Information > ::= < AVP-Header: 3410 >
+[ Bearer-Capability ]
+[ Network-Call-Reference-Number ]
+[ MSC-Address ]
+[ Basic-Service-Code ]
+[ ISUP-Location-Number ]
+[ VLR-Number ]
+[ Forwarding-Pending ]
+[ ISUP-Cause ]
+[ Start-Time ]
+[ Start-of-Charging ]
+[ Stop-Time ]
+[ PS-Free-Format-Data ]
+
+< WLAN-Operator-Id > ::= < AVP-Header: 1306 >
+[ WLAN-PLMN-Id ]
+[ WLAN-Operator-Name ]
+
+< 3GPP-OC-Specific-Reduction > ::= < AVP-Header: 1320 >
+* [ 3GPP-OC-Rating-Group ]
+* [ 3GPP-OC-Request-Type ]
+[ OC-Reduction-Percentage ]
+* [ AVP ]
+
+< OC-OLR > ::= < AVP-Header: 623 >
+< OC-Sequence-Number >
+< OC-Report-Type >
+[ OC-Reduction-Percentage ]
+[ OC-Validity-Duration ]
+* [ 3GPP-OC-Specific-Reduction ]
+* [ AVP ]
+
+The Multiple-Services-Credit-Control AVP (AVP code 456) is of type grouped
+The Used-Service-Unit AVP (AVP code 446) is of type grouped
+The User-Equipment-Info AVP (AVP code 458) is of type grouped
+the User-Equipment-Info-Value AVP (AVP code 460) is of type OctetString
+the User-Equipment-Info-Value AVP (AVP code 460) is of type OctetString
+The Access-Network-Info-Change AVP (AVP code 4401) is of type Grouped
+The 3GPP-PS-Data-Off-Status AVP (AVP code 4406) is of type Enumerated
+The Access-Network-Information AVP (AVP code 1263) is of type OctetString
+The Access-Transfer-Information AVP (AVP code 2709) is of type Grouped
+The Access-Transfer-Type AVP (AVP code 2710) is of type Enumerated
+The Account-Expiration AVP (AVP code 2309) is of type Time
+The Accumulated-Cost AVP (AVP code 2052) is of type Grouped
+The Adaptations AVP (AVP code 1217) is of type Enumerated
+The Additional-Exception-Reports AVP (AVP code 3936) is of type Enumerated
+The Additional-Type-Information AVP (AVP code 1205) is of type UTF8String
+The Address-Data AVP (AVP code 897) is of type UTF8String
+The Address-Domain AVP (AVP code 898) is of type Grouped
+The Address-Type AVP (AVP code 899) is of type Enumerated
+The Addressee-Type AVP (AVP code 1208) is of type Enumerated
+The Alternate-Charged-Party-Address AVP (AVP code 1280) is of type UTF8String
+The Announcement-Identifier AVP (AVP code 3905) is of type Unsigned32
+The Announcement-Information AVP (AVP code 3904) is of type Grouped
+The Announcement-Order AVP (AVP code 3906) is of type Unsigned32
+The Announcing-UE-HPLMN-Identifier AVP (AVP code 3426) is of type UTF8String
+The Announcing-UE-VPLMN-Identifier AVP (AVP code 3427) is of type UTF8String
+The AoC-Cost-Information AVP (AVP code 2053) is of type Grouped
+The AoC-Format AVP (AVP code 2310) is of type Enumerated
+The AoC-Information AVP (AVP code 2054) is of type Grouped
+The AoC-Request-Type AVP (AVP code 2055) is of type enumerated
+The AoC-Service AVP (AVP code 2311) is of type Grouped
+The AoC-Service-Obligatory-Type AVP (AVP code 2312) is of type Enumerated
+The AoC-Service-Type AVP (AVP code 2313) is of type Enumerated
+The AoC-Subscription-Information AVP (AVP code 2314) is of type Grouped
+The API-Content AVP (AVP code 1309) is of type UTF8String
+The API-Direction AVP (AVP code 1310) is of type Enumerated
+The API-Identifier AVP (AVP code 1311) is of type OctetString
+The API-Invocation-Timestamp AVP (AVP code 1312) is of type Time
+The API-Network-Service-Node AVP (AVP code 1315) is of type Enumerated
+The API-Result-Code AVP (AVP code 1313) is of type Unsigned32
+The API-Size AVP (AVP code 1314) is of type Unsigned64
+The APN-Rate-Control AVP (AVP code 3933) is of type Grouped
+The APN-Rate-Control-Downlink AVP (AVP code 3934) is of type Grouped
+The APN-Rate-Control-Uplink AVP (AVP code 3935) is of type Grouped
+The Applic-ID AVP (AVP code 1218) is of type UTF8String
+The Application-Provided-Called-Party-Address AVP (AVP code 837) is of type UTF8String
+The Application-Server AVP (AVP code 836) is of type UTF8String
+The Application-Server-Information AVP (AVP code 850) is of type Grouped
+The Application-Specific-Data AVP (AVP code 3458) is of type OctetString
+The Associated-Party-Address AVP (AVP code 2035) is of type UTF8String
+The Associated-URI AVP (AVP code 856) is of type UTF8String
+The Authorised-QoS AVP (AVP code 849) is of type UTF8String
+The Aux-Applic-Info AVP (AVP code 1219) is of type UTF8String
+The Base-Time-Interval AVP (AVP code 1265) is of type Unsigned32
+The Basic-Service-Code AVP (AVP code 3411) is of type Grouped
+The Bearer-Capability AVP (AVP code 3412) is of type OctetString
+The Bearer-Service AVP (AVP code 854) is of type OctetString
+The BSSID AVP (AVP code 2716) is of type UTF8String
+The Called-Asserted-Identity AVP (AVP code 1250) is of type UTF8String
+The Called-Identity AVP (AVP code 3916) is of type UTF8String
+The Called-Identity-Change AVP (AVP code 3917) is of type Grouped
+The Called-Party-Address AVP (AVP code 832) is of type UTF8String
+The Calling-Party-Address AVP (AVP code 831) is of type UTF8String
+The Carrier-Select-Routing-Information AVP (AVP code 2023) is of type UTF8String
+The Cause-Code AVP (AVP code 861) is of type Integer32
+The Cellular-Network-Information AVP (AVP code 3924) is of type OctetString
+The Civic-Address-Information AVP (AVP code 1305) is of type OctetString
+The CG-Address AVP (AVP code 846) is of type Address
+The Change-Condition AVP (AVP code 2037) is of type Integer32
+The Change-Time AVP (AVP code 2038) is of type Time
+The Charge-Reason-Code AVP (AVP code 2118) is of type Enumerated
+The Charged-Party AVP (AVP code 857) is of type UTF8String
+The Charging-Characteristics-Selection-Mode AVP (AVP code 2066) is of type Enumerated
+The Charging-Per-IP-CAN-Session-Indicator AVP (AVP code 4400) is of type of
+The Class-Identifier AVP (AVP code 1214) is of type Enumerated
+The Client-Address AVP (AVP code 2018) is of type Address
+The CN-Operator-Selection-Entity AVP (AVP code 3421) is of type Enumerated
+The Content-Class AVP (AVP code 1220) is of type Enumerated
+The Content-Disposition AVP (AVP code 828) is of type UTF8String
+The Content-Length AVP (AVP code 827) is of type Unsigned32
+The Content-Size AVP (AVP code 1206) is of type Unsigned32
+The Content-Type AVP (AVP code 826) is of type UTF8String
+The Coverage-Status AVP (AVP code 3428) is of type Enumerated
+The Coverage-Info AVP (AVP code 3459) is of type Grouped
+The CP-CIoT-EPS-Optimisation-Indicator AVP (AVP code 3930) is of type Enumerated
+The CPDT-Information AVP (AVP code 3927) is of type Grouped
+The CSG-Access-Mode AVP (AVP code 2317) is of type Enumerated
+The CSG-Membership-Indication AVP (AVP code 2318) is of type Enumerated
+The Current-Tariff AVP (AVP code 2056) is of type Grouped
+The CUG-Information AVP (AVP code 2304) is of type OctetString
+The Data-Coding-Scheme AVP (AVP code 2001) is of type Integer32
+The DCD-Information AVP (AVP code 2115) is of type Grouped
+The Deferred-Location-Even-Type AVP (AVP code 1230) is of type UTF8String
+The Delivery-Report-Requested AVP (AVP code 1216) is of type Enumerated
+The Diagnostics AVP (AVP code 2039) is of type Integer32
+The Discoveree-UE-VPLMN-Identifier AVP (AVP code 4403) is of type UTF8String
+The Domain-Name AVP (AVP code 1200) is of type UTF8String
+The DRM-Content AVP (AVP code 1221) is of type Enumerated
+The Dynamic-Address-Flag AVP (AVP code 2051) is of type Enumerated
+The Dynamic-Address-Flag-Extension AVP (AVP code 2068) is of type Enumerated
+The Early-Media-Description AVP (AVP code 1272) is of type grouped
+The Enhanced-Diagnostics AVP (AVP code 3901) is of type Grouped
+The Envelope-Start-Time AVP (AVP code 1269) is of type Time
+The EPDG-Address AVP (AVP code 3425) is of type Address
+The Event AVP (AVP code 825) is of type UTF8String
+The Event-Charging-TimeStamp AVP (AVP code 1258) is of type Time
+The Event-Type AVP (AVP code 823) is of type Grouped
+The Expires AVP (AVP code 888) is of type Unsigned32
+The FE-Identifier-List AVP (AVP code 4413) is of type UTF8String
+The Exposure-Function-API-Information AVP (AVP code 1316) is of type Grouped
+The File-Repair-Supported AVP (AVP code 1224) is of type Enumerated
+The Forwarding-Pending AVP (AVP code 3415) is of type Enumerated
+The From-Address AVP (AVP code 2708) is of type UTF8String
+The GGSN-Address AVP (AVP code 847) is of type Address
+The IM-Information AVP (AVP code 2110) is of type Grouped
+The Incremental-Cost AVP (AVP code 2062) is of type Grouped
+The Instance-Id AVP (AVP code 3402) is of type UTF8String
+The Interface-Id AVP (AVP code 2003) is of type UTF8String
+The Interface-Port AVP (AVP code 2004) is of type UTF8String
+The Interface-Text AVP (AVP code 2005) is of type UTF8String
+The Interface-Type AVP (AVP code 2006) is of type Enumerated
+The Inter-UE-Transfer AVP (AVP code 3902) is of type Enumerated
+The IMS-Application-Reference-Identifier AVP (AVP code 2601) is of type UTF8String
+The IMS-Charging-Identifier AVP (AVP code 841) is of type UTF8String
+The IMS-Communication-Service-Identifier AVP (AVP code 1281) is of type UTF8String
+The IMS-Emergency-Indicator AVP (AVP code 2322) is of type Enumerated
+The IMS-Information AVP (AVP code 876) is of type Grouped
+The IMS-Visited-Network-Identifier AVP (AVP code 2713) is of type UTF8String
+The IMSI-Unauthenticated-Flag AVP (AVP code 2308) is of type Enumerated
+The Incoming-Trunk-Group-ID AVP (AVP code 852) is of type UTF8String
+The Initial-IMS-Charging-Identifier AVP (AVP code 2321) is of type UTF8String
+The Inter-Operator-Identifier AVP (AVP code 838) is of type Grouped
+The IP-Realm-Default-Indication-Indication AVP (AVP code 2603) is of type Enumerated
+The ISUP-Cause AVP (AVP code 3416) is of type Grouped
+The ISUP-Cause-Diagnostics AVP (AVP code 3422) is of type OctetString
+The ISUP-Cause-Location AVP (AVP code 3423) is of type Unsigned32
+The ISUP-Cause-Value AVP (AVP code 3424) is of type Unsigned32
+The Language AVP (AVP code 3914) is of type UTF8String
+The Layer-2-Group-ID AVP (AVP code 3429) is of type OctetString
+The LCS-APN AVP (AVP code 1231) is of type UTF8String
+The LCS-Client-Dialed-By-MS AVP (AVP code 1233) is of type UTF8String
+The LCS-Client-External-ID AVP (AVP code 1234) is of type UTF8String
+The LCS-Client-Id AVP (AVP code 1232) is of type Grouped
+The LCS-Client-Name AVP (AVP code 1235) is of type Grouped
+The LCS-Client-Type AVP (AVP code 1241) is of type Enumerated
+The LCS-Data-Coding-Scheme AVP (AVP code 1236) is of type UTF8String
+The LCS-Format-Indicator AVP (AVP code 1237) is of type Enumerated
+The LCS-Information AVP (AVP code 878) is of type Grouped
+The LCS-Name-String AVP (AVP code 1238) is of type UTF8String
+The LCS-Requestor-ID AVP (AVP code 1239) is of type Grouped
+The LCS-Requestor-ID-String AVP (AVP code 1240) is of type UTF8String
+The Local-GW-Inserted-Indication AVP (AVP code 2604) is of type Enumerated
+The Local-Sequence-Number AVP (AVP code 2063) is of type Unsigned32
+The Location-Estimate AVP (AVP code 1242) is of type OctetString
+The Location-Estimate-Type AVP (AVP code 1243) is of type Enumerated
+The Location-Info AVP (AVP code 3460) is of type Grouped
+The Location-Type AVP (AVP code 1244) is of type Grouped
+The Low-Balance-Indication AVP (AVP code 2020) is of type Enumerated
+The Low-Priority-Indicator AVP (AVP code 2602) is of type Enumerated
+The MBMS-Charged-Party AVP (AVP code 2323) is of type Enumerated
+The MBMS-GW-Address AVP (AVP code 2307) is of type Address
+The MBMS-Information AVP (AVP code 880) is of type Grouped
+The MBMS-User-Service-Type AVP (AVP code 1225) is of type Enumerated
+The Media-Initiator-Flag AVP (AVP code 882) is of type Enumerated
+The Media-Initiator-Party AVP (AVP code 1288) is of type UTF8String
+The Message-Body AVP (AVP Code 889) is of type Grouped
+The Message-Class AVP (AVP code 1213) is of type Grouped
+The Message-ID AVP (AVP code 1210) is of type UTF8String
+The Message-Size AVP (AVP code 1212) is of type Unsigned32
+The Message-Type AVP (AVP code 1211) is of type Enumerated
+The MM-Content-Type AVP (AVP code 1203) is of type Grouped
+The MMBox-Storage-Requested AVP (AVP code 1248) is of type Enumerated
+The MMS-Information AVP (AVP code 877) is of type Grouped
+The MMTel-Information AVP (AVP code 2030) is of type Grouped
+The MMTel-SService-Type AVP (AVP Code 2031) is of type Unsigned32
+The Monitored-PLMN-Identifier AVP (AVP code 3430) is of type UTF8String
+The Monitoring-Event-Functionality AVP (AVP code 3922) is of type Enumerated
+The Monitoring-Event-Information AVP (AVP code 3921) is of type Grouped
+The Monitoring-Event-Report-Data AVP (AVP code 3920) is of type Grouped
+The Monitoring-Event-Report-Number AVP (AVP code 3923) is of type Unsigned32
+The Monitoring-UE-VPLMN-Identifier AVP (AVP code 3431) is of type UTF8String
+The Monitoring-UE-Identifier AVP (AVP code 3432) is of type UTF8String
+The Monitoring-UE-VPLMN-Identifier AVP (AVP code 3433) is of type UTF8String
+The MTC-IWF-Address AVP (AVP code 3406) is of type Address
+The Neighbour-Node-Address AVP (AVP code 2705) is of type Address
+The Next-Tariff AVP (AVP code 2057) is of type Grouped
+The NIDD-Submission AVP (AVP code 3928) is of type Grouped
+The NNI-Information AVP (AVP code 2703) is of type Grouped
+The NNI-Type AVP (AVP code 2704) is of type Enumerated
+The Node-Functionality AVP (AVP code 862) is of type Enumerated
+The Node-Id AVP (AVP code 2064) is of type UTF8String
+The Number-of-Diversions AVP (AVP Code 2034) is of type Unsigned32
+The Number-Of-Messages-Sent AVP (AVP code 2019) is of type Unsigned32
+The Number-Of-Participants AVP (AVP code 885) is of type Unsigned32
+The Number-Of-Received-Talk-Bursts AVP (AVP code 1282) is of type Unsigned32
+The Number-Of-Talk-Bursts AVP (AVP code 1283) is of type Unsigned32
+The Number-Portability-Routing-Information AVP (AVP code 2024) is of type UTF8String
+The Online-Charging-Flag AVP (AVP code 2303) is of type Enumerated
+The Originating-IOI AVP (AVP code 839) is of type UTF8String
+The Originator AVP (AVP code 864) is of type Enumerated
+The Originator-Address AVP (AVP code 886) is of type Grouped
+The Originator-Received-Address AVP (AVP code 2027) is of type Grouped
+The Originator-SCCP-Address AVP (AVP code 2008) is of type Address
+The Outgoing-Session-Id AVP (AVP code 2320) is of type UTF8String
+The Outgoing-Trunk-Group-ID AVP (AVP code 853) is of type UTF8String
+The Participants-Involved AVP (AVP code 887) is of type UTF8String
+The Participant-Group AVP (AVP code 1260) is of type Grouped
+The Participant-Action-Type AVP (AVP code 2049) is of type Enumerated
+The PC3-Control-Protocol-Cause AVP (AVP code 3434) is of type Integer32
+The PC3-EPC-Control-Protocol-Cause AVP (AVP code 3435) is of type Integer32
+The PC5-Radio-Technology AVP (AVP code 1300) is of type Enumerated
+The PDN-Connection-Charging-ID AVP (AVP code 2050) is of type Unsigned32
+The PDP-Address AVP (AVP code 1227) is of type Address
+The PDP-Address-Prefix-Length AVP (AVP code 2606) is of type Unsigned32
+The PDP-Context-Type AVP (AVP code 1247) is of type Enumerated
+The Play-Alternative AVP (AVP code 3913) is of type Enumerated
+The PoC-Change-Condition AVP (AVP code 1261) is of type Enumerated
+The PoC-Change-Time AVP (AVP code 1262) is of type Time
+The PoC-Controlling-Address AVP (AVP code 858) is of type UTF8String
+The PoC-Event-Type AVP (AVP code 2025) is of type Enumerated
+The PoC-Group-Name AVP (AVP code 859) is of type UTF8String
+The PoC-Information AVP (AVP code 879) is of type Grouped
+The PoC-Server-Role AVP (AVP code 883) is of type Enumerated
+The PoC-Session-Id AVP (AVP code 1229) is of type UTF8String
+The PoC-Session-Initiation-Type AVP (AVP code 1277) is of type Enumerated
+The PoC-Session-Type AVP (AVP code 884) is of type Enumerated
+The PoC-User-Role AVP (AVP code 1252) is of type Grouped
+The PoC-User-Role-IDs AVP (AVP code 1253) is of type UTF8String
+The Positioning-Data AVP (AVP code 1245) is of type UTF8String
+The Preferred-AoC-Currency AVP (AVP code 2315) is of type Unsigned32
+The Priority AVP (AVP code 1209) is of type Enumerated
+The Privacy-Indicator AVP (AVP code 3915) is of type Enumerated
+The ProSe-3rd-Party-Application-ID AVP (AVP code 3440) is of type UTF8String
+The ProSe-Direct-Communication-Reception-Data-Container AVP (AVP code 3461) is of type Grouped
+The ProSe-Direst-Discovery-Model AVP (AVP code 3442) is of type Enumerated
+The ProSe-Event-Type AVP (AVP code 3443) is of type Enumerated
+The ProSe-Function-IP-Address AVP (AVP code 3444) is of type Address
+The ProSe-Function-PLMN-Identifier AVP (AVP code 3457) is of type UTF8String
+The ProSe-Functionality AVP (AVP code 3445) is of type Enumerated
+The ProSe-Information AVP (AVP code 3447) is of type Grouped
+The ProSe-Range-Class AVP (AVP code 3448) is of type Enumerated
+The ProSe-Reason-For-Cancellation AVP (AVP code 3449) is of type Enumerated
+The ProSe-Request-Timestamp AVP (AVP code 3450) is of type Time
+The ProSe-Source-IP-Address AVP (AVP code 3452) is of type Address
+The ProSe-UE-ID AVP (AVP code 3453) is of type OctetString
+The Proximity-Alert-Indication AVP (AVP code 3454) is of type Enumerated
+The Proximity-Alert-Timestamp AVP (AVP code 3455) is of type Time
+The Proximity-Cancellation-Timestamp AVP (AVP code 3456) is of type Time
+The PS-Append-Free-Format-Data AVP (AVP code 867) is of type enumerated
+The PS-Free-Format-Data AVP (AVP code 866) is of type OctectString
+The PS-Furnish-Charging-Information AVP (AVP code 865) is of type Grouped
+The PS-Information AVP (AVP code 874) is of type Grouped
+The Quota-Consumption-Time AVP (AVP code 881) is of type Unsigned32
+The Quota-Holding-Time AVP (AVP code 871) is of type Unsigned32
+The Quota-Indicator AVP (AVP code 3912) is of type Enumerated
+The Radio-Frequency AVP (AVP code 3462) is of type OctetString
+The Radio-Parameter-Set-Info AVP (AVP code 3463) is of type Grouped
+The Radio-Parameter-Set-Values AVP (AVP code 3464) is of type OctetString
+The Radio-Resources-Indicator AVP (AVP code 3465) is of type Integer32
+The RAN-End-Timestamp AVP (AVP code 1301) is of type Time
+The RAN-Secondary-RAT-Usage-Report AVP (AVP code 1302) is of type Grouped
+The RAN-Start-Timestamp AVP (AVP code 1303) is of type Time
+The Rate-Control-Max-Message-Size AVP (AVP code 3937) is of type Unsigned32
+The Rate-Control-Max-Rate AVP (AVP code 3938) is of type Unsigned32
+The Rate-Control-Time-Unit AVP (AVP code 3939) is of type Unsigned32
+The Rate-Element AVP (AVP code 2058) is of type Grouped
+The Read-Reply-Report-Requested AVP (AVP code 1222) is of type Enumerated
+The Real-Time-Tariff-Information AVP (AVP code 2305) is of type Grouped
+The Reason-Header AVP (AVP code 3401) is of type UTF8String
+The Received-Talk-Burst-Time AVP (AVP code 1284) is of type Unsigned32
+The Received-Talk-Burst-Volume AVP (AVP code 1285) is of type Unsigned32
+The Recipient-Address AVP (AVP code 1201) is of type Grouped
+The Recipient-Info AVP (AVP code 2026) is of type Grouped
+The Recipient-Received-Address AVP (AVP code 2028) is of type Grouped
+The Recipient-SCCP-Address AVP (AVP code 2010) is of type Address
+The Refund-Information AVP (AVP code 2022) is of type OctetString
+The Relationship-Mode AVP (AVP code 2706) is of type Enumerated
+The Related-Change-Condition-Information AVP (AVP code 3925) is of type Grouped
+The Related-Trigger AVP (AVP code 3926) is of type Grouped
+The Related-IMS-Charging-Identifier AVP (AVP code 2711) is of type UTF8String
+The Related-IMS-Charging-Identifier-Node AVP (AVP code 2712) is of type Address
+The Relay-IP-address AVP (AVP code 4411) is of type Address
+The Remaining-Balance AVP (AVP code 2021) is of type Grouped
+The Reply-Applic-ID AVP (AVP code 1223) is of type UTF8String
+The Reply-Path-Requested AVP (AVP code 2011) is of type Enumerated
+The Reporting-Reason AVP (AVP code 872) is of type Enumerated
+The Requested-Party-Address AVP (AVP code 1251) is of type UTF8
+The Requested-PLMN-Identifier AVP (AVP code 3436) is of type UTF8String
+The Requestor-PLMN-Identifier AVP (AVP code 3437) is of type UTF8String
+The Role-Of-Node AVP (AVP code 829) is of type Enumerated
+The Role-Of-ProSe-Function AVP (AVP code 3438) is of type Enumerated
+The Route-Header-Received AVP (AVP code 3403) is of type UTF8String
+The Route-Header-Transmitted AVP (AVP code 3404) is of type UTF8String
+The Scale-Factor AVP (AVP code 2059) is of type Grouped
+The SCEF-Address AVP (AVP code 1317) is of type Address
+The SCS-Address AVP (AVP code 3941) is of type Address
+The SCS-AS-Address AVP (AVP code 3940) is of type Grouped
+The SCS-Realm AVP (AVP code 3942) is of type DiameterIdentity
+The SDP-Answer-Timestamp AVP (AVP code 1275) is of type Time
+The SDP-Media-Component AVP (AVP code 843) is of type Grouped
+The SDP-Media-Description AVP (AVP code 845) is of type UTF8String
+The SDP-Media-Name AVP (AVP code 844) is of type UTF8String
+The SDP-Offer-Timestamp AVP (AVP code 1274) is of type Time
+The SDP-Session-Description AVP (AVP code 842) is of type UTF8String
+The SDP-TimeStamps AVP (AVP code 1273) is of type Grouped
+The SDP-Type AVP (AVP code 2036) is of type Enumerated
+The Session-Direction AVP (AVP code 2707) is of type Enumerated
+The Served-Party-IP-Address AVP (AVP code 848) is of type Address
+The Secondary-RAT-Type AVP (AVP code 1304) is of type OctetString
+The Service-Data-Container AVP (AVP code 2040) is of type Grouped
+The Service-ID AVP (AVP code 855) is of type UTF8String
+The Service-Generic-Information AVP (AVP code 1256) is of type Grouped
+The Service-Information AVP (AVP code 873) is of type Grouped
+The Service-Mode AVP (AVP Code 2032) is of type Unsigned32
+The Service-Specific-Data AVP (AVP Code 863) is of type UTF8String
+The Service-Specific-Info AVP (AVP Code 1249) is of type Grouped
+The Service-Specific-Type AVP (AVP Code 1257) is of type Unsigned32
+The Serving-Node-Identity AVP (AVP code 3929) is of type DiameterIdentity
+The Serving-Node-Type AVP (AVP Code 2047) is of type Enumerated
+The SGi-PtP-Tunnelling-Method AVP (AVP Code 3931) is of type Enumerated
+The SGSN-Address AVP (AVP code 1228) is of type Address
+The SGW-Address AVP (AVP code 2067) is of type Address
+The SGW-Change AVP (AVP Code 2065) is of type Enumerated
+The SIP-Method AVP (AVP code 824) is of type UTF8String
+The SIP-Request-Timestamp AVP (AVP code 834) is of type Time
+The SIP-Request-Timestamp-Fraction AVP (AVP code 2301) is of type Unsigned32
+The SIP-Response-Timestamp AVP (AVP code 835) is of type Time
+The SIP-Response-Timestamp-Fraction AVP (AVP code 2302) is of type Unsigned32
+The SM-Device-Trigger-Indicator AVP (AVP code 3407) is of type Enumerated
+The SM-Device-Trigger-Information AVP (AVP code 3405) is of type Grouped
+The SM-Discharge-Time AVP (AVP code 2012) is of type Time
+The SM-Message-Type AVP (AVP code 2007) is of type Enumerated
+The SM-Protocol-ID AVP (AVP code 2013) is of type OctetString
+The SM-Sequence-Number AVP (AVP code 3408) is of type Unsigned32
+The SM-Status AVP (AVP code 2014) is of type OctetString
+The SM-User-Data-Header AVP (AVP code 2015) is of type OctetString
+The SMS-Information AVP (AVP code 2000) is of type Grouped
+The SMS-Node AVP (AVP code 2016) is of type Enumerated
+The SMS-Result AVP (AVP code 3409) is of type Unsigned32
+The SM-Service-Type AVP (AVP code 2029) is of type Enumerated
+The SMSC-Address AVP (AVP code 2017) is of type Address
+The Start-of-Charging AVP (AVP Code 3419) is of type Time
+The Start-Time AVP (AVP Code 2041) is of type Time
+The Status-AS-Code AVP (AVP Code 2702) is of type Enumerated
+The Stop-Time AVP (AVP Code 2042) is of type Time
+The Submission-Time AVP (AVP code 1202) is of type Time
+The Subscriber-Role AVP (AVP code 2033) is of type Enumerated
+The Supplementary-Service AVP (AVP code 2048) is of type Grouped
+The TAD-Identifier AVP (AVP code 2717) is of type Enumerated
+The Talk-Burst-Exchange AVP (AVP code 1255) is of type Grouped
+The Talk-Burst-Time AVP (AVP code 1286) is of type Unsigned32
+The Talk-Burst-Volume AVP (AVP code 1287) is of type Unsigned32
+The Target-IP-Address AVP (AVP code 4412) is of type Address
+The Tariff-Information AVP (AVP code 2060) is of type Grouped
+The Tariff-XML AVP (AVP code 2306) is of type UTF8String
+The Teleservice AVP (AVP code 3413) is of type OctetString
+The Terminating-IOI AVP (AVP code 840) is of type UTF8String
+The Time-First-Reception AVP (AVP code 3456) is of type Time
+The Time-First-Transmission AVP (AVP code 3467) is of type Time
+The Time-First-Usage AVP (AVP code 2043) is of type Time
+The Time-Indicator AVP (AVP code 3911) is of type Unsigned32
+The Time-Last-Usage AVP (AVP code 2044) is of type Time
+The Time-Quota-Mechanism AVP (AVP code 1270) is of type Grouped
+The Time-Quota-Threshold AVP (AVP code 868) is of type Unsigned32
+The Time-Quota-Type AVP (AVP code 1271) is of type Enumerated
+The Time-Stamps AVP (AVP code 833) is of type Grouped
+The Time-Usage AVP (AVP code 2045) is of type Unsigned32
+The TLTRI AVP (AVP code 1318) is of type Unsigned32
+The Traffic-Data-Volumes AVP (AVP code 2046) is of type Grouped
+The Transcoder-Inserted-Indication AVP (AVP code 2605) is of type Enumerated
+The Transit-IOI-List AVP (AVP code 2701) is of type UTF8String
+The Transmitter-Info AVP (AVP code 3468) is of type Grouped
+The Token-Text AVP (AVP code 1215) is of type UTF8String
+The Trigger AVP (AVP code 1264) is of type Grouped
+The Trigger-Type AVP (AVP code 870) is of type Enumerated
+The Trunk-Group-ID AVP (AVP code 851) is of type Grouped
+The TWAG-Address AVP (AVP code 3903) is of type Address
+The TWAN-User-Location-Info AVP (AVP code 2714) is of type Grouped
+The UNI-PDU-CP-Only-Flag AVP (AVP code 3932) is of type Enumerated
+The Unit-Cost AVP (AVP code 2061) is of type Grouped
+The Unit-Quota-Threshold AVP (AVP code 1226) is of type Unsigned32
+The Unused-Quota-Timer AVP (AVP code 4407) is of type Unsigned32
+The User-CSG-Information AVP (AVP code 2319) is of type Grouped
+The Usage-Information-Report-Sequence-Number AVP (AVP code 3439) is of type Integer32
+The User-Session-Id AVP (AVP code 830) is of type UTF8String
+The UWAN-User-Location-Info AVP (AVP code 3918) is of type Grouped
+The Variable-Part AVP (AVP code 3907) is of type Grouped
+The Variable-Part-Order AVP (AVP code 3908) is of type Unsigned32
+The Variable-Part-Type AVP (AVP Code 3909) is of type Unsigned32
+The Variable-Part-Value AVP (AVP Code 3910) is of type UTF8String
+The VCS-Information AVP (AVP code 3410) is of type Grouped
+The Volume-Quota-Threshold AVP (AVP code 869) is of type Unsigned32
+The WLAN-Operator-Id AVP (AVP code 1306) is of type Grouped
+The WLAN-Operator-Name AVP (AVP code 1307) is of type UTF8String
+The WLAN-PLMN-Id AVP (AVP code 1308) is of type UTF8String
+The 3GPP-OC-Specific-Reduction AVP (AVP code 1320) is of type Grouped
+The OC-OLR AVP (AVP code 623) is of type Grouped

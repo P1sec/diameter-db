@@ -132,3 +132,82 @@
 *[ Failed-AVP ]
 [ Service-Information ]
 *[ AVP ]
+
+< Counter > ::= < AVP-Header: TBD >
+{ CounterID }
+[ CounterValue ]
+[ CounterExpiryDate ]
+
+< CounterPrice > ::= < AVP-Header: TBD >
+{ CounterID }
+[ CounterType ]
+[ CounterChange ]
+[ SetCounterTo ]
+[ CounterExpiryDate ]
+
+< CounterTariff > ::= < AVP-Header: TBD >
+{ CounterID }
+[ CounterType ]
+[ CounterChangePerSession ]
+[ CounterChangePerConsumedServiceUnit ]
+[ CounterChangeForFirstChargeableTimeUnit ]
+[ CounterChangePerSubsequentChargeableTimeUnit ]
+[ CounterChangePerChargeableVolumeUnit ]
+[ CounterChangeForFirstChargeableTimeUnitAfterSwitch ]
+[ CounterChangePerSubsequentChargeableTimeUnitAfterSwitch ]
+[ CounterChangePerChargeableVolumeUnitAfterSwitch ]
+[ CounterThreshold ]
+[ SetCounterTo ]
+[ CounterExpiryDate ]
+
+< DestinationID > ::= < AVP-Header: TBD >
+{ DestinationIDType }
+{ DestinationIDData }
+
+< ImpactOnCounter > ::= < AVP-Header: TBD >
+{ CounterID }
+[ CounterValueBegin ]
+{ CounterValueChange }
+[ CounterValueEnd ]
+
+< Service-Rating > ::= < AVP-Header: TBD >
+{ Service-Identifier }
+*[ DestinationID ]
+[ ServiceInformation ]
+[ Extension ]
+[ Price ]
+[ BillingInfo ]
+[ TariffSwitchTime ]
+{ MonetaryTariff }
+[ NextMonetaryTariff ]
+[ ExpiryTime ]
+[ ValidUnits ]
+[ MonetaryTariffAfterValidUnits ]
+* [ Counter ]
+[ BasicPriceTimeStamp ]
+[ BasicPrice ]
+* [ CounterPrice ]
+* [ CounterTariff ]
+* [ RequestedCounters ]
+[ RequestSubType ]
+[ ImpactonCounter ]
+[ RequestedUnits ]
+[ ConsumedUnits ]
+[ ConsumedUnitsAfterTariffSwitch ]
+[ MonetaryQuota ]
+[ MinimalRequestedUnits ]
+[ AllowedUnits ]
+
+< Subscription-Id > ::= < AVP-Header: TBD >
+{ Subscription-Id-Type }
+{ Subscription-Id-Data }
+
+< AB-Response > ::= < AVP-Header: TBD >
+* [ Acct-Balance ]
+* [ Counter ]
+
+< Acct-Balance > ::= < AVP-Header: TBD >
+[ Acct-Balance-Id ]
+[ Unit-Value ]
+[ Value-Digits ]
+[ Exponent ]

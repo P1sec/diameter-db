@@ -78,3 +78,77 @@
 *[ Proxy-Info ]
 [ Restart-Counter ]
 *[ AVP ]
+
+< MBMS-Bearer-Event-Notification > ::= < AVP-Header: 3503 >
+{ TMGI}
+{ MBMS-Flow-Identifier }
+{ MBMS-Bearer-Event }
+*[ AVP ]
+
+< MBMS-Bearer-Request > ::= < AVP-Header: 3504 >
+{ MBMS-StartStop-Indication }
+[ TMGI]
+[ MBMS-Flow-Identifier ]
+[ QoS-Information ]
+[ MBMS-Service-Area ]
+[ MBMS-Start-Time ]
+[ MB2U-Security ]
+[ MBMS-Cell-List ]
+[ Local-M1-Information ]
+[ Local-MB2-U-Information ]
+*[ AVP ]
+
+< MBMS-Bearer-Response > ::= < AVP-Header: 3505 >
+[ TMGI]
+[ MBMS-Flow-Identifier ]
+[ MBMS-Session-Duration ]
+[ MBMS-Bearer-Result ]
+[ BMSC-Address ]
+[ BMSC-Port ]
+[ MB2U-Security ]
+*[ Radio-Frequency ]
+*[ AVP ]
+
+< TMGI-Allocation-Request > ::= < AVP-Header: 3509 >
+{ TMGI-Number }
+*[ TMGI ]
+*[ AVP ]
+
+< TMGI-Allocation-Response > ::= < AVP-Header: 3510 >
+*[ TMGI ]
+[ MBMS-Session-Duration ]
+[ TMGI-Allocation-Result ]
+*[ AVP ]
+
+< TMGI-Deallocation-Request > ::= < AVP-Header: 3512 >
+*[ TMGI ]
+*[ AVP ]
+
+< TMGI-Deallocation-Response > ::= < AVP-Header: 3513 >
+{ TMGI }
+[ TMGI-Deallocation-Result ]
+*[ AVP ]
+
+< TMGI-Expiry > ::= < AVP-Header: 3515 >
+*{ TMGI }
+*[ AVP ]
+
+< Local-M1-Information > ::= < AVP-Header: 3518 >
+[ MBMS-eNB-IP-Multicast-Address ]
+[ MBMS-eNB-IPv6-Multicast-Address ]
+[ MBMS-GW-SSM-IP-Address ]
+[ MBMS-GW-SSM-IPv6-Address ]
+[ Common-Tunnel-Endpoint-Identifier ]
+
+< Local-MB2-U-Information > ::= < AVP-Header: 3519 >
+[ BMSC-Address ]
+[ BMSC-Port ]
+
+The Radio-Frequency AVP (AVP code 3508) is of type Unsigned32
+The Local-M1-Information AVP (AVP code 3518) is of type Grouped
+The Local-MB2-U-Information AVP (AVP code 3519) is of type Grouped
+The MBMS-eNB-IP-Multicast-Address AVP (AVP code 3520) is of type Address
+The MBMS-eNB-IPv6-Multicast-Address AVP (AVP code 3521) is of type Address
+The MBMS-GW-SSM-IP-Address AVP (AVP code 3522) is of type Address
+The MBMS-GW-SSM-IPv6-Address AVP (AVP code 3523) is of type Address
+The Common-Tunnel-Endpoint-Identifier AVP (AVP code 3524) is of type OctetString

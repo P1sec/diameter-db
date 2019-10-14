@@ -33,3 +33,31 @@
 [ Result-Code ]
 [ Experimental-Result]
 { Origin-Host }
+
+< Vendor-Specific-Application-Id > ::= < AVP-Header: 260 >
+1* [Vendor-Id]
+
+< Vendor-Specific-Application-Id > ::= < AVP-Header: 260 >
+1* [Vendor-Id]
+
+< Vendor-Specific-Application-Id > ::= < AVP-Header: 260 >
+1* [Vendor-Id]
+
+The GBA-UserSecSettings AVP (AVP code 400) is of type OctetString
+The Transaction-Identifier AVP (AVP code 401) is of type OctetString
+The NAF-Id AVP (AVP code 402) is of type OctetString
+The GAA-Service-identifier AVP (AVP code 403) is of type OctedString
+The Key-ExpiryTime AVP (AVP code 404) is of type Time
+The BootstrapInfoCreationTime AVP (AVP code 408) is of type Time
+The GUSS-Timestamp AVP (AVP code 409) is of type Time
+The GBA-Type AVP (AVP code 410) is of type Enumerated
+The UE-Id AVP (AVP code 411) is of type OctedString
+The UE-Id-Type AVP (AVP code 412) is of type Enumerated
+The UICC-App-Label AVP (AVP code 413) is of type OctedString
+The UICC-ME AVP (AVP code 414) is of type Enumerated
+The Requested-Key-Lifetime AVP (AVP code 415) is of type Time
+The Private-Identity-Request AVP (AVP code 416) is of type Enumerated
+The GBA-Push-Info AVP (AVP code 417) is of type OctetString
+The NAF-SA-Identifier AVP (AVP code 418) is of type OctetString
+The Security-Feature-Request AVP (AVP code 419) is of type OctetString
+The Security-Feature-Request AVP (AVP code 420) is of type OctetString

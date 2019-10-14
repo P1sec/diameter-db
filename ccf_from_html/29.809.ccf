@@ -1,0 +1,21 @@
+< Load-Info > ::= < AVP-Header: 1600 >
+< Overload-Metric >
+* { Overload-Info-Scope }
+[ Supported-Scopes ]
+* [ Overload-Algorithm ]
+[ Period-Of-Validity ]
+[ Session-Group ]
+[ Load ]
+* [ AVP ]
+
+< OC-OLR > ::= < AVP-Header: TBD2 >
+< OC-Sequence-Number >
+[ OC-Report-Type ]
+[ OC-Reduction-Percentage ]
+[ OC-Validity-Duration ]
+* [ AVP ]
+
+< OC-Supported-Features > ::= < AVP-Header: TBD1 >
+< OC-Sequence-Number >
+[ OC-Feature-Vector ]
+* [ AVP ]

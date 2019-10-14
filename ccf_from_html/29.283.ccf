@@ -91,3 +91,24 @@
 [ Failed-AVP ]
 *[ Proxy-Info ]
 *[ Route-Record ]
+
+< Data-Identification > ::= < AVP-Header: 4501 10415 >
+{ Data-Identification-Prefix}
+{ Data-Identification-Flags }
+*[AVP]
+
+< User-Identifier > ::= < AVP-Header: 3102 10415 >
+[ MCPTT-ID ]
+[ MCVideo-ID ]
+[ MCData-ID ]
+*[AVP]
+
+< MC-Service-User-Profile-Data > ::= < AVP-Header: 4511 10415 >
+[ User-Data ]
+[ Sequence-Number ]
+[ User-Data-Id ]
+*[AVP]
+
+< Data > ::= < AVP-Header: 4513 10415 >
+*[ MC-Service-User-Profile-Data ]
+*[ AVP ]

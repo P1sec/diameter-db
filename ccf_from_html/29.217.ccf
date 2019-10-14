@@ -127,3 +127,40 @@
 [ Redirect-Max-Cache-Time ]
 *[ Proxy-Info ]
 *[ AVP ]
+
+< Aggregated-Congestion-Info > ::= < AVP-Header: 4000 >
+[ Congestion-Location-Id ]
+[ IMSI-List ]
+*[ AVP ]
+
+< Aggregated-RUCI-Report > ::= < AVP-Header: 4001 >
+1*{ Aggregated-Congestion-Info }
+[ Called-Station-Id ]
+[ Congestion-Level-Value ]
+[ Congestion-Level-Set-Id ]
+*[ AVP ]
+
+< Congestion-Level-Definition > ::= < AVP-Header: 4002 >
+{ Congestion-Level-Set-Id }
+{ Congestion-Level-Range }
+*[ AVP ]
+
+< Congestion-Location-Id > ::= < AVP-Header: 4006 >
+[ 3GPP-User-Location-Info ]
+[ eNodeB-Id ]
+[ Extended-eNodeB-Id ]
+*[ AVP ]
+
+The Aggregated-Congestion-Info AVP (AVP code 4000) is of type Grouped
+The Aggregated-RUCI-Report AVP (AVP code 4001) is of type Grouped
+The Congestion-Level-Definition AVP (AVP code 4002) is of type Grouped
+The Congestion-Level-Range AVP (AVP code 4003) is of type Unsigned32
+The Congestion-Level-Set-Id AVP (AVP code 4004) is of type Unsigned32
+The Congestion-Level-Value AVP (AVP code 4005) is of type Unsigned32
+The Conditional-Restriction AVP (AVP code 4007) is of type Unsigned32
+The eNodeB-Id AVP (AVP code 4008) is of type OctetString
+The IMSI-List AVP (AVP code 4009) is of type OctetString
+The RCAF-Id AVP (AVP code 4010) is of type DiameterIdentity
+The Reporting-Restriction AVP (AVP code 4011) is of type Unsigned32
+The RUCI-Action AVP (AVP code 4012) is of type Unsigned32
+The Extended-eNodeB-Id AVP (AVP code 4013) is of type OctetString

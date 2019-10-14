@@ -33,3 +33,13 @@
 [ Failed-AVP ]
 *[ Proxy-Info ]
 *[ Route-Record ]
+
+< V2X-Authorization-Data > ::= < AVP-Header: 4700 10415 >
+[ V2X-Permission-in-VPLMN ]
+*[ V2X-Application-Server ]
+*[AVP]
+
+< V2X-Application-Server > ::= < AVP-Header: 4702 10415 >
+{ Application-Server }
+*[ Geographical-Information ]
+*[AVP]

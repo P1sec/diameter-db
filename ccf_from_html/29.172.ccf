@@ -111,3 +111,101 @@
 [ Failed-AVP ]
 *[ Proxy-Info ]
 *[ Route-Record ]
+
+< LCS-EPS-Client-Name > ::= < AVP-Header: 2501 10415 >
+[ LCS-Name-String ]
+[ LCS-Format-Indicator ]
+
+< LCS-Requestor-Name > ::= < AVP-Header: 2502 10415 >
+[ LCS-Requestor-Id-String ]
+[ LCS-Format-Indicator ]
+
+< LCS-QoS > ::= < AVP-Header: 2504 10415 >
+[ LCS-QoS-Class ]
+[ Horizontal-Accuracy ]
+[ Vertical-Accuracy ]
+[ Vertical-Requested ]
+[ Response-Time]
+
+< LCS-Privacy-Check-Non-Session > ::= < AVP-Header: 2521 10415 >
+{ LCS-Privacy-Check }
+
+< LCS-Privacy-Check-Session > ::= < AVP-Header: 2522 10415 >
+{ LCS-Privacy-Check }
+
+< GERAN-Positioning-Info > ::= < AVP-Header: 2524 10415 >
+[ GERAN-Positioning-Data ]
+[ GERAN-GANSS-Positioning-Data ]
+*[ AVP ]
+
+< UTRAN-Positioning-Info > ::= < AVP-Header: 2527 10415 >
+[ UTRAN-Positioning-Data ]
+[ UTRAN-GANSS-Positioning-Data ]
+[ UTRAN-Additional-Positioning-Data ]
+*[ AVP ]
+
+< Area-Event-Info > ::= < AVP-Header: 2533 10415 >
+{ Area-Definition }
+[ Occurrence-Info ]
+[ Interval-Time ]
+[ Maximum-Interval ]
+[ Sampling-Interval ]
+[ Reporting-Duration ]
+[ Reporting-Location-Requirements ]
+*[ AVP ]
+
+< Area-Definition > ::= < AVP-Header: 2534 10415 >
+1*10{ Area }
+*240[ Additional-Area ]
+*[ AVP ]
+
+< Area > ::= < AVP-Header: 2535 10415 >
+{ Area-Type }
+{ Area-Identification }
+*[ AVP ]
+
+< Periodic-LDR-Info > ::= < AVP-Header: 2540 10415 >
+{ Reporting-Amount }
+{ Reporting-Interval }
+*[ AVP ]
+
+< Reporting-PLMN-List > ::= < AVP-Header: 2543 10415 >
+1*20{ PLMN-ID-List }
+[ Prioritized-List-Indicator ]
+*[ AVP ]
+
+< PLMN-ID-List > ::= < AVP-Header: 2544 10415 >
+{ Visited-PLMN-Id }
+[ Periodic-Location-Support-Indicator ]
+*[ AVP ]
+
+< Deferred-MT-LR-Data > ::= < AVP-Header: 2547 10415 >
+{ Deferred-Location-Type }
+[ Termination-Cause ]
+[ Serving-Node ]
+*[ AVP ]
+
+< ESMLC-Cell-Info > ::= < AVP-Header: 2552 10415 >
+[ ECGI ]
+[ Cell-Portion-ID ]
+*[ AVP ]
+
+< Delayed-Location-Reporting-Data > ::= < AVP-Header: 2555 10415 >
+[ Termination-Cause ]
+[ Serving-Node ]
+*[ AVP ]
+
+< Motion-Event-Info > ::= < AVP-Header: 2559 10415 >
+{ Linear-Distance }
+[ Occurrence-Info ]
+[ Interval-Time ]
+[ Maximum-Interval ]
+[ Sampling-Interval ]
+[ Reporting-Duration ]
+[ Reporting-Location-Requirements ]
+*[ AVP ]
+
+< Additional-Area > ::= < AVP-Header: 2565 10415 >
+{ Area-Type }
+{ Area-Identification }
+*[ AVP ]

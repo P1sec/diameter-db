@@ -72,3 +72,50 @@
 *[ Failed-AVP ]
 *[ Proxy-Info ]
 *[ AVP ]
+
+< Charging-Rule-Install > ::= < AVP-Header: 1001 >
+*[ Charging-Rule-Definition ]
+*[ Charging-Rule-Name ]
+*[ Charging-Rule-Base-Name ]
+*[ AVP ]
+
+< Charging-Rule-Remove > ::= < AVP-Header: 1002 >
+*[ Charging-Rule-Name ]
+*[ Charging-Rule-Base-Name ]
+*[ AVP ]
+
+< Charging-Rule-Definition > ::= < AVP-Header: 1003 >
+{ Charging-Rule-Name }
+[ Service-Identifier ]
+[ Rating-Group ]
+*[ Flow-Description ]
+[ Reporting-Level ]
+[ Online ]
+[ Offline ]
+[ Metering-Method ]
+[ Precedence ]
+[ AF-Charging-Identifier ]
+*[ Flows ]
+*[ AVP ]
+
+< TFT-Packet-Filter-Information > ::= < AVP-Header: 1013 >
+[ Precedence ]
+[ TFT-Filter ]
+[ ToS-Traffic-Class ]
+
+The Bearer-Usage AVP (AVP code 1000) is of type Enumerated
+The Charging-Rule-Install AVP (AVP code 1001) is of type Grouped
+The Charging-Rule-Remove AVP (AVP code 1002) is of type Grouped
+The Charging-Rule-Definition AVP (AVP code 1003) is of type Grouped
+The Charging-Rule-Base-Name AVP (AVP code 1004) is of type UTF8String
+The Charging-Rule-Name AVP (AVP code 1005) is of type OctetString
+The Event-Trigger AVP (AVP code 1006) is of type Enumerated
+The Metering-Method AVP (AVP code 1007) is of type Enumerated
+The Offline AVP (AVP code 1008) is of type Enumerated
+The Online AVP (AVP code 1009) is of type Enumerated
+The Precedence AVP (AVP code 1010) is of type Unsigned32
+The Reporting-Level AVP (AVP code 1011) is of type Enumerated
+The TFT-Filter AVP (AVP code 1012) is of type IPFilterRule
+The TFT-Packet-Filter-Information AVP (AVP code 1013) is of type Grouped
+The ToS-Traffic-Class AVP (AVP code 1014) is of type OctetString
+The PDP-Session-Operation AVP (AVP code 1015) is of type Enumerated

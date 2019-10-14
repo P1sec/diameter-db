@@ -291,3 +291,148 @@
 [ Failed-AVP ]
 *[ Proxy-Info ]
 *[ Route-Record ]
+
+< Assistance-Info > ::= < AVP-Header: 3802 10415 >
+[ WLAN-Assistance-Info ]
+*[AVP]
+
+< Match-Report > ::= < AVP-Header: 3807 10415 >
+{ Discovery-Type }
+[ ProSe-App-Code ]
+[ ProSe-Metadata-Index-Mask ]
+[ ProSe-App-Id ]
+[ ProSe-Validity-Timer ]
+[ ProSe-Match-Refresh-Timer ]
+[ ProSe-Application-Metadata ]
+[ PC5-tech ]
+*[AVP]
+
+< ProSe-Discovery-Filter > ::= < AVP-Header: 3813 10415 >
+{ Filter-Id }
+{ ProSe-App-Id }
+{ ProSe-Validity-Timer }
+{ ProSe-App-Code }
+*[ ProSe-App-Mask ]
+*[AVP]
+
+< WiFi-P2P-Assistance-Info > ::= < AVP-Header: 3819 10415 >
+[ SSID ]
+[ EAP-Master-Session-Key ]
+[ P2P-Features ]
+[ WLAN-Link-Layer-Id-List ]
+[ WLAN-Link-Layer-Id-List ]
+[ Operating-Channel ]
+[ Assistance-Info-Validity-Timer ]
+*[AVP]
+
+< WLAN-Assistance-Info > ::= < AVP-Header: 3820 10415 >
+[ WiFi-P2P-Assistance-Iinfo ]
+*[AVP]
+
+< WLAN-Link-Layer-Id > ::= < AVP-Header: 3821 10415 >
+[ MAC-Address ]
+
+< WLAN-Link-Layer-Id-List > ::= < AVP-Header: 3822 10415 >
+*[ WLAN-Link-Layer-Id ]
+
+< ProSe-App-Code-Info > ::= < AVP-Header: 3835 10415 >
+{ ProSe-App-Code }
+{ MIC }
+{ UTC-based-Counter }
+*[AVP]
+
+< Location-Update-Trigger > ::= < AVP-Header: 3823 10415 >
+{ Location-Update-Event-Type }
+[ Change-Of-Area-Type ]
+[ Periodic-Location-Type ]
+*[AVP]
+
+< Change-Of-Area-Type > ::= < AVP-Header: 3825 10415 >
+{ Location-Update-Event-Trigger }
+{ Report-Cardinality }
+[ Minimum-Interval-Time ]
+*[AVP]
+
+< Periodic-Location-Type > ::= < AVP-Header: 3829 10415 >
+{ Location-Report-Interval-Time }
+{ Total-Number-Of-Reports }
+*[AVP]
+
+< Discovery-Auth-Request > ::= < AVP-Header: 3854 10415 >
+{ Discovery-Type }
+[ User-Identity ]
+[ ProSe-App-ID ]
+[ ProSe-App-Code ]
+[ ProSe-App-Code-Suffix-Range ]
+[ ProSe-Validity-Timer ]
+[ App-Identifier ]
+[ Requesting-RPAUID ]
+[ Target-RPAUID ]
+[ Target-PDUID ]
+[ ProSe-Restricted-Code ]
+[ ProSe-Query-Code ]
+[ ProSe-Response-Code ]
+*[ ProSe-Restricted-Code-Suffix-Range ]
+[ Banned-RPAUID ]
+[ Banned-PDUID ]
+[ Service-Result ]
+[ PC5-tech ]
+*[AVP]
+
+< Discovery-Auth-Response > ::= < AVP-Header: 3855 10415 >
+{ Discovery-Type }
+*[ ProSe-Discovery-Filter ]
+[ Visited-PLMN-Id ]
+[ ProSe-Restricted-Code ]
+[ ProSe-Query-Code ]
+[ ProSe-Response-Code ]
+[ ProSe-Validity Timer ]
+[ Code-Sending-Security-Material ]
+[ Code-Receiving-Security-Material ]
+[ DUIK ]
+[ PC5-tech ]
+*[AVP]
+
+< Match-Request > ::= < AVP-Header: 3856 10415 >
+{ Discovery-Type }
+[ User Identity ]
+[ Visited-PLMN-ID ]
+*[ ProSe-App-Code-Info ]
+[ PC5-tech ]
+*[AVP]
+
+< Match-Report-Info > ::= < AVP-Header: 3857 10415 >
+{ Discovery-Type }
+[ User-Identity ]
+*[ ProSe-App-ID ]
+*[AVP]
+
+< App-Identifier > ::= < AVP-Header: 3840 10415 >
+{ OS-ID }
+{ OS-App-ID }
+*[AVP]
+
+< ProSe-Restricted-Code-Suffix-Range > ::= < AVP-Header: 3847 10415 >
+{ Beginning-Suffix}
+[ Ending–Suffix ]
+*[AVP]
+
+< Code-Receiving-Security-Material > ::= < AVP-Header: 3847 10415 >
+[ DUSK ]
+[ DUIK ]
+[ MIC-Check-Indicator ]
+[ DUCK ]
+[ Encrypted-Bitmask ]
+*[AVP]
+
+< Code-Sending-Security-Material > ::= < AVP-Header: 3847 10415 >
+[ DUSK ]
+[ DUIK ]
+[ DUCK ]
+[ Encrypted-Bitmask ]
+*[AVP]
+
+< ProSe-App-Code-Suffix-Range > ::= < AVP-Header: 3847 10415 >
+{ Beginning-Suffix }
+[ Ending–Suffix ]
+*[AVP]

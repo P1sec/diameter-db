@@ -85,3 +85,26 @@
 *[ Proxy-Info ]
 *[ Route-Record ]
 *[ AVP ]
+
+< Charging-Rule-Report > ::= < AVP-Header: 1018 >
+*[Charging-Rule-Name]
+*[Charging-Rule-Base-Name]
+[PCC-Rule-Status]
+[QoS-Information]
+*[AVP]
+
+< QoS-Information > ::= < AVP-Header: 1016 >
+[ QoS-Class-Identifier ]
+[ Max-Requested-Bandwidth-UL ]
+[ Max-Requested-Bandwidth-DL ]
+[ Guaranteed-Bitrate-UL ]
+[ Guaranteed-Bitrate-DL ]
+[ Allocation-and-Retention-Priority ]
+[ Bearer-Identifier ]
+
+< Tunnel-Information > ::= < AVP-Header: ???? >
+{ Tunnel-Header-Length }
+*[ Tunnel-Header-Filter ]
+
+The Event-Trigger AVP (AVP code 1006) is of type Enumerated
+The TFT-Filter AVP (AVP code 1012) is of type IPFilterRule

@@ -168,3 +168,22 @@
 [ Failed-AVP ]
 *[ Proxy-Info ]
 *[ Route-Record ]
+
+< ProSe-Subscription-Data > ::= < AVP-Header: 3701 10415 >
+{ ProSe-Permission }
+*[ ProSe-Allowed-PLMN ]
+[ 3GPP-Charging-Characteristics ]
+*[AVP]
+
+< ProSe-Allowed-PLMN > ::= < AVP-Header: 3703 10415 >
+[ Visited-PLMN-Id ]
+[ Authorized-Discovery-Range ]
+[ ProSe-Direct-Allowed ]
+*[AVP]
+
+< ProSe-Initial-Location-Information > ::= < AVP-Header: 3707 10415 >
+[MME-Name]
+[E-UTRAN-Cell-Global-Identity]
+[Tracking-Area-Identity]
+[Age-Of-Location-Information]
+*[AVP]

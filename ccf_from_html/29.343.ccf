@@ -85,3 +85,34 @@
 *[ Proxy-Info ]
 { ProSe-Request-Type }
 *[ AVP ]
+
+< Monitor-Target > ::= < AVP-Header: 3607 >
+{ Target-RPAUID }
+{ PDUID }
+[ Metadata-Indicator ]
+*[ ProSe-Code-Suffix-Mask ]
+*[AVP]
+
+< ProSe-Code-Suffix-Mask > ::= < AVP-Header: 3608 >
+{ Suffix-Code }
+1*{ Suffix-Mask }
+*[AVP]
+
+< Banned-User-Target > ::= < AVP-Header: 3611 >
+{ Target-RPAUID }
+{ Target-PDUID }
+*[AVP]
+
+The Origin-App-Layer-User-Id AVP (AVP code 3600) is of type UTF8String
+The Target-App-Layer-User-Id AVP (AVP code 3601) is of type UTF8String
+The ProSe-Function-ID AVP (AVP code 3602) is of type OctetString
+The ProSe-Request-Type AVP (AVP code 3603) is of type Unsigned32
+The PDUID AVP (AVP code 3604) is of type OctetString
+The Application-Data AVP (AVP code 3605) is of type UTF8String
+The Allowed-Suffixes-Number AVP (AVP code 3606) is of type Unsigned32
+The Monitor-Target AVP (AVP code 3607) is of type Grouped
+The ProSe-Code-Suffix-Mask AVP (AVP code 3608) is of type Grouped
+The Suffix-Code AVP (AVP code 3609) is of type OctetString
+The Suffix-Mask AVP (AVP code 3610) is of type OctetString
+The Banned-User-Target AVP (AVP code 3611) is of type Grouped
+The Metadata-Indicator AVP (AVP code 3612) is of type Unsigned32

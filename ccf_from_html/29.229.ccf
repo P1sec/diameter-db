@@ -251,3 +251,103 @@
 [ Proxy-Info ]
 [ Supported-Applications ]
 * [ AVP ]
+
+< Server-Capabilities > ::= < AVP-Header: 603 10415 >
+*[Mandatory-Capability]
+*[Optional-Capability]
+*[Server-Name]
+*[AVP]
+
+< SIP-Auth-Data-Item > ::= < AVP-Header: 612 10415 >
+[ SIP-Item-Number ]
+[ SIP-Authentication-Scheme ]
+[ SIP-Authenticate ]
+[ SIP-Authorization ]
+[ SIP-Authentication-Context ]
+[ Confidentiality-Key ]
+[ Integrity-Key ]
+[ SIP-Digest-Authenticate ]
+[ Framed-IP-Address ]
+[ Framed-IPv6-Prefix ]
+[ Framed-Interface-Id ]
+* [ Line-Identifier ]
+* [AVP]
+
+< Deregistration-Reason > ::= < AVP-Header: 615 10415 >
+{ Reason-Code }
+[ Reason-Info ]
+* [AVP]
+
+< Charging-Information > ::= < AVP-Header: 618 10415 >
+[ Primary-Event-Charging-Function-Name ]
+[ Secondary-Event-Charging-Function-Name ]
+[ Primary-Charging-Collection-Function-Name ]
+[ Secondary-Charging-Collection-Function-Name ]
+*[ AVP]
+
+< Supported-Features > ::= < AVP-Header: 628 10415 >
+{ Vendor-Id }
+{ Feature-List-ID }
+{ Feature-List }
+*[AVP]
+
+< Supported-Applications > ::= < AVP-Header: 631 10415 >
+*[ Auth-Application-Id ]
+*[ Acct-Application-Id ]
+*[ Vendor-Specific-Application-Id ]
+*[ AVP ]
+
+< Associated-Identities > ::= < AVP-Header: 632, 10415 >
+*[ User-Name ]
+*[ AVP ]
+
+< SIP-Digest-Authenticate > ::= < AVP-Header: 635 10415 >
+{ Digest-Realm }
+[ Digest-Algorithm ]
+{ Digest-QoP }
+{ Digest-HA1}
+*[ AVP ]
+
+< SCSCF-Restoration-Info > ::= < AVP-Header: 639, 10415 >
+{ User-Name }
+1*{ Restoration-Info }
+[ SIP-Authentication-Scheme ]
+*[ AVP ]
+
+< Subscription-Info > ::= < AVP-Header: 642, 10415 >
+{ Call-ID-SIP-Header }
+{ From-SIP-Header }
+{ To-SIP-Header }
+{ Record-Route }
+{Contact}
+*[ AVP ]
+
+< Associated-Registered-Identities > ::= < AVP-Header: 647, 10415 >
+*[ User-Name ]
+*[ AVP ]
+
+< Restoration-Info > ::= < AVP-Header: 649, 10415 >
+{ Path }
+{ Contact }
+[ Initial-CSeq-Sequence-Number ]
+[ Call-ID-SIP-Header ]
+[ Subscription-Info ]
+[ P-CSCF-Subscription-Info ]
+*[ AVP ]
+
+< Identity-with-Emergency-Registration > ::= < AVP-Header: 651, 10415 >
+{ User-Name }
+{ Public-Identity }
+*[ AVP ]
+
+< Allowed-WAF-WWSF-Identities > ::= < AVP-Header: 656 10415 >
+*[ WebRTC-Authentication-Function-Name ]
+*[ WebRTC-Web-Server-Function-Name ]
+*[ AVP]
+
+< P-CSCF-Subscription-Info > ::= < AVP-Header: 660, 10415 >
+{ Call-ID-SIP-Header }
+{ From-SIP-Header }
+{ To-SIP-Header }
+{ Contact }
+*[ AVP ]

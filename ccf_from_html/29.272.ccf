@@ -512,3 +512,461 @@
 [ Failed-AVP ]
 *[ Proxy-Info ]
 *[ Route-Record ]
+
+< Subscription-Data > ::= < AVP-Header: 1400 10415 >
+[ Subscriber-Status ]
+[ MSISDN ]
+[ A-MSISDN ]
+[ STN-SR ]
+[ ICS-Indicator ]
+[ Network-Access-Mode ]
+[ Operator-Determined-Barring ]
+[ HPLMN-ODB ]
+*10[ Regional-Subscription-Zone-Code ]
+[ Access-Restriction-Data ]
+[ APN-OI-Replacement ]
+[ LCS-Info ]
+[ Teleservice-List ]
+*[ Call-Barring-Info ]
+[ 3GPP-Charging-Characteristics ]
+[ AMBR ]
+[ APN-Configuration-Profile ]
+[ RAT-Frequency-Selection-Priority-ID ]
+[ Trace-Data]
+[ GPRS-Subscription-Data ]
+*[ CSG-Subscription-Data ]
+[ Roaming-Restricted-Due-To-Unsupported-Feature ]
+[ Subscribed-Periodic-RAU-TAU-Timer ]
+[ MPS-Priority ]
+[ VPLMN-LIPA-Allowed ]
+[ Relay-Node-Indicator ]
+[ MDT-User-Consent ]
+[ Subscribed-VSRVCC ]
+[ ProSe-Subscription-Data ]
+[ Subscription-Data-Flags ]
+*[ Adjacent-Access-Restriction-Data ]
+[ DL-Buffering-Suggested-Packet-Count ]
+*[ IMSI-Group-Id ]
+[ UE-Usage-Type ]
+*[ AESE-Communication-Pattern ]
+*[ Monitoring-Event-Configuration ]
+[ Emergency-Info ]
+[ V2X-Subscription-Data ]
+*[ eDRX-Cycle-Length ]
+[ External-Identifier ]
+[ Active-Time ]
+[ Service-Gap-Time ]
+[ Broadcast-Location-Assistance-Data-Types ]
+[ Aerial-UE-Subscription-Information ]
+[ Core-Network-Restrictions ]
+*[ Paging-Time-Window ]
+*[ AVP ]
+
+< Terminal-Information > ::= < AVP-Header: 1401 10415 >
+[ IMEI ]
+[ 3GPP2-MEID ]
+[ Software-Version ]
+*[ AVP ]
+
+< Requested-EUTRAN-Authentication-Info > ::= < AVP-Header: 1408 10415 >
+[ Number-Of-Requested-Vectors ]
+[ Immediate-Response-Preferred ]
+[ Re-synchronization-Info ]
+*[AVP]
+
+< Requested-UTRAN-GERAN-Authentication-Info > ::= < AVP-Header: 1409 10415 >
+[ Number-Of-Requested-Vectors]
+[ Immediate-Response-Preferred ]
+[ Re-synchronization-Info ]
+*[AVP]
+
+< Authentication-Info > ::= < AVP-Header: 1413 10415 >
+*[ E-UTRAN-Vector ]
+*[UTRAN-Vector]
+*[GERAN-Vector]
+*[AVP]
+
+< E-UTRAN-Vector > ::= < AVP-Header: 1414 10415 >
+[ Item-Number ]
+{ RAND }
+{ XRES }
+{ AUTN }
+{ KASME }
+*[AVP]
+
+< UTRAN-Vector > ::= < AVP-Header: 1415 10415 >
+[ Item-Number ]
+{ RAND }
+{ XRES }
+{ AUTN }
+{ Confidentiality-Key }
+{ Integrity-Key }
+*[AVP]
+
+< GERAN-Vector > ::= < AVP-Header: 1416 10415 >
+[ Item-Number ]
+{ RAND }
+{ SRES }
+{ Kc }
+*[AVP]
+
+< APN-Configuration-Profile > ::= < AVP-Header: 1429 10415 >
+{ Context-Identifier }
+[ Additional-Context-Identifier ]
+{ All-APN-Configurations-Included-Indicator }
+1*{APN-Configuration}
+*[AVP]
+
+< APN-Configuration > ::= < AVP-Header: 1430 10415 >
+{ Context-Identifier }
+* 2 [ Served-Party-IP-Address ]
+{ PDN-Type }
+{ Service-Selection}
+[ EPS-Subscribed-QoS-Profile ]
+[ VPLMN-Dynamic-Address-Allowed ]
+[MIP6-Agent-Info ]
+[ Visited-Network-Identifier ]
+[ PDN-GW-Allocation-Type ]
+[ 3GPP-Charging-Characteristics ]
+[ AMBR ]
+*[ Specific-APN-Info ]
+[ APN-OI-Replacement ]
+[ SIPTO-Permission ]
+[ LIPA-Permission ]
+[ Restoration-Priority ]
+[ SIPTO-Local-Network-Permission ]
+[ WLAN-offloadability ]
+[ Non-IP-PDN-Type-Indicator ]
+[ Non-IP-Data-Delivery-Mechanism ]
+[ SCEF-ID ]
+[ SCEF-Realm ]
+[ Preferred-Data-Mode ]
+[ PDN-Connection-Continuity ]
+[ RDS-Indicator ]
+[ Interworking-5GS-Indicator ]
+[ Ethernet-PDN-Type-Indicator ]
+*[ AVP ]
+
+< EPS-Subscribed-QoS-Profile > ::= < AVP-Header: 1431 10415 >
+{ QoS-Class-Identifier }
+{ Allocation-Retention-Priority }
+*[AVP]
+
+< Allocation-Retention-Priority > ::= < AVP-Header: 1034 10415 >
+{ Priority-Level }
+[ Pre-emption-Capability ]
+[ Pre-emption-Vulnerability ]
+
+< AMBR > ::= < AVP-Header: 1435 10415 >
+{ Max-Requested-Bandwidth-UL }
+{ Max-Requested-Bandwidth-DL }
+[ Extended-Max-Requested-BW-UL ]
+[ Extended-Max-Requested-BW-DL ]
+*[AVP]
+
+< MIP6-Agent-Info > ::= < AVP-Header: 486 >
+*2[ MIP-Home-Agent-Address ]
+[ MIP-Home-Agent-Host ]
+[ MIP6-Home-Link-Prefix ]
+*[ AVP ]
+
+< Trace-Data > ::= < AVP-Header: 1458 10415 >
+{Trace-Reference}
+{Trace-Depth}
+{Trace-NE-Type-List}
+[Trace-Interface-List]
+{Trace-Event-List}
+[OMC-Id]
+{Trace-Collection-Entity}
+[MDT-Configuration]
+*[AVP]
+
+< GPRS-Subscription-Data > ::= < AVP-Header: 1467 10415 >
+{ Complete-Data-List-Included-Indicator }
+1*50{PDP-Context}
+*[AVP]
+
+< PDP-Context > ::= < AVP-Header: 1469 10415 >
+{ Context-Identifier }
+{ PDP-Type }
+[ PDP-Address ]
+{ QoS-Subscribed }
+[ VPLMN-Dynamic-Address-Allowed ]
+{ Service-Selection }
+[3GPP-Charging-Characteristics]
+[ Ext-PDP-Type ]
+[ Ext-PDP-Address ]
+[ AMBR ]
+[ APN-OI-Replacement ]
+[ SIPTO-Permission ]
+[ LIPA-Permission ]
+[ Restoration-Priority ]
+[ SIPTO-Local-Network-Permission ]
+[ Non-IP-Data-Delivery-Mechanism ]
+[ SCEF-ID ]
+*[AVP]
+
+< CSG-Subscription-Data > ::= < AVP-Header: 1436 10415 >
+{ CSG-Id }
+[ Expiration-Date ]
+*[ Service-Selection ]
+[ Visited-PLMN-Id ]
+*[AVP]
+
+< Specific-APN-Info > ::= < AVP-Header: 1472 10415 >
+{ Service-Selection }
+{ MIP6-Agent-Info }
+[ Visited-Network-Identifier ]
+*[ AVP ]
+
+< LCS-Info > ::= < AVP-Header: 1473 10415 >
+*[ GMLC-Number]
+*[ LCS-PrivacyException ]
+*[ MO-LR ]
+*[AVP]
+
+< LCS-PrivacyException > ::= < AVP-Header: 1475 10415 >
+{ SS-Code }
+{ SS-Status }
+[ Notification-To-UE-User ]
+*[ External-Client ]
+*[ PLMN-Client ]
+*[ Service-Type ]
+*[AVP]
+
+< External-Client > ::= < AVP-Header: 1479 10415 >
+{ Client-Identity }
+[ GMLC-Restriction ]
+[ Notification-To-UE-User ]
+*[AVP]
+
+< Service-Type > ::= < AVP-Header: 1483 10415 >
+{ ServiceTypeIdentity }
+[ GMLC-Restriction ]
+[ Notification-To-UE-User ]
+*[AVP]
+
+< MO-LR > ::= < AVP-Header: 1485 10415 >
+{ SS-Code }
+{ SS-Status }
+*[AVP]
+
+< Teleservice-List > ::= < AVP-Header: 1486 10415 >
+1 * { TS-Code }
+* [ AVP ]
+
+< Call-Barring-Info > ::= < AVP-Header: 1488 10415 >
+{ SS-Code }
+{ SS-Status }
+*[ AVP ]
+
+< EPS-User-State > ::= < AVP-Header: 1495 10415 >
+[MME-User-State]
+[SGSN-User-State]
+*[AVP]
+
+< EPS-Location-Information > ::= < AVP-Header: 1496 10415 >
+[MME-Location-Information]
+[SGSN-Location-Information]
+*[AVP]
+
+< MME-User-State > ::= < AVP-Header: 1497 10415 >
+[User-State]
+*[AVP]
+
+< SGSN-User-State > ::= < AVP-Header: 1498 10415 >
+[User-State]
+*[AVP]
+
+< MME-Location-Information > ::= < AVP-Header: 1600 10415 >
+[E-UTRAN-Cell-Global-Identity]
+[Tracking-Area-Identity]
+[Geographical-Information]
+[Geodetic-Information]
+[Current-Location-Retrieved]
+[Age-Of-Location-Information]
+[User-CSG-Information]
+[ eNodeB-ID ]
+[ Extended-eNodeB-ID ]
+*[AVP]
+
+< SGSN-Location-Information > ::= < AVP-Header: 1601 10415 >
+[Cell-Global-Identity]
+[Location-Area-Identity]
+[Service-Area-Identity]
+[Routing-Area-Identity]
+[Geographical-Information]
+[Geodetic-Information]
+[Current-Location-Retrieved]
+[Age-Of-Location-Information]
+[ User-CSG-Information]
+*[AVP]
+
+< Active-APN > ::= < AVP-Header: 1612 10415 >
+{ Context-Identifier }
+[ Service-Selection ]
+[ MIP6-Agent-Info ]
+[ Visited-Network-Identifier ]
+*[ Specific-APN-Info ]
+*[ AVP ]
+
+< MDT-Configuration > ::= < AVP-Header: 1622 10415 >
+{ Job-Type }
+[ Area-Scope ]
+[ List-Of-Measurements ]
+[ Reporting-Trigger ]
+[ Report-Interval ]
+[ Report-Amount ]
+[ Event-Threshold-RSRP ]
+[ Event-Threshold-RSRQ ]
+[ Logging-Interval ]
+[ Logging-Duration ]
+[ Measurement-Period-LTE ]
+[ Measurement-Period-UMTS ]
+[ Collection-Period-RMM-LTE ]
+[ Collection-Period-RRM-UMTS ]
+[ Positioning-Method ]
+[ Measurement-Quantity]
+[ Event-Threshold-Event-1F ]
+[ Event-Threshold-Event-1I ]
+*[ MDT-Allowed-PLMN-Id ]
+*[ MBSFN-Area ]
+*[ AVP ]
+
+< Area-Scope > ::= < AVP-Header: 1623 10415 >
+*[ Cell-Global-Identity ]
+*[ E-UTRAN-Cell-Global-Identity ]
+*[ Routing-Area-Identity ]
+*[ Location-Area-Identity ]
+*[ Tracking-Area-Identity ]
+*[ AVP ]
+
+< Equivalent-PLMN-List > ::= < AVP-Header: 1637 10415 >
+1*{ Visited-PLMN-Id }
+*[AVP]
+
+< VPLMN-CSG-Subscription-Data > ::= < AVP-Header: 1641 10415 >
+{ CSG-Id }
+[ Expiration-Date ]
+*[AVP]
+
+< Local-Time-Zone > ::= < AVP-Header: 1649 10415 >
+{ Time-Zone }
+{ Daylight-Saving-Time }
+* [ AVP ]
+
+< ProSe-Subscription-Data > ::= < AVP-Header: xxx 10415 >
+{ ProSe-Permission }
+*[AVP]
+
+< WLAN-offloadability > ::= < AVP-Header: 1667 >
+[ WLAN-offloadability-EUTRAN ]
+[ WLAN-offloadability-UTRAN ]
+*[ AVP ]
+
+< Adjacent-PLMNs > ::= < AVP-Header: 1672 10415 >
+1*{ Visited-PLMN-Id }
+*[AVP]
+
+< Adjacent-Access-Restriction-Data > ::= < AVP-Header: 1673 10415 >
+{ Visited-PLMN-Id }
+{ Access-Restriction-Data }
+*[AVP]
+
+< IMSI-Group-Id > ::= < AVP-Header: 1675 10415 >
+{ Group-Service-Id }
+{ Group-PLMN-Id }
+{ Local-Group-Id }
+*[AVP]
+
+< AESE-Communication-Pattern > ::= < AVP-Header: 3113 10415 >
+[ SCEF-Reference-ID ]
+{ SCEF-ID }
+*[ SCEF-Reference-ID-for-Deletion ]
+*[ Communication-Pattern-Set ]
+[ MTC-Provider-Info ]
+*[AVP]
+
+< Communication-Pattern-Set > ::= < AVP-Header: 3114 10415 >
+[ Periodic-Communication-Indicator ]
+[ Communication-Duration-Time ]
+[ Periodic-Time ]
+*[ Scheduled-Communication-Time ]
+[ Stationary-Indication ]
+[ Reference-ID-Validity-Time ]
+[ Traffic-Profile ]
+*[AVP]
+
+< Monitoring-Event-Configuration > ::= < AVP-Header: 3122 10415 >
+[ SCEF-Reference-ID ]
+{ SCEF-ID }
+{ Monitoring-Type }
+*[ SCEF-Reference-ID-for-Deletion ]
+[ Maximum-Number-of-Reports ]
+[ Monitoring-Duration ]
+[ Charged-Party ]
+[ UE-Reachability-Configuration ]
+[ Location-Information-Configuration ]
+[ SCEF-Realm ]
+[ External-Identifier ]
+[ MTC-Provider-Info ]
+[ PDN-Connectivity-Status-Configuration ]
+*[ AVP ]
+
+< Report > ::= < AVP-Header: 3123 10415 >
+{ SCEF-Reference-ID }
+[ SCEF-ID ]
+[ Reachability-Information ]
+[ EPS-Location-Information ]
+[ Monitoring-Type ]
+[ Loss-Of-Connectivity-Reason ]
+[ Idle-Status-Indication ]
+[ Maximum-UE-Availability-Time ]
+*[ PDN-Connectivity-Status-Report ]
+*[ AVP ]
+
+< UE-Reachability-Configuration > ::= < AVP-Header: 3129 10415 >
+[ Reachability-Type ]
+[ Maximum-Response-Time ]
+*[ AVP ]
+
+< Supported-Services > ::= < AVP-Header: 3143 10415 >
+[ Supported-Monitoring-Events ]
+*[AVP]
+
+< Subscription-Data-Deletion > ::= < AVP-Header: 1685 10415 >
+{ DSR-Flags }
+[ SCEF-ID ]
+*[ Context-Identifier ]
+[ Trace-Reference ]
+*[ TS-Code ]
+*[ SS-Code ]
+*[ AVP ]
+
+< Emergency-Info > ::= < AVP-Header: 1687 10415 >
+[ MIP6-Agent-Info ]
+*[ AVP ]
+
+< V2X-Subscription-Data > ::= < AVP-Header: 1688 10415 >
+[ V2X-Permission ]
+[UE-PC5-AMBR ]
+*[AVP]
+
+< eDRX-Cycle-Length > ::= < AVP-Header: 1691 10415 >
+{ RAT-Type }
+{ eDRX-Cycle-Length-Value }
+*[ AVP ]
+
+< MBSFN-Area > ::= < AVP-Header: 1694 10415 >
+[ MBSFN-Area-ID ]
+[ Carrier-Frequency ]
+*[ AVP ]
+
+< Paging-Time-Window > ::= < AVP-Header: 1701 10415 >
+{ Operation-Mode }
+{ Paging-Time-Window-Length }
+*[ AVP ]
+
+< eDRX-Related-RAT > ::= < AVP-Header: 1705 10415 >
+1 * { RAT-Type }
+*[AVP]

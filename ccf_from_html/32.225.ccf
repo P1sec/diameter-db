@@ -1,0 +1,68 @@
+< Application-Server-Information > ::= < AVP-Header: 850 >
+[Application-Server]
+*[Application-Provided-Called-Party-Address]
+
+< Cause > ::= < AVP-Header: 860 >
+{Cause-Code}
+{Node-Functionality}
+
+< Event-Type > ::= < AVP-Header: 823 >
+[ SIP-Method]
+[ Event ]
+[ Content-Type ]
+[ Content-Length ]
+[ Content-Disposition ]
+
+< Inter-Operator-Identifier > ::= < AVP-Header: 838 >
+[ Originating-IOI ]
+[ Terminating-IOI ]
+
+< SDP-Media-Component > ::= < AVP-Header: 843 >
+[ SDP-Media-Name ]
+*[ SDP-Media-Description ]
+[ GPRS-Charging-Id ]
+
+< Time-Stamps > ::= < AVP-Header: 833 >
+[SIP-Request-Timestamp]
+[SIP-Response-Timestamp]
+
+< Trunk-Group-ID > ::= < AVP-Header: 851 >
+[ Incoming-Trunk-Group-ID ]
+[ Outgoing-Trunk-Group-ID ]
+
+The Application-Provided-Called-Party-Address AVP (AVP code 837) is of type UTF8String
+The Application-Server-Information AVP (AVP code 850) is of type Grouped
+The Application-Server AVP (AVP code 836) is of type UTF8String
+The Authorised-QoS AVP (AVP code 849) is of type UTF8String
+The Bearer-Service AVP (AVP code 854) is of type OctetString
+The Called-Party-Address AVP (AVP code 832) is of type UTF8String
+The Calling-Party-Address AVP (AVP code 831) is of type UTF8String
+The Cause AVP (AVP code 860) is of type Grouped
+The Cause-Code AVP (AVP code 861) is of type Enumerated
+The Content-Disposition AVP (AVP code 828) is of type UTF8String
+The Content-Length AVP (AVP code 827) is of type UTF8String
+The Content-Type AVP (AVP code 826) is of type UTF8String
+The Event AVP (AVP code 825) is of type UTF8String
+The Event-Type AVP (AVP code 823) is of type Grouped
+The GGSN-Address AVP (AVP code 847) is of type IPAddress
+The GPRS-Charging-ID AVP (AVP code 846) is of type UTF8String
+The IMS-Charging-Identifier AVP (AVP code 841) is of type UTF8String
+The Incoming-Trunk-Group-ID AVP (AVP code 852) is of type UTF8String
+The Inter-Operator-Identifier AVP (AVP code 838) is of type Grouped
+The Node-Functionality AVP (AVP code 862) is of type Enumerated
+The Originating-IOI AVP (AVP code 839) is of type UTF8String
+The Outgoing-Trunk-Group-ID AVP (AVP code 853) is of type UTF8String
+The Role-Of-Node AVP (AVP code 829) is of type Enumerated
+The SDP-Media-Description AVP (AVP code 845) is of type UTF8String
+The SDP-Media-Name AVP (AVP code 844) is of type UTF8String
+The SDP-Session-Description AVP (AVP code 842) is of type UTF8String
+The Served-Party-IP-Address AVP (AVP code 848) is of type IPAddress
+The Service-ID AVP (AVP code 855) is of type UTF8String
+The Service-Specific-Data AVP (AVP Code 863) is of type UTF8String
+The SIP-Method AVP (AVP code 824) is of type UTF8String
+The SIP-Request-Timestamp AVP (AVP code 834) is of type UTF8String
+The SIP-Response-Timestamp AVP (AVP code 835) is of type UTF8String
+The Terminating-IOI AVP (AVP code 840) is of type UTF8String
+The Time-Stamp AVP (AVP code 833) is of type Grouped
+The Trunk-Group-ID AVP (AVP code 851) is of type Grouped
+The User-Session-Id AVP (AVP code 830) is of type UTF8String

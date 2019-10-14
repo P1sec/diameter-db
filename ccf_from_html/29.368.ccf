@@ -66,3 +66,42 @@
 [ Failed-AVP ]
 *[ Proxy-Info ]
 *[ AVP ]
+
+< Device-Action > ::= < AVP-Header: 3001 >
+[ External-Id ]
+[ MSISDN ]
+[ SCS-Identity ]
+{ Reference-Number }
+[ Old-Reference-Number ]
+{ Action-Type }
+[ Trigger-Data ]
+[ Validity-Time ]
+*[ AVP ]
+
+< Device-Notification > ::= < AVP-Header: 3002 >
+[ External-Id ]
+[ MSISDN ]
+[ SCS-Identity ]
+{ Reference-Number }
+{ Action-Type }
+[ Request-Status ]
+[ MTC-Error-Diagnostic ]
+[ Delivery-Outcome ]
+[ SM-RP-UI ]
+[ Application-Port-Identifier ]
+*[ AVP ]
+
+< Trigger-Data > ::= < AVP-Header: 3003 >
+{ Payload }
+[ Priority-Indication ]
+[ Application-Port-Identifier ]
+*[ AVP ]
+
+The Device-Action AVP (AVP code 3001) is of type Grouped
+The Device-Notification AVP (AVP code 3002) is of type Grouped
+The Trigger-Data AVP (AVP code 3003) is of type Grouped
+The Payload AVP (AVP code 3004) is of type OctetString
+The Action-Type AVP (AVP code 3005) is of type Enumerated
+The Request-Status AVP (AVP code 3008) is of type Enumerated
+The Delivery-Outcome AVP (AVP code 3009) is of type Enumerated
+The Application-Port-Identifier AVP (AVP code 3010) is of type Unsigned32

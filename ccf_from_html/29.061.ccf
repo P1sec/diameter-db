@@ -541,3 +541,33 @@
 [ Redirect-Max-Cache-Time ]
 * [ Proxy-Info ]
 [ Restart-Counter ]
+
+The TMGI AVP (AVP code 900) is of type OctetString
+The Required-MBMS-Bearer-Capabilities AVP (AVP code 901) is of type UTF8String
+The MBMS-StartStop-Indication AVP (AVP code 902) is of type Enumerated
+The MBMS-Service-Area AVP (AVP code 903) is of type OctetString
+The MBMS-Session-Duration AVP (AVP code 904) is of type OctetString
+The Alternative-APN AVP (AVP code 905) is of type UTF8String
+The MBMS-Service-Type AVP (AVP code 906) is of type Enumerated
+The MBMS-2G-3G-Indicator AVP (AVP code 907) is of type Enumerated
+The MBMS-Session-Identity AVP (AVP code 908) is of type OctetString
+The RAI AVP (AVP Code 909) is of type UTF8String
+The Additional-MBMS-Trace-Info AVP (AVP Code 910) is of type OctetString
+The MBMS-Time-To-Data-Transfer AVP (AVP code 911) is of type OctetString
+The MBMS-Session-Repetition-Number AVP (AVP code 912) is of type OctetString
+The MBMS-Counting-Information AVP (AVP code 914) is of type Enumerated
+The MBMS-User-Data-Mode-Indication AVP (AVP code 915) is of type Enumerated
+The MBMS-GGSN-Address AVP (AVP code 916) is of type OctetString
+The MBMS-GGSN-Ipv6-Address AVP (AVP code 917) is of type OctetString
+The MBMS-BMSC-SSM-IP-Address AVP (AVP code 918) is of type OctetString
+The MBMS-BMSC-SSM-Ipv6-Address AVP (AVP code 919) is of type OctetString
+The MBMS-Flow-Identifier AVP (AVP code 920) is of type OctetString
+The MBMS-Access-Indicator AVP (AVP code 923) is of type Enumerated
+The MBMS-GW-SSM-IP-Address AVP (AVP code 924) is of type OctetString
+The MBMS-GW-SSM-Ipv6-Address AVP (AVP code 925) is of type OctetString
+The MBMS-BMSC-SSM-UDP-Port AVP (AVP code 926) is of type OctetString
+The MBMS-GW-UDP-Port AVP (AVP code 927) is of type OctetString
+The MBMS-Data-Transfer-Start AVP (AVP code 929) is of type Unsigned64
+The MBMS-Data-Transfer-Stop AVP (AVP code 930) is of type Unsigned64
+The Diagnostic-Info AVP (AVP code 933) is of type Unsigned32
+The MBMS-Cell-List AVP (AVP code 934) is of type OctetString
