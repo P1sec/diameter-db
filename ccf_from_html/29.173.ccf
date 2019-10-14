@@ -35,3 +35,27 @@
 [ Failed-AVP ]
 *[ Proxy-Info ]
 *[ Route-Record ]
+
+< Serving-Node > ::= < AVP-Header: 2401 10415 >
+[ SGSN-Number ]
+[ SGSN-Name ]
+[ SGSN-Realm ]
+[ MME-Name ]
+[ MME-Realm ]
+[ MSC-Number ]
+[ 3GPP-AAA-Server-Name ]
+[ LCS-Capabilities-Sets ]
+[ GMLC-Address ]
+*[AVP]
+
+< Additional-Serving-Node > ::= < AVP-Header: 2406 10415 >
+[ SGSN-Number ]
+[ MME-Name ]
+[ SGSN-Name ]
+[ SGSN-Realm ]
+[ MME-Realm ]
+[ MSC-Number ]
+[ 3GPP-AAA-Server-Name ]
+[ LCS-Capabilities-Sets ]
+[ GMLC-Address ]
+*[AVP]

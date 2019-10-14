@@ -39,10 +39,10 @@ IETF_RFCS_FOLDER = realpath(SCRIPT_DIR + '/ietf_rfcs')
 
 CCF_AVP_REGEX = '(?:[\d\s]*\*[\d\s]*)?(?:\s*\[[^\]]+?\s*\]\s*|\s*<[^>]+?\s*>(?!\s*::)\s*|\s*\{[^\}]*?\s*\}\s*)'
 
-CCF_MESSAGE_REGEX = r'<?\s*([^>\n]+?)\s*>?\s*::\s*=\s*<\s*Diameter[-\s_]*Header([^>]*?)\s*>'
+CCF_MESSAGE_REGEX = r'<?\s*([^<>\n ]+?)\s*>?\s*::\s*=\s*<\s*Diameter[-\s_]*Header([^>]*?)\s*>'
 CCF_MESSAGE_REGEX += r'((?:' + CCF_AVP_REGEX + ')+)'
 
-CCF_GROUPED_AVP_REGEX = r'<?\s*([^>\n]+?)\s*>?\s*::\s*=\s*<\s*AVP[-\s_]*Header\s*:?([^>]*?)\s*>'
+CCF_GROUPED_AVP_REGEX = r'<?\s*([^<>\n ]+?)\s*>?\s*::\s*=\s*<\s*AVP[-\s_]*Header\s*:?\s*([^>]*?)\s*>'
 CCF_GROUPED_AVP_REGEX += r'((?:' + CCF_AVP_REGEX + ')+)'
 
 
@@ -300,13 +300,80 @@ try:
                     continue # Some forgotten placeholder? (for example: in TS 29.215)
                 
                 
+                known_typos_from_rfc_4005 = {
+                    'Acounting-Auth-Method': 'Accounting-Auth-Method',
+                    'Connection-Info': 'ConnectInfo',
+                    'Framed-Appletalk-Link': 'Framed-AppleTalk-Link',
+                    'Framed-Appletalk-Network': 'Framed-AppleTalk-Network',
+                    'Framed-Appletalk-Zone': 'Framed-AppleTalk-Zone',
+                    'Qos-Filter-Rule': 'QoS-Filter-Rule',
+                    'Redirect-Host-Usase': 'Redirect-Host-Usage',
+                    'Redirected-Host': 'Redirect-Host',
+                    'Redirected-Host-Usage': 'Redirect-Host-Usage',
+                    'Redirected-Host-Cache-Time': 'Redirect-Max-Cache-Time',
+                    'Redirected-Max-Cache-Time': 'Redirect-Max-Cache-Time',
+                        
+                        
+                    # Also this one from RFC5866
+                    'Acct-Multisession-Id': 'Acct-Multi-Session-Id',
+                    'Authorization-Grace-Period':    'Auth-Grace-Period',
+                    'Authorization-Session-Lifetime':  'Authorization-Lifetime',
+                    'Redirect-Host-Max-Cache-Time': 'Redirect-Max-Cache-Time',
+                    
+                    # And from RFC5778
+                    'Multi-Round-Time': 'Multi-Round-Time-Out',
+                    'MIP-Agent-Info':  'MIP6-Agent-Info',
+                    
+                    # And from RFC3588
+                    'Original-State-Id':  'Origin-State-Id',
+                    'Redirect-Host-Cache-Time':  'Redirect-Max-Cache-Time',
+                    
+                    # RFC4005, RFC7155
+                    'Connection-Info':  'Connect-Info',
+                    
+                    # From TS 29.334
+                    'ProSe Subscription-Data': 'ProSe-Subscription-Data',
+                    
+                    # From TS 29.329
+                    'User-Data':     'Sh-User-Data',
+                    
+                    # From TS 29.*
+                    'TWAN-Identifier':     '3GPP-TWAN-Identifier',
+                    
+                    'SM-Delivery- Failure-Cause': 'SM-Delivery-Failure-Cause'
+                }
                 
+
+                avp_name =     known_typos_from_rfc_4005.get(avp_name,  avp_name)
+
+
     
                 avp_object = sql_session.query(DiameterAVPDefinition).filter_by(avp_name = avp_name).first()
                 if not avp_object and 'Acct' in avp_name:
                     avp_object = sql_session.query(DiameterAVPDefinition).filter_by(avp_name = avp_name.replace('Acct', 'Accounting')).first()
                 elif not avp_object and 'Accounting' in avp_name:
                     avp_object = sql_session.query(DiameterAVPDefinition).filter_by(avp_name = avp_name.replace('Accounting', 'Acct')).first()
+                
+                if not avp_object and ' ' in avp_name:
+                    avp_name = avp_name.replace(' ', '')
+                    
+                    avp_object = sql_session.query(DiameterAVPDefinition).filter_by(avp_name = avp_name).first()
+                
+                if not avp_object:
+
+
+                    
+                    if 'Authorization-Session-Volume' in avp_name:
+                        continue  # Defined nowhere  - from RFC 5866
+                        
+                    if 'Restart-Counter' in avp_name.title():
+                        continue  # No attributed code  - from TS  29.816
+                    
+                    if 'Application-Variant' in avp_name.title():
+                        continue  # No attributed code  - from TS  29.909
+                    
+                    print('Note:  Dismissing  a reference to an  AVP which is not present in our standard  databases, or defined in a stanard  format in our specifications:  "%s"' %  avp_name)
+                    continue
                 
                 assert avp_object
                 
@@ -358,7 +425,7 @@ try:
         -  AVP types definitions
     """
     
-    def parse_rfc_avp_definitions(rfc_contents : str, rfc_number : int):
+    def extract_plain_text_avp_definitions_from_spec(rfc_contents : str, rfc_number : str,  source : DiameterDataSource               ,              source_url  : str,        also_parse_grouped_avps : bool = True):
         
         # 1. Parse AVP type definitions
                 
@@ -412,8 +479,8 @@ try:
                 sql_session.add(DiameterObjectUpdate(
                     object_id = 'avp_%d_%d' % (avp_code, 0),
                 
-                    source = DiameterDataSource.ietf_specifications,
-                    source_url = 'https://tools.ietf.org/html/rfc%d' % rfc_number,
+                    source = source,
+                    source_url = source_url,
                 
                     insertion_date = datetime.now()
                     
@@ -423,7 +490,7 @@ try:
         
         # 1b. Parse plain text AVP type definitions
 
-        for avp_name, avp_code, avp_type in findall('The ([\w\d-]+) AVP \(AVP Code (\d+)\) is of type ([\w\d-]+)', rfc_contents):
+        for avp_name, avp_code, avp_type in findall('The ([\w\d-]+) AVP \(AVP Code (\d+)\) is of type ([\w\d-]+)', rfc_contents, flags = IGNORECASE):
             
             avp_code = int(avp_code)
             
@@ -460,8 +527,8 @@ try:
                 sql_session.add(DiameterObjectUpdate(
                     object_id = 'avp_%d_%d' % (avp_code, 0),
                 
-                    source = DiameterDataSource.ietf_specifications,
-                    source_url = 'https://tools.ietf.org/html/rfc%d' % rfc_number,
+                    source = source,
+                    source_url = source_url,
                 
                     insertion_date = datetime.now()
                     
@@ -470,14 +537,20 @@ try:
                 sql_session.commit()
         
         
+        if not  also_parse_grouped_avps:
+            return  # We'll iterate before all the other specs so that we know as much AVPs as possible before it
+        
         # 2. Parse grouped AVP definitions
         
         
-        for grouped_avp_name, grouped_avp_header, grouped_avp_elements in findall(CCF_GROUPED_AVP_REGEX, rfc_contents, flags = IGNORECASE):
+        for grouped_avp_name, grouped_avp_header, grouped_avp_elements in reversed(findall(CCF_GROUPED_AVP_REGEX, rfc_contents, flags = IGNORECASE)     ):
             
             grouped_avp_header = grouped_avp_header.strip().split()
             
-            grouped_avp_code =  int(grouped_avp_header[0])
+            if grouped_avp_header[0] in ('xxx',  '????',    'XXX', 'TBD', 'TBD1',    'TBD2',      'x'):
+                continue
+            
+            grouped_avp_code =  int(grouped_avp_header[0].strip(','))
             
             grouped_avp_vendor_id = None
             if len(grouped_avp_header) > 1:
@@ -513,8 +586,8 @@ try:
                     sql_session.add(DiameterObjectUpdate(
                         object_id = object_id,
                     
-                        source = DiameterDataSource.ietf_specifications,
-                        source_url = 'https://tools.ietf.org/html/rfc%d' % rfc_number,
+                        source = source,
+                        source_url = source_url,
                     
                         insertion_date = datetime.now()
                         
@@ -568,7 +641,26 @@ try:
                 print('=>    DEBUG:    trying to fetch nested AVP code from RFC "%s" for "%s"' % (rfc_number,  nested_avp_name))
                 
                 
-                nested_avp_code = avp_name_to_code[nested_avp_name] if nested_avp_name in avp_name_to_code else sql_session.query(DiameterAVPDefinition).filter_by(avp_name = nested_avp_name).first().avp_code
+                if nested_avp_name in ('MIP-HA-to-MN-SPI', 'MIP-MN-FA-SPI', 'MIP-MN-HA-SPI'):
+                    continue  # Omissions from RFC   4004
+                
+                if nested_avp_name in avp_name_to_code:
+                    
+                    nested_avp_code = avp_name_to_code[nested_avp_name]
+                
+                
+                else:
+                    
+                    nested_avp =  sql_session.query(DiameterAVPDefinition).filter_by(avp_name = nested_avp_name).first()
+                    
+                    if not nested_avp:
+                        
+                        print('NOTE:  Omitting nested AVP which is present in no known CCF definition:   %s'    %  nested_avp_name)
+                        
+                        
+                        continue
+                    
+                    nested_avp_code = nested_avp.avp_code
                 
                 object_id = 'nested_avp_%d_%d' % (int(grouped_avp_code), nested_avp_code)
                 
@@ -590,8 +682,8 @@ try:
                     sql_session.add(DiameterObjectUpdate(
                         object_id = object_id,
                     
-                        source = DiameterDataSource.ietf_specifications,
-                        source_url = 'https://tools.ietf.org/html/rfc%d' % rfc_number,
+                        source = source,
+                        source_url = source_url,
                     
                         insertion_date = datetime.now()
                         
@@ -673,7 +765,10 @@ try:
             
             grouped_avp_header = grouped_avp_header.strip().split()
             
-            grouped_avp_code =  int(grouped_avp_header[0])
+            if grouped_avp_header[0] in ('xxx',  '????',    'XXX', 'TBD', 'TBD1',    'TBD2',      'x'):
+                continue
+            
+            grouped_avp_code =  int(grouped_avp_header[0].strip(','))
             
             grouped_avp_vendor_id = None
             if len(grouped_avp_header) > 1:
@@ -953,7 +1048,7 @@ try:
                 may_encrypt = may_encrypt,
                 
                 avp_code = avp_code,
-                avp_name = avp_tag.get('name').strip(),
+                avp_name = avp_tag.get('name').strip() if  avp_tag.get('name') != 'PSR-Address' else  'PPR-Address',
                 avp_type = 'Grouped' if is_grouped else type_tag.get('type-name'),
                 
                 is_grouped = is_grouped,
@@ -1022,24 +1117,37 @@ try:
             parse_diafuzzer_avp_types(file_contents)
     
     """
-        3. Parse AVP definitions present in RFCs which were not
-           encountered in Wireshark or Diafuzzer so far
+        3. Parse AVP definitions present in 3GPP+IETF which were
+           not specifications which were not encountered in Wireshark
+           or Diafuzzer so far
     """
+    
+    for also_parse_grouped_avps in (False, True):
 
-    for file_entry in scandir(IETF_RFCS_FOLDER):
+
+        for file_entry in sorted(scandir(IETF_RFCS_FOLDER), key = lambda file_entry: file_entry.name):
+            
+            with open(file_entry.path) as fd:
+                
+                file_contents = fd.read()
+                
+                rfc_number = int(search('\d+', file_entry.name).group(0))
+                
+                extract_plain_text_avp_definitions_from_spec(file_contents, rfc_number, source = DiameterDataSource.ietf_specifications, source_url = 'https://tools.ietf.org/html/rfc%d' % rfc_number    , also_parse_grouped_avps   = also_parse_grouped_avps)
         
-        with open(file_entry.path) as fd:
+        for file_entry in sorted(scandir(EXTRACTED_CCF_FROM_3GPP_PATH), key = lambda file_entry: ('00'           if '29.336' in file_entry.name else  file_entry.name      )):
             
-            file_contents = fd.read()
-            
-            rfc_number = int(search('\d+', file_entry.name).group(0))
-            
-            parse_rfc_avp_definitions(file_contents, rfc_number)
-            
+            with open(file_entry.path) as fd:
+                
+                file_contents = fd.read()
+                
+                tgpp_spec_name =   file_entry.name.rsplit('.', 1)[0]
+                
+                extract_plain_text_avp_definitions_from_spec(file_contents, tgpp_spec_name, source = DiameterDataSource.tgpp_specifications, source_url = 'https://www.3gpp.org/DynaReport/%s.htm' % (     tgpp_spec_name.replace('.', '')  ),      also_parse_grouped_avps   = also_parse_grouped_avps      )
             
     
     """
-        3. Add information from 3GPP+IETF (containing the list of AVPs for each
+        4. Add information from 3GPP+IETF (containing the list of AVPs for each
            message)
     """
 
@@ -1084,7 +1192,7 @@ try:
     sql_session.commit()
     
     """
-        4) Add information from Diafuzzer (a subset of the above,
+        5) Add information from Diafuzzer (a subset of the above,
            originally in an enriched format)
     """
     
@@ -1107,7 +1215,7 @@ try:
 
     
     """
-        4) Add information from IANA
+        6) Add information from IANA
     """
     
 

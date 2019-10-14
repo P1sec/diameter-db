@@ -379,3 +379,102 @@
 [ Failed-AVP ]
 *[ Proxy-Info ]
 *[ AVP ]
+
+< Subsession-Decision-Info > ::= < AVP-Header: 2200 >
+{ Subsession-Id }
+0*2[ AN-GW-Address ]
+[ Result-Code ]
+[ Experimental-Result-Code ]
+*[ Charging-Rule-Remove ]
+*[ Charging-Rule-Install ]
+[ Event-Report-Indication ]
+*[ QoS-Rule-Install ]
+*[ QoS-Rule-Remove ]
+[ Default-EPS-Bearer-QoS ]
+[ Framed-Ipv6-Prefix ]
+*[ Usage-Monitoring-Information ]
+[ Session-Release-Cause ]
+[ Bearer-Control-Mode ]
+*[ Event-Trigger ]
+[ Revalidation-Time ]
+[ Default-Access ]
+[ NBIFOM-Support ]
+[ NBIFOM-Mode ]
+[ RAN-Rule-Support ]
+*[ Routing-Rule-Report]
+[ Removal-Of-Access ]
+[ IP-CAN-Type ]
+[ Online ]
+[ Offline ]
+*[ QoS-Information ]
+*[ AVP ]
+
+< Subsession-Enforcement-Info > ::= < AVP-Header: 2201 >
+{ Subsession-Id }
+[ Subsession-Operation ]
+0*2[ AN-GW-Address ]
+[ Bearer-Identifier ]
+[ Bearer-Operation ]
+*[ Packet-Filter-Information ]
+[ Packet-Filter-Operation ]
+[ QoS-Information ]
+[ Framed-IP-Address ]
+[ Framed-IPv6-Prefix ]
+*[ CoA-Information ]
+[ Called-Station-Id ]
+[ PDN-Connection-ID ]
+[ Bearer-Usage ]
+*[ TFT-Packet-Filter-Information ]
+[ Online ]
+[ Offline ]
+[ Result-Code ]
+[ Experimental-Result-Code ]
+*[ Charging-Rule-Report ]
+[ Credit-Management-Status ]
+*[ QoS-Rule-Report ]
+*[ Application-Detection-Information ]
+[ IP-CAN-Type ]
+[ RAT-Type ]
+[ 3GPP-SGSN-MCC-MNC ]
+[ 3GPP-SGSN-Address ]
+[ 3GPP-SGSN-IPv6-Address ]
+[ RAI ]
+[ 3GPP-User-Location-Info]
+[ 3GPP2-BSID ]
+[ User-CSG-Information ]
+[ Default-EPS-Bearer-QoS ]
+[ Default-Access ]
+[ NBIFOM-Support ]
+[ NBIFOM-Mode ]
+[ Access-Availability-Change-Reason ]
+[ Network-Request-Support ]
+[ Routing-Rule-Install ]
+[ Routing-Rule-Remove ]
+[ User-Location-Info-Time ]
+[ Logical-Access-ID ]
+[ Physical-Access-ID ]
+*[ Usage-Monitoring-Information ]
+[ Multiple-BBERF-Action ]
+*[ Event-Trigger ]
+[ Access-Network-Charging-Address ]
+*[ Access-Network-Charging-Identifier-Gx ]
+[ Session-Linking-Indicator ]
+[ HeNB-Local-IP-Address ]
+[ UE-Local-IP-Address ]
+[ UE-Local-IPv6-Prefix ]
+[ UDP-Source-Port ]
+[ AN-GW-Status ]
+*[ AVP ]
+
+The Subsession-Decision-Info AVP (AVP code 2204) is of type Grouped
+The Subsession-Enforcement-Info AVP (AVP code 2201) is of type Grouped
+The Subsession-Id AVP (AVP code 2202) is of type Unsigned32
+The Subsession-Operation AVP (AVP code 2203) is of type of
+The Multiple-BBERF-Action AVP (AVP code 2204) is of type Enumerated
+The DRA-Deployment AVP (AVP code 2206) is of type Enumerated
+The DRA-Binding AVP (AVP code 2208) is of type of
+The Experimental-Result-Code AVP (AVP Code 298) is of type Unsigned32
+The PCRF-Address AVP (AVP code 2207) is of type DiameterIdentity
+The Experimental-Result-Code AVP (AVP Code 298) is of type Unsigned32
+The UE-Local-IPv6-Prefix AVP (AVP code 2205) is of type OctetString
+The Experimental-Result-Code AVP (AVP Code 298) is of type Unsigned32

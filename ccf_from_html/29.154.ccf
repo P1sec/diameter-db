@@ -48,3 +48,26 @@
 *[ Supported-Features ]
 *[ Load ]
 *[ AVP ]
+
+< Time-window > ::= < AVP-Header: 4204 >
+{ Transfer-Start-Time }
+{ Transfer-End-Time }
+*[ AVP ]
+
+< Transfer-Policy > ::= < AVP-Header: 4207 >
+{ Transfer-Policy-Id }
+[ Time-Window ]
+[ Rating-Group ]
+[ Max-Requested-Bandwidth-DL ]
+[ Max-Requested-Bandwidth-UL ]
+*[ AVP ]
+
+The Network-Area-Info-List AVP (AVP code 4201) is of type OctetString
+The Reference-Id AVP (AVP code 4202) is of type OctetString
+The Transfer-Request-Type AVP (AVP code 4203) is of type Unsigned32
+The Time-Window AVP (AVP code 4204) is of type Grouped
+The Transfer-End-Time AVP (AVP code 4205) is of type Time
+The Transfer-Start-Time AVP (AVP code 4206) is of type Time
+The Transfer-Policy AVP (AVP code 4207) is of type Grouped
+The Transfer-Policy-Id AVP (AVP code 4208) is of type Unsigned32
+The Number-Of-UEs AVP (AVP code 4209) is of type Unsigned32

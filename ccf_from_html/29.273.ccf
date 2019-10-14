@@ -739,3 +739,98 @@
 { Origin-Host }
 { Origin-Realm }
 [ User-Name ]
+
+< WLAN-Identifier > ::= < AVP-Header: 1509 10415 >
+[SSID ]
+[HESSID ]
+*[ AVP ]
+
+< Access-Network-Info > ::= < AVP-Header: 1526 10415 >
+[ SSID ]
+[ BSSID ]
+[ Location-Information ]
+[ Location-Data ]
+[ Operator-Name ]
+[ Logical-Access-ID ]
+*[ AVP ]
+
+< TWAN-Connectivity-Parameters > ::= < AVP-Header: 1528 10415 >
+[ Connectivity-Flags ]
+[ Service-Selection ]
+[ PDN-Type ]
+* 2 [ Served-Party-IP-Address ]
+[ TWAN-PCO ]
+[ TWAG-UP-Address ]
+[ TWAN-S2a-Failure-Cause ]
+[ SM-Back-Off-Timer ]
+*[ AVP ]
+
+< Non-3GPP-User-Data > ::= < AVP-Header: 1500 10415 >
+[ Subscription-ID ]
+[ Non-3GPP-IP-Access ]
+[ Non-3GPP-IP-Access-APN ]
+*[ RAT-Type ]
+[ Session-Timeout ]
+[ MIP6-Feature-Vector ]
+[ AMBR ]
+[ 3GPP-Charging-Characteristics ]
+[ Context-Identifier ]
+[ APN-OI-Replacement ]
+*[ APN-Configuration ]
+[ Trace-Info ]
+[ TWAN-Default-APN-Context-Id ]
+*[ TWAN-Access-Info]
+[ UE-Usage-Type ]
+[ Emergency-Info ]
+[ ERP-Authorization ]
+[ Core-Network-Restrictions ]
+*[ AVP ]
+
+< Subscription-Id > ::= < AVP-Header: 443 >
+[ Subscription-Id-Type ]
+[ Subscription-Id-Data ]
+
+< SIP-Auth-Data-Item > ::= < AVP-Header: 612 10415 >
+[ SIP-Item-Number ]
+[ SIP-Authentication-Scheme ]
+[ SIP-Authenticate ]
+[ SIP-Authorization ]
+[ Confidentiality-Key ]
+[ Integrity-Key ]
+*[ AVP ]
+
+< Trace-Info > ::= < AVP-Header: 1505 10415 >
+[Trace-Data]
+[Trace-Reference]
+*[AVP]
+
+< TWAN-Access-Info > ::= < AVP-Header: 1510 10415 >
+[ Access-Authorization-Flags ]
+[ WLAN-Identifier ]
+*[ AVP ]
+
+< MIP6-Agent-Info > ::= < AVP-Header: 486 >
+*2[ MIP-Home-Agent-Address ]
+[ MIP-Home-Agent-Host ]
+[ MIP6-Home-Link-Prefix ]
+*[ AVP ]
+
+< MIP6-Agent-Info > ::= < AVP-Header: 486 >
+*2[ MIP-Home-Agent-Address ]
+[ MIP-Home-Agent-Host ]
+[ MIP6-Home-Link-Prefix ]
+*[ AVP ]
+
+The Mobile-Node-Identifier AVP (AVP Code 506) is of type UTF8String
+The MIP6-Feature-Vector AVP (AVP Code 124) is of type Unsigned64
+The RAT-Type AVP (AVP code 1032) is of type Enumerated
+The AN-Trusted AVP (AVP Code 1503) is of type Enumerated
+The Transport-Acess-Type AVP (AVP code 1519) is of type Enumerated
+The TWAN-Connection-Mode AVP (AVP Code 1527) is of type Unsigned32
+The TWAN-S2a-Failure-Cause AVP (AVP Code 1533) is of type Unsigned32
+The WLCP-Key AVP (AVP Code 1535) is of type OctetString
+The IMEI-Check-In-VPLMN-Result AVP (AVP Code 1540) is of type Unsigned32
+The Non-3GPP-IP-Access AVP (AVP code 1501) is of type Enumerated
+The Non-3GPP-IP-Access-APN AVP (AVP code 1502) is of type Enumerated
+The RAT-Type AVP (AVP code 1032) is of type Enumerated
+The MIP6-Feature-Vector AVP (AVP Code 124) is of type Unsigned64

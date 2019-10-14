@@ -158,3 +158,291 @@
 *[ Proxy-Info ]
 *[ Route-Record ]
 *[AVP]
+
+< User-Identifier > ::= < AVP-Header: 3102 10415 >
+[ User-Name ]
+[ MSISDN ]
+[ External-Identifier ]
+[ LMSI ]
+*[AVP]
+
+< Service-Parameters > ::= < AVP-Header: 3105 10415 >
+[ T4-Parameters ]
+[ Application-Port-Identifier ]
+*[AVP]
+
+< T4-Parameters > ::= < AVP-Header: 3106 10415 >
+[ Priority-Indication ]
+[ SM-RP-SMEA ]
+*[AVP]
+
+< Service-Data > ::= < AVP-Header: 3107 10415 >
+[ T4-Data ]
+*[AVP]
+
+< T4-Data > ::= < AVP-Header: 3108 10415 >
+[ HSS-Cause ]
+[ Serving-Node ]
+*[ Additional-Serving-Node ]
+*[AVP]
+
+< Serving-Node > ::= < AVP-Header: 2401 10415 >
+[ SGSN-Name ]
+[ SGSN-Realm ]
+[ SGSN-Number ]
+[ MME-Name ]
+[ MME-Realm ]
+[ MME-Number-for-MT-SMS ]
+[ MSC-Number ]
+[ IP-SM-GW-Number ]
+[ IP-SM-GW-Name ]
+[ IP-SM-GW-Realm ]
+*[AVP]
+
+< Additional-Serving-Node > ::= < AVP-Header: 2406 10415 >
+[ SGSN-Name ]
+[ SGSN-Realm ]
+[ SGSN-Number ]
+[ MME-Name ]
+[ MME-Realm ]
+[ MME-Number-for-MT-SMS ]
+[ MSC-Number ]
+*[AVP]
+
+< Monitoring-Event-Configuration > ::= < AVP-Header: 3122 10415 >
+[ SCEF-Reference-ID ]
+{ SCEF-ID }
+{ Monitoring-Type }
+*[ SCEF-Reference-ID-for-Deletion ]
+[ Maximum-Number-of-Reports ]
+[ Monitoring-Duration ]
+[ Charged-Party ]
+[ Maximum-Detection-Time ]
+[ UE-Reachability-Configuration ]
+[ Location-Information-Configuration ]
+[ Association-Type ]
+[ DL-Buffering-Suggested-Packet-Count ]
+[ PLMN-ID-Requested ]
+[ MTC-Provider-Info ]
+[ PDN-Connectivity-Status-Configuration ]
+*[AVP]
+
+< Monitoring-Event-Report > ::= < AVP-Header: 3123 10415 >
+{ SCEF-Reference-ID }
+[ SCEF-ID ]
+[ SCEF-Reference-ID-for-Deletion ]
+[ Visited-PLMN-Id ]
+[ Roaming-Information ]
+[ IMEI-Change ]
+[ Terminal-Information ]
+[ Reachability-Information ]
+[ Maximum-UE-Availability-Time ]
+[ EPS-Location-Information ]
+[ Monitoring-Type ]
+[ Event-Handling ]
+*[ Service-Report ]
+[ Loss-Of-Connectivity-Reason ]
+[ Idle-Status-Indication ]
+*[ PDN-Connectivity-Status-Report ]
+*[AVP]
+
+< UE-Reachability-Configuration > ::= < AVP-Header: 3129 10415 >
+[ Reachability-Type ]
+[ Maximum-Latency ]
+[ Maximum-Response-Time ]
+[ DL-Buffering-Suggested-Packet-Count ]
+*[AVP]
+
+< Location-Information-Configuration > ::= < AVP-Header: 3135 10415 >
+[ MONTE-Location-Type ]
+[ Accuracy ]
+[ Periodic-Time ]
+*[AVP]
+
+< EPS-Location-Information > ::= < AVP-Header: 1496 10415 >
+[ MME-Location-Information ]
+[ SGSN-Location-Information ]
+*[AVP]
+
+< Monitoring-Event-Config-Status > ::= < AVP-Header: 3142 10415 >
+*[ Service-Report ]
+{ SCEF-Reference-ID }
+[ SCEF-ID ]
+*[AVP]
+
+< AESE-Communication-Pattern > ::= < AVP-Header: 3113 10415 >
+[ SCEF-Reference-ID ]
+{ SCEF-ID }
+*[ SCEF-Reference-ID-for-Deletion ]
+*[ Communication-Pattern-Set ]
+*[ AVP ]
+
+< Communication-Pattern-Set > ::= < AVP-Header: 3114 10415 >
+[ Periodic-Communication-Indicator ]
+[ Communication-Duration-Time ]
+[ Periodic-Time ]
+*[ Scheduled-Communication-Time ]
+[ Stationary-Indication ]
+[ Reference-ID-Validity-Time ]
+[ Traffic-Profile ]
+*[ AVP ]
+
+< Scheduled-communication-time > ::= < AVP-Header: 3118 10415 >
+[ Day-Of-Week-Mask ]
+[ Time-Of-Day-Start ]
+[ Time-Of-Day-End ]
+*[AVP]
+
+< AESE-Communication-Pattern-Config-Status > ::= < AVP-Header: 3120 10415 >
+{ SCEF-Reference-ID }
+[ SCEF-ID ]
+[ AESE-Error-Report ]
+*[AVP]
+
+< AESE-Error-Report > ::= < AVP-Header: 3121 10415 >
+[ Service-Result ]
+*[AVP]
+
+< MME-Location-Information > ::= < AVP-Header: 1600 10415 >
+[ E-UTRAN-Cell-Global-Identity ]
+[ Tracking-Area-Identity ]
+[ Current-Location-Retrieved ]
+[ Age-Of-Location-Information ]
+[ User-CSG-Information ]
+[ eNodeB-ID ]
+[ Extended-eNodeB-ID ]
+*[AVP]
+
+< SGSN-Location-Information > ::= < AVP-Header: 1601 10415 >
+[ Cell-Global-Identity ]
+[ Service-Area-Identity ]
+[ Routing-Area-Identity ]
+[ Current-Location-Retrieved ]
+[ Age-Of-Location-Information ]
+[ User-CSG-Information ]
+*[AVP]
+
+< User-Identifier > ::= < AVP-Header: 3102 10415 >
+[ User-Name ]
+[ MSISDN ]
+[ External-Identifier ]
+[ Type-Of-External-Identifier ]
+*[AVP]
+
+< Service-Result > ::= < AVP-Header: 3146 10415 >
+[ Vendor-Id ]
+[ Service-Result-Code ]
+*[AVP]
+
+< Supported-Services > ::= < AVP-Header: 3143 10415 >
+[ Supported-Monitoring-Events ]
+[ Node-Type ]
+*[AVP]
+
+< NIDD-Authorization-Request > ::= < AVP-Header: 3150 10415 >
+[ Service-Selection ]
+[ Requested-Validity-Time ]
+*[AVP]
+
+< NIDD-Authorization-Response > ::= < AVP-Header: 3151 10415 >
+[ MSISDN ]
+[ User-Name ]
+[ External-Identifier ]
+[ Granted-Validity-Time ]
+*[AVP]
+
+< Service-Report > ::= < AVP-Header: 3152 10415 >
+[ Service-Result ]
+[ Node-Type ]
+*[AVP]
+
+< Enhanced-Coverage-Restriction > ::= < AVP-Header: 3155 10415 >
+[ Restricted-PLMN-List ]
+[ Allowed-PLMN-List ]
+*[AVP]
+
+< Enhanced-Coverage-Restriction-Data > ::= < AVP-Header: 3156 10415 >
+{ Enhanced-Coverage-Restriction }
+[ Visited-PLMN-Id ]
+*[AVP]
+
+< Restricted-PLMN-List > ::= < AVP-Header: 3157 10415 >
+*[ Visited-PLMN-Id ]
+*[AVP]
+
+< Allowed-PLMN-List > ::= < AVP-Header: 3158 10415 >
+*[ Visited-PLMN-Id ]
+*[AVP]
+
+< NIDD-Authorization-Update > ::= < AVP-Header: 3161 10415 >
+*[ APN-Validity-Time ]
+*[AVP]
+
+< Group-Monitoring-Event-Report > ::= < AVP-Header: 3165 10415 >
+{ SCEF-Reference-ID }
+[ SCEF-ID ]
+*[ Group-Monitoring-Event-Report-Item ]
+*[AVP]
+
+< Group-Monitoring-Event-Report-Item > ::= < AVP-Header: 3166 10415 >
+{ User-Identifier }
+[ Visited-PLMN-Id ]
+[ Roaming-Information ]
+[ IMEI-Change ]
+[ Reachability-Information ]
+[ Maximum-UE-Availability-Time ]
+[ EPS-Location-Information ]
+[ Monitoring-Type ]
+*[ Service-Report ]
+[ S6t-HSS-Cause ]
+[ Idle-Status-Indication ]
+[ Reporting-Time-Stamp ]
+*[AVP]
+
+< APN-Validity-Time > ::= < AVP-Header: 3169 10415 >
+{ Granted-Validity-Time }
+[ Service-Selection ]
+*[AVP]
+
+< Suggested-Network-Configuration > ::= < AVP-Header: 3170 10415 >
+{ SCEF-Reference-ID }
+{ SCEF-ID }
+[ Subscribed-Periodic-RAU-TAU-Timer ]
+[ Active-Time ]
+[ DL-Buffering-Suggested-Packet-Count ]
+[ Group-Reporting-Guard-Timer ]
+*[AVP]
+
+< Monitoring-Event-Report-Status > ::= < AVP-Header: 3171 10415 >
+{ SCEF-Reference-ID }
+{ SCEF-ID }
+[ Result-Code ]
+[ Experimental-Result-Code ]
+*[AVP]
+
+< AdditionalIdentifiers > ::= < AVP-Header: 3173 10415 >
+*[ External-Identifier ]
+*[AVP]
+
+< Group-User-Identifier > ::= < AVP-Header: 3177 10415 >
+[ User-Name ]
+[ MSISDN ]
+[ External-Identifier ]
+*[AVP]
+
+< MTC-Provider-Info > ::= < AVP-Header: 3178 10415 >
+[ MTC-Provider-ID ]
+*[AVP]
+
+< PDN-Connectivity-Status-Configuration > ::= < AVP-Header: 3180 10415 >
+[ Service-Selection ]
+*[AVP]
+
+< PDN-Connectivity-Status-Report > ::= < AVP-Header: 3181 10415 >
+{ Service-Selection }
+{ PDN-Connectivity-Status-Type }
+[ PDN-Type ]
+[ Non-IP-PDN-Type-Indicator ]
+[ Non-IP-Data-Delivery-Mechanism ]
+*2 [ Served-Party-IP-Address ]
+*[AVP]

@@ -176,3 +176,75 @@
 *[ Route-Record ]
 [ TDA-Flags ]
 *[AVP]
+
+< Monitoring-Event-Configuration > ::= < AVP-Header: 3122 10415 >
+[ SCEF-Reference-ID ]
+{ SCEF-ID }
+{ Monitoring-Type }
+*[ SCEF-Reference-ID-for-Deletion ]
+[ Maximum-Number-of-Reports ]
+[ Monitoring-Duration ]
+[ Charged-Party ]
+[ UE-Reachability-Configuration ]
+[ Location-Information-Configuration ]
+*[ Number-Of-UE-Per-Location-Configuration ]
+*[AVP]
+
+< Monitoring-Event-Report > ::= < AVP-Header: 3123 10415 >
+{ SCEF-Reference-ID }
+[ SCEF-ID ]
+[ Monitoring-Type ]
+[ Reachability-Information ]
+[ EPS-Location-Information ]
+[ Communication-Failure-Information ]
+*[ Number-Of-UE-Per-Location-Report ]
+[ Loss-Of-Connectivity-Reason ]
+[ Visited-PLMN-Id ]
+[ Idle-Status-Indication ]
+[ Reporting-Time-Stamp ]
+[ Maximum-UE-Availability-Time ]
+*[ PDN-Connectivity-Status-Report ]
+*[AVP]
+
+< Communication-Failure-Information > ::= < AVP-Header: 4300 10415 >
+[ Cause-Type ]
+[ S1AP-Cause ]
+[ RANAP-Cause ]
+[ BSSGP-Cause ]
+[ GMM-Cause ]
+[ SM-Cause ]
+*[AVP]
+
+< Number-of-UE-Per-Location-Configuration > ::= < AVP-Header: 4306 10415 >
+{ EPS-Location-Information }
+[ IMSI-Group-Id ]
+*[AVP]
+
+< Number-of-UE-Per-Location-Report > ::= < AVP-Header: 4307 10415 >
+{ EPS-Location-Information }
+{ UE-Count }
+[ IMSI-Group-Id ]
+*[AVP]
+
+< Serving-PLMN-Rate-Control > ::= < AVP-Header: 4310 10415 >
+[ Uplink-Rate-Limit ]
+[ Downlink-Rate-Limit ]
+*[AVP]
+
+< RRC-Cause-Counter > ::= < AVP-Header: 4318 10415 >
+[ Counter-Value ]
+[ RRC-Counter-Timestamp ]
+*[AVP]
+
+< Terminal-Information > ::= < AVP-Header: 1401 10415 >
+[ IMEI ]
+[ Software-Version ]
+*[ AVP ]
+
+< Idle-Status-Indication > ::= < AVP-Header: 4322 10415 >
+[ Idle-Status-Timestamp ]
+[ Active-Time ]
+[ Subscribed-Periodic-RAU-TAU-Timer ]
+[ eDRX-Cycle-Length ]
+[ DL-Buffering-Suggested-Packet-Count ]
+*[AVP]

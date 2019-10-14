@@ -1,0 +1,10 @@
+< SIP-Auth-Data-Item > ::= < AVP-Header: 612 10415 >
+[ SIP-Item-Number ]
+[ SIP-Authentication-Scheme ]
+[ SIP-Authenticate ]
+[ SIP-Authorization ]
+[ SIP-Authentication-Context ]
+[Confidentiality-Key]
+[Integrity-Key]
+*[Line-Identifier]
+* [AVP]

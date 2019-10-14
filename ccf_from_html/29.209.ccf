@@ -119,3 +119,43 @@
 [ Redirected-Max-Cache-Time ]
 *[ Proxy-Info ]
 *[ AVP ]
+
+< Access-Network-Charging-Identifier > ::= < AVP-Header: 502 >
+{ Access-Network-Charging-Identifier-Value}
+*[ Flows ]
+
+< Flow-Grouping > ::= < AVP-Header: 508 >
+*[Flows]
+
+< Flows > ::= < AVP-Header: x >
+{ Media-Component-Number}
+*[ Flow-Number]
+
+< Media-Component-Description > ::= < AVP-Header: 517 >
+{ Media-Component-Number }
+
+< Media-Sub-Component > ::= < AVP-Header: 519 >
+{ Flow-Number }
+
+The Session-Abort-Cause AVP (AVP code 500) is of type Enumerated
+The Access-Network-Charging-Address AVP (AVP code 501) is of type Address
+The Access-Network-Charging-Identifier AVP (AVP code 502) is of type Grouped
+The Access-Network-Charging-Identifier-Value AVP (AVP code 503) is of type OctetString
+The AF-Application-identifier AVP (AVP code 504) is of type OctetString
+The AF-Charging-Identifier AVP (AVP code 505) is of type OctetString
+The Authorization-Token AVP (AVP code 506) is of type OctetString
+The Flow-Description AVP (AVP code 507) is of type IPFilterRule
+The Flow-Grouping AVP (AVP code 508) is of type Grouped
+The Flow-Number AVP (AVP code 509) is of type Unsigned32
+The Flows AVP (AVP code 510) is of type Grouped
+The Flow-Status AVP (AVP code 511) is of type Enumerated
+The Flow-Usage AVP (AVP code 512) is of type Enumerated
+The Specific-Action AVP (AVP code 513) is of type Enumerated
+The Max-Requested-Bandwidth-DL AVP (AVP code 515) is of type Unsigned32
+The Media-Component-Description AVP (AVP code 517) is of type Grouped
+The Media-Component-Number AVP (AVP code 518) is of type Unsigned32
+The Media-Sub-Component AVP (AVP code 519) is of type Grouped
+The Media-Type AVP (AVP code 520) is of type Enumerated
+The RR-Bandwidth AVP (AVP code 521) is of type Unsigned32
+The RS-Bandwidth AVP (AVP code 522) is of type Unsigned32
+The SIP_Forking AVP (AVP code 523) is of type Enumerated

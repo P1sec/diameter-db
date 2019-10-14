@@ -7,7 +7,7 @@ set -ex
 
 rm -f database.sqlite3
 
-# ./extract_abnf_from_3gpp.py
+# ./extract_abnf_from_3gpp.py      # Quite slow, don't always run
 
 ./download_rfcs.sh
 

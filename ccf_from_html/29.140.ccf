@@ -38,3 +38,45 @@
 *[ AVP ]
 *[ Proxy-Info ]
 *[ Route-Record ]
+
+< Served-User-Identity > ::= < AVP-Header: 1100 10415 >
+[MSISDN]
+[VASP-ID]
+[VAS-ID]
+*[AVP]
+
+< Initial-Recipient-Address > ::= < AVP-Header: 1105 10415 >
+{Sequence-Number}
+{Recipient-Address}
+*[AVP]
+
+< Result-Recipient-Address > ::= < AVP-Header: 1106 10415 >
+{Sequence-Number}
+[Recipient-Address]
+[Routeing-Address]
+[Sender-Address]
+*[AVP]
+
+< Status > ::= < AVP-Header: 1116 10415 >
+[Status-Code]
+[Status-Text]
+
+The Served-User-Identity AVP (AVP Code 1100) is of type Grouped
+The VASP-ID AVP (AVP Code 1101) is of type UTF8String
+The VAS-ID AVP (AVP Code 1102) is of type UTF8String
+The Trigger-Event AVP (AVP code 1103) is of type Enumerated
+The Sender-Address AVP (AVP code 1104) is of type UTF8String
+The Initial-Recipient-Address AVP (AVP code 1105) is of type Grouped
+The Result-Recipient-Address AVP (AVP code 1106) is of type Grouped
+The Sequence-Number AVP (AVP code 1107) is of type Unsigned32
+The Recipient-Address AVP (AVP code 1108) is of type UTF8String
+The Routeing-Address AVP (AVP code 1109) is of type UTF8String
+The Delivery-Report AVP (AVP code 1111) is of type Enumerated
+The Read-Reply AVP (AVP code 1112) is of type Enumerated
+The Sender-Visibility AVP (AVP code 1113) is of type Enumerated
+The Service-Key AVP (AVP code 1114) is of type UTF8String
+The Billing-Information AVP (AVP code 1115) is of type UTF8String
+The Status AVP (AVP code 1116) is of type Grouped
+The Status-Code AVP (AVP code 1117) is of type UTF8String
+The Status-Text AVP (AVP code 1118) is of type UTF8String
+The Routeing-Address-Resolution AVP (AVP code 1119) is of type Enumerated

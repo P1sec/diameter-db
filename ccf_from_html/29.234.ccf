@@ -57,7 +57,22 @@
 * [ Proxy-Info ]
 * [ Route-Record ]
 *[ AVP ]
-<ASA>
+
+< ASA > ::= < Diameter-Header: 274, PXY >
+< Session-Id >
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+[ User-Name ]
+[ Origin-State-Id ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+* [ Failed-AVP ]
+* [ Redirected-Host ]
+[ Redirected-Host-Usage ]
+[ Redirected-Max-Cache-Time ]
+* [ Proxy-Info ]
+* [ AVP ]
 
 < STR > ::= < Diameter-Header: 275, REQ, PXY >
 < Session-Id >
@@ -73,7 +88,20 @@
 * [ Proxy-Info ]
 * [ Route-Record ]
 * [ AVP ]
-<STA>
+
+< STA > ::= < Diameter-Header: 275, PXY >
+< Session-Id >
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+[ User-Name ]
+* [ Class ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+* [ Failed-AVP ]
+[ Origin-State-Id ]
+* [ Proxy-Info ]
+* [ AVP ]
 
 < RAR > ::= < Diameter-Header: 258, REQ, PXY >
 < Session-Id >
@@ -92,7 +120,22 @@
 [ Extended-Location-Policy-Rules ]
 [ Requested-Location-Info ]
 * [ AVP ]
-<RAA>
+
+< RAA > ::= < Diameter-Header: 258, PXY >
+< Session-Id >
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+[ User-Name ]
+[ Origin-State-Id ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+* [ Failed-AVP ]
+* [ Redirect-Host ]
+[ Redirect-Host-Usage ]
+[ Redirect-Host-Cache-Time ]
+* [ Proxy-Info ]
+* [ AVP ]
 
 < AC-Request > ::= < Diameter-Header: 271, REQ, PXY >
 < Session-Id >
@@ -125,7 +168,39 @@
 [ Basic-Location-Policy-Rules ]
 [ Extended-Location-Policy-Rules ]
 * [ AVP ]
-<AC-Answer>
+
+< AC-Answer > ::= < Diameter-Header: 271, PXY >
+< Session-Id >
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+{ Accounting-Record-Type }
+{ Accounting-Record-Number }
+[ Acct-Application-Id ]
+[ Vendor-Specific-Application-Id ]
+[ User-Name ]
+[ Accounting-Sub-Session-Id ]
+[ Acct-Session-Id ]
+[ Acct-Multi-Session-Id ]
+[ Event-Timestamp ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+* [ Failed-AVP ]
+[ Origin-State-Id ]
+[ NAS-Identifier ]
+[ NAS-IP-Address ]
+[ NAS-IPv6-Address ]
+[ NAS-Port ]
+[ NAS-Port-Id ]
+[ NAS-Port-Type ]
+[ Service-Type ]
+[ Termination-Cause ]
+[ Accounting-Realtime-Required ]
+[ Acct-Interim-Interval ]
+* [ Class ]
+* [ Proxy-Info ]
+* [ Route-Record ]
+* [ AVP ]
 
 < Diameter-EAP-Request > ::= < Diameter-Header: 268, REQ, PXY >
 < Session-Id >
@@ -527,7 +602,22 @@
 * [ Proxy-Info ]
 * [ Route-Record ]
 * [ AVP ]
-<ASA>
+
+< ASA > ::= < Diameter-Header: 274, PXY >
+< Session-Id >
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+[ User-Name ]
+[ Origin-State-Id ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+* [ Failed-AVP ]
+* [ Redirected-Host ]
+[ Redirected-Host-Usage ]
+[ Redirected-Max-Cache-Time ]
+* [ Proxy-Info ]
+* [ AVP ]
 
 < AA-Request > ::= < Diameter-Header: 265, REQ, PXY >
 < Session-Id >
@@ -662,7 +752,22 @@
 * [ Proxy-Info ]
 * [ Route-Record ]
 * [ AVP ]
-<ASA>
+
+< ASA > ::= < Diameter-Header: 274, PXY >
+< Session-Id >
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+[ User-Name ]
+[ Origin-State-Id ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+* [ Failed-AVP ]
+* [ Redirected-Host ]
+[ Redirected-Host-Usage ]
+[ Redirected-Max-Cache-Time ]
+* [ Proxy-Info ]
+* [ AVP ]
 
 < STR > ::= < Diameter-Header: 275, REQ, PXY >
 < Session-Id >
@@ -772,4 +877,64 @@
 * [ Proxy-Info ]
 * [ Route-Record ]
 *[ AVP ]
-<ASA>
+
+< ASA > ::= < Diameter-Header: 274, PXY >
+< Session-Id >
+{ Result-Code }
+{ Origin-Host }
+{ Origin-Realm }
+[ User-Name ]
+[ Origin-State-Id ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+* [ Failed-AVP ]
+* [ Redirected-Host ]
+[ Redirected-Host-Usage ]
+[ Redirected-Max-Cache-Time ]
+* [ Proxy-Info ]
+* [ AVP ]
+
+< SIP-Auth-Data-Item > ::= < AVP-Header: 612 >
+[ SIP-Item-Number ]
+[ SIP-Authentication-Scheme ]
+[ SIP-Authenticate ]
+[ SIP-Authorization ]
+[ SIP-Authentication-Context ]
+[Confidentiality-Key]
+[Integrity-Key]
+[Authentication-Method]
+[Authentication-Information-SIM]
+[Authorization-Information-SIM]
+* [AVP]
+
+< WLAN-User-Data > ::= < AVP-Header: 303 >
+[Subscription-ID ]
+{ WLAN-Access }
+{ WLAN-3GPP-IP-Access }
+[ Session-Timeout ]
+*[ APN-Authorized ]
+*[ Maximum-Number-Accesses ]
+{ WLAN-Direct-IP-Access }
+[ QoS- Resources ]
+* [AVP]
+
+< Charging-Data > ::= < AVP-Header: 304 >
+{ Charging-Characteristics }
+{ Charging-Nodes}
+* [AVP]
+
+< APN-Authorized > ::= < AVP-Header: 307 >
+{ 3GPP-WLAN-APN-Id }
+{ APN-Barring-Type}
+[ Framed-IP-Address]
+*[Framed-IPv6-Prefix]
+[ Max-Requested-Bandwidth ]
+[ QoS- Resources ]
+*[AVP]
+
+< Charging-Nodes > ::= < AVP-Header: 315 >
+[ Primary-OCS-Charging-Function-Name ]
+[ Secondary-OCS-Charging-Function-Name]
+[ Primary-Charging-Collection-Function-Name ]
+[ Secondary-Charging-Collection-Function-Name ]
+* [AVP]

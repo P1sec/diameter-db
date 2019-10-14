@@ -213,3 +213,85 @@
 [ Redirect-Max-Cache-Time ]
 *[ Proxy-Info ]
 *[ AVP ]
+
+< Access-Network-Charging-Identifier > ::= < AVP-Header: 502 >
+{ Access-Network-Charging-Identifier-Value}
+*[ Flows ]
+
+< Flows > ::= < AVP-Header: 510 >
+{Media-Component-Number}
+*[Flow-Number]
+*[ Content-Version ]
+[Final-Unit-Action]
+[Media-Component-Status]
+*[AVP]
+
+< Media-Component-Description > ::= < AVP-Header: 517 >
+{ Media-Component-Number }
+
+< Media-Sub-Component > ::= < AVP-Header: 519 >
+{ Flow-Number }
+
+< Acceptable-Service-Info > ::= < AVP-Header: 526 >
+*[ Media-Component-Description]
+[ Max-Requested-Bandwidth-DL ]
+[ Max-Requested-Bandwidth-UL ]
+*[ AVP ]
+
+< Sponsored-Connectivity-Data > ::= < AVP-Header: 530 >
+[ Sponsor-Identity ]
+[ Application-Service-Provider-Identity ]
+[ Granted-Service-Unit ]
+[ Used-Service-Unit ]
+[ Sponsoring-Action ]
+*[ AVP ]
+
+The Abort-Cause AVP (AVP code 500) is of type Enumerated
+The Access-Network-Charging-Address AVP (AVP code 501) is of type Address
+The Access-Network-Charging-Identifier AVP (AVP code 502) is of type Grouped
+The Access-Network-Charging-Identifier-Value AVP (AVP code 503) is of type OctetString
+The AF-Application-identifier AVP (AVP code 504) is of type OctetString
+The AF-Charging-Identifier AVP (AVP code 505) is of type OctetString
+The Codec-Data AVP (AVP code 524) is of type OctetString
+The Flow-Description AVP (AVP code 507) is of type IPFilterRule
+The Flow-Number AVP (AVP code 509) is of type Unsigned32
+The Flows AVP (AVP code 510) is of type Grouped
+The Flow-Status AVP (AVP code 511) is of type Enumerated
+The Flow-Usage AVP (AVP code 512) is of type Enumerated
+The Specific-Action AVP (AVP code 513) is of type Enumerated
+The Max-Requested-Bandwidth-DL AVP (AVP code 515) is of type Unsigned32
+The Media-Component-Description AVP (AVP code 517) is of type Grouped
+The Media-Component-Number AVP (AVP code 518) is of type Unsigned32
+The Media-Sub-Component AVP (AVP code 519) is of type Grouped
+The Media-Type AVP (AVP code 520) is of type Enumerated
+The RR-Bandwidth AVP (AVP code 521) is of type Unsigned32
+The RS-Bandwidth AVP (AVP code 522) is of type Unsigned32
+The SIP-Forking-Indication AVP (AVP code 523) is of type Enumerated
+The Service-URN AVP (AVP code 525) is of type OctetString
+The Acceptable-Service-Info AVP (AVP code 526) is of type Grouped
+The Service-Info-Status AVP (AVP code 527) is of type Enumerated
+The AF-Signalling-Protocol AVP (AVP code 529) is of type Enumerated
+The Sponsored-Connectivity-Data AVP (AVP code 530) is of type Grouped
+The Sponsor-Identity AVP (AVP code 531) is of type UTF8String
+The Application-Service-Provider-Identity AVP (AVP code 532) is of type UTF8String
+The MPS-Identifier AVP (AVP code 528) is of type OctetString
+The Rx-Request-Type AVP (AVP code 533) is of type Enumerated
+The Min-Requested-Bandwidth-DL AVP (AVP code 534) is of type Unsigned32
+The Min-Requested-Bandwidth-UL AVP (AVP code 535) is of type Unsigned32
+The Required-Access-Info AVP (AVP code 536) is of type Enumerated
+The GCS-Identifier AVP (AVP code 538) is of type OctetString
+The Sharing-Key-DL AVP (AVP code 539) is of type Unsigned32
+The Sharing-Key-UL AVP (AVP code 540) is of type Unsigned32
+The Retry-Interval AVP (AVP code 541) is of type Unsigned32
+The Sponsoring-Action AVP (AVP code 542) is of type Enumerated
+The Max-Supported-Bandwidth-DL AVP (AVP code 543) is of type Unsigned32
+The Min-Desired-Bandwidth-DL AVP (AVP code 545) is of type Unsigned32
+The Min-Desired-Bandwidth-DL AVP (AVP code 546) is of type Unsigned32
+The MCPTT-Identifier AVP (AVP code 547) is of type OctetString
+The MCVideo-Identifier AVP (AVP code 562) is of type OctetString
+The Service-Authorization-Info AVP (AVP code 548) is of type Unsigned32
+The Priority-Sharing-Indicator AVP (AVP code 550) is of type Enumerated
+The Media-Component-Status AVP (AVP code 549) is of type Unsigned32
+The Content-Version AVP (AVP code 552) is of type Unsigned64
+The AF-Requested-Data AVP (AVP code 551) is of type Unsigned32
+The Experimental-Result-Code AVP (AVP Code 298) is of type Unsigned32

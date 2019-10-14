@@ -72,3 +72,26 @@
 [ Failed-AVP ]
 *[ Proxy-Info ]
 *[ Route-Record ]
+
+< Serving-Node > ::= < AVP-Header: 2401 10415 >
+[ SGSN-Name ]
+[ SGSN-Realm ]
+[ SGSN-Number ]
+[ MME-Name ]
+[ MME-Realm ]
+[ MME-Number-for-MT-SMS ]
+[ MSC-Number ]
+[ IP-SM-GW-Number ]
+[ IP-SM-GW-Name ]
+[ IP-SM-GW-Realm ]
+*[AVP]
+
+< Additional-Serving-Node > ::= < AVP-Header: 2406 10415 >
+[ SGSN-Name ]
+[ SGSN-Realm ]
+[ SGSN-Number ]
+[ MME-Name ]
+[ MME-Realm ]
+[ MME-Number-for-MT-SMS ]
+[ MSC-Number ]
+*[AVP]

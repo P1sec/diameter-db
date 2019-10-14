@@ -1,4 +1,4 @@
-< User-Data -Request > ::= < Diameter-Header: 306, REQ, PXY, 16777217 >
+< -Request > ::= < Diameter-Header: 306, REQ, PXY, 16777217 >
 < Session-Id >
 [ DRMP ]
 { Vendor-Specific-Application-Id }
@@ -178,3 +178,19 @@
 [ Failed-AVP ]
 *[ Proxy-Info ]
 *[ Route-Record ]
+
+< User-Identity > ::= < AVP-Header: 700 10415 >
+[Public-Identity]
+[MSISDN]
+[External-Identifier]
+*[AVP]
+
+< Repository-Data-ID > ::= < AVP-Header: 715 10415 >
+{Service-Indication}
+{Sequence-Number}
+*[AVP]
+
+< Call-Reference-Info > ::= < AVP-Header: 720 10415 >
+{Call-Reference-Number}
+{AS-Number}
+*[AVP]

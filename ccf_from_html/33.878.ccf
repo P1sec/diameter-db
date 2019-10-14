@@ -1,0 +1,6 @@
+< SIP-Auth-Data-Item > ::= < AVP-Header: TBD >
+[ SIP-Authentication-Scheme ]
+[ Framed-IP-Address ]
+[ Framed-IPv6-Prefix ]
+[ Framed-Interface-Id ]
+* [AVP]

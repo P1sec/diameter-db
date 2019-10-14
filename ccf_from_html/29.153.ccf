@@ -83,3 +83,11 @@
 *[ Proxy-Info ]
 *[ Supported-Features ]
 *[ AVP ]
+
+< Network-Congestion-Area-Report > ::= < AVP-Header: 4101 >
+{ Network-Area-Info-List }
+[ Congestion-Level-Value ]
+*[ AVP ]
+
+The Network-Congestion-Area-Report AVP (AVP code 4101) is of type Grouped
+The Ns-Request-Type AVP (AVP code 4102) is of type Unsigned32

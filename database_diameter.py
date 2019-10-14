@@ -50,9 +50,9 @@ class VersionedDiameterObject(Base):
     object_type = Column(String, index = True)
     
     spec_url = Column(String, index = True)
-    short_spec_name = Column(String, index = True) # "TS 29.272"
-    long_spec_name_prefix = Column(String, index = True) # "3GPP TS 28.272", "IETF RFC 3877"...
-    long_spec_name_suffix = Column(String, index = True) # "Interface between MME and SGSN..."
+    short_spec_name = Column(String(collation  = 'NOCASE'), index = True) # "TS 29.272"
+    long_spec_name_prefix = Column(String(collation  = 'NOCASE'), index = True) # "3GPP TS 28.272", "IETF RFC 3877"...
+    long_spec_name_suffix = Column(String(collation  = 'NOCASE'), index = True) # "Interface between MME and SGSN..."
     alternate_spec_url = Column(String, index = True)
     
     updates = relationship('DiameterObjectUpdate', uselist = True, backref = 'diameter_object')
@@ -81,7 +81,7 @@ class DiameterApplication(VersionedDiameterObject):
     __mapper_args__ = {'polymorphic_identity': __tablename__, 'inherit_condition': (object_id == VersionedDiameterObject.object_id)}
     
     application_id = Column(Integer, nullable = False, index = True)
-    application_name = Column(String, nullable = False, index = True)
+    application_name = Column(String(collation  = 'NOCASE'), nullable = False, index = True)
     
 class DiameterVendor(VersionedDiameterObject):
     __tablename__ = 'diameter_vendor'
@@ -90,7 +90,7 @@ class DiameterVendor(VersionedDiameterObject):
     __mapper_args__ = {'polymorphic_identity': __tablename__, 'inherit_condition': (object_id == VersionedDiameterObject.object_id)}
     
     vendor_id = Column(Integer, nullable = False, index = True)
-    vendor_name = Column(String, nullable = False, index = True)
+    vendor_name = Column(String(collation  = 'NOCASE'), nullable = False, index = True)
 
 class DiameterCommand(VersionedDiameterObject):
     __tablename__ = 'diameter_command'
@@ -103,8 +103,8 @@ class DiameterCommand(VersionedDiameterObject):
     
     command_code = Column(Integer, index = True, nullable = False)
     
-    command_name = Column(String, nullable = False, index = True)
-    command_three_char_abbreviation = Column(String, index = True)
+    command_name = Column(String(collation  = 'NOCASE'), nullable = False, index = True)
+    command_three_char_abbreviation = Column(String(collation  = 'NOCASE'), index = True)
     
     req_bit = Column(Boolean, index = True, nullable = True)
     pxy_bit = Column(Boolean, index = True, nullable = True)
@@ -176,8 +176,8 @@ class DiameterAVPTypeDefinition(VersionedDiameterObject):
     object_id = Column(String, primary_key = True) # "avp_type_<diameter_type_name>"
     __mapper_args__ = {'polymorphic_identity': __tablename__, 'inherit_condition': (object_id == VersionedDiameterObject.object_id)}
     
-    diameter_type_name = Column(String, index = True, nullable = False)
-    parent_type_name = Column(String, ForeignKey('diameter_avp_type_definition.diameter_type_name'), nullable = True)
+    diameter_type_name = Column(String(collation  = 'NOCASE'), index = True, nullable = False)
+    parent_type_name = Column(String(collation  = 'NOCASE'), ForeignKey('diameter_avp_type_definition.diameter_type_name'), nullable = True)
 
     format_regex = Column(String, index = True, nullable = True)
 
@@ -199,7 +199,7 @@ class DiameterAVPDefinition(VersionedDiameterObject):
     
     avp_code = Column(Integer, index = True, nullable = False)
     
-    avp_name = Column(String, index = True, nullable = False)
+    avp_name = Column(String(collation  = 'NOCASE'), index = True, nullable = False)
     
     avp_type = Column(String, ForeignKey('diameter_avp_type_definition.diameter_type_name'), index = True)
     

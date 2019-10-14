@@ -109,3 +109,22 @@
 *[ Proxy-Info ]
 *[ Load ]
 *[ AVP ]
+
+< Policy-Counter-Status-Report > ::= < AVP-Header: 2903 >
+{ Policy-Counter-Identifier }
+{ Policy-Counter-Status }
+*[ Pending-Policy-Counter-Information ]
+*[ AVP ]
+
+< Pending-Policy-Counter-Information > ::= < AVP-Header: 2905 >
+{ Policy-Counter-Status }
+{ Pending-Policy-Counter-Change-Time }
+*[ AVP ]
+
+The Policy-Counter-Identifier AVP (AVP code 2901) is of type UTF8String
+The Policy-Counter-Status AVP (AVP code 2902) is of type UTF8String
+The Policy-Counter-Status-Report AVP (AVP code 2903) is of type Grouped
+The SL-Request-Type AVP (AVP code 2904) is of type Enumerated
+The Pending-Policy-Counter-Information AVP (AVP code 2905) is of type Grouped
+The Pending-Policy-Counter-Change-Time AVP (AVP code 2906) is of type Time
+The Experimental-Result-Code AVP (AVP Code 298) is of type Unsigned32

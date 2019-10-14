@@ -38,7 +38,7 @@ IETF_RFCS_FOLDER = realpath(SCRIPT_DIR + '/ietf_rfcs')
 
 CCF_AVP_REGEX = '(?:[\d\s]*\*[\d\s]*)?(?:\s*\[[^\]]+?\s*\]\s*|\s*<[^>]+?\s*>(?!\s*::)\s*|\s*\{[^\}]*?\s*\}\s*)'
 
-CCF_MESSAGE_REGEX = r'<?\s*([^>\n]+?)\s*>?\s*::\s*=\s*<\s*Diameter[-\s_]*Header([^>]*?)\s*>'
+CCF_MESSAGE_REGEX = r'<?\s*([^<>\n ]+?)\s*>?\s*::\s*=\s*<\s*Diameter[-\s_]*Header([^>]*?)\s*>'
 CCF_MESSAGE_REGEX += r'((?:' + CCF_AVP_REGEX + ')+)'
 
 
