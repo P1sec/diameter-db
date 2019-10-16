@@ -8,6 +8,8 @@ from sqlalchemy import *
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from enum import IntEnum
+from html import escape
+from typing import Sequence, List, Dict, Set, Tuple, Union
 
 from config import WEBAPP_PATH
 
@@ -59,6 +61,42 @@ class VersionedDiameterObject(Base):
     
     __mapper_args__ = {'polymorphic_on': object_type}
     
+    def to_html_tree_entry(self, current_page_object_id_arborescence :   Union[None, List[str]]  = None,  this_object__parent_object_id_arborescence  : List[str]  = None) -> str:
+        
+        css_class, entry_name = self.obtain_css_class_and_name_of_tree_entry()
+        
+        this_object__parent_object_id_arborescence = this_object__parent_object_id_arborescence or []
+        
+        current_page_object_id_arborescence = current_page_object_id_arborescence or []
+        
+        extra_classes  : str = ''
+        if self.object_id in current_page_object_id_arborescence:
+            extra_classes  += ' tree-item-expanded'
+        
+        returned_html  = '<div class="tree-%s tree-item%s"><a href="/%s/%s%s" target="_blank">%s</a>' % (
+            css_class,
+            extra_classes,
+            css_class,
+            self.object_id,
+            ('?object-id-arborescence=' +  ','.join(this_object__parent_object_id_arborescence)  ) if this_object__parent_object_id_arborescence  else  '',
+            escape(entry_name))
+        
+        this_object__parent_object_id_arborescence.append(self.object_id)
+
+        if current_page_object_id_arborescence  and self.object_id == current_page_object_id_arborescence[0]:
+            returned_html  += '<div class="tree_view_indentation">'
+            for child_object in self.obtain_child_objects():
+                returned_html  += child_object.to_html_tree_entry(current_page_object_id_arborescence[1:], this_object__parent_object_id_arborescence)
+            
+            returned_html += '</div>'
+        
+        returned_html  += '</div>'
+        
+        
+        
+        return  returned_html
+        
+    
 class DiameterObjectUpdate(Base):
     __tablename__ = 'diameter_object_update'
     
@@ -82,6 +120,16 @@ class DiameterApplication(VersionedDiameterObject):
     
     application_id = Column(Integer, nullable = False, index = True)
     application_name = Column(String(collation  = 'NOCASE'), nullable = False, index = True)
+    
+    def obtain_child_objects(self) -> Sequence[Union['DiameterCommand', 'DiameterAVPDefinition']]:
+        return [
+            *self.commands,
+            *self.avps
+        ]
+    
+    def obtain_css_class_and_name_of_tree_entry(self) -> Tuple[str, str]:
+        return ['application', self.application_name]
+        
     
 class DiameterVendor(VersionedDiameterObject):
     __tablename__ = 'diameter_vendor'
@@ -113,6 +161,14 @@ class DiameterCommand(VersionedDiameterObject):
     applications = relationship('DiameterApplication', uselist = True, secondary = 'diameter_command_application_occurrence', backref = 'commands')
     vendor = relationship('DiameterVendor', uselist = False, backref = 'commands')
     avp_occurrences = relationship('DiameterCommandAVPOccurrence', uselist = True)
+    
+    def obtain_child_objects(self) -> Sequence[Union['DiameterAVPDefinition']]:
+        return [
+            *self.avps
+        ]
+    
+    def obtain_css_class_and_name_of_tree_entry(self) -> Tuple[str, str]:
+        return ['command-code', self.command_name]
 
 class DiameterCommandApplicationOccurrence(VersionedDiameterObject):
     __tablename__ = 'diameter_command_application_occurrence'
@@ -213,6 +269,14 @@ class DiameterAVPDefinition(VersionedDiameterObject):
     nested_avps = relationship('DiameterNestedAVPOccurrence', foreign_keys = [avp_code], primaryjoin = 'DiameterAVPDefinition.avp_code == DiameterNestedAVPOccurrence.nested_avp_code', uselist = True, backref = 'parent_avp')
 
     avp_occurrences = relationship('DiameterCommandAVPOccurrence', uselist = True, backref = 'avp')
+    
+    def obtain_child_objects(self) -> Sequence[Union['DiameterAVPDefinition']]:
+        return [
+            # *self.nested_avps
+        ]
+    
+    def obtain_css_class_and_name_of_tree_entry(self) -> Tuple[str, str]:
+        return ['avp', self.avp_name]
 
 class DiameterAVPEnumValue(VersionedDiameterObject):
     __tablename__ = 'diameter_avp_enum_value'
