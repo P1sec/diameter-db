@@ -23,7 +23,7 @@ In order to regenerate the SQLite database, please run (note: you need a public 
 
 ```
 sudo apt install fuse python3 python3.7 sshfs
-sudo python3.7 -m pip install --upgrade sqlalchemy sshtunnel
+sudo python3.7 -m pip install --upgrade sqlalchemy sshtunnel quart requests
 ./regenerate.sh
 ```
 

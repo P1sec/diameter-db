@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>diameter-db</title>
+        
+        <style>
+            body {
+                font-family: 'Liberation Sans', sans-serif;
+                margin: 0;
+                margin-top: 158px;
+                padding: 0;
+                font-size: 12px;
+            }
+            
+            header {
+                background: url(/static/header_background.png); /* linear-gradient(rgba(0, 0, 0, 0.025), rgba(0, 0, 0, 0.2)), */
+                /*background-cover: cover;*/
+                font-family: 'DejaVu Sans', sans-serif;
+                text-shadow: 0 0 10px #333;
+                background-position: top center;
+                background-size: 100% auto;
+                backgroun-repeat: no-repeat;
+                display: block;
+                /*height: 100px;*/
+                padding: 46px 45px;
+                top: 0;
+                font-size: 48px;
+                box-shadow: 0 0 15px #333;
+                position: fixed;
+                width: calc(100% - 90px);
+                /*  z-index: 1; */
+                color: white;
+            }
+            
+            header a {
+                color: inherit;
+                text-decoration: none;
+            }
+            
+            header a:hover {
+                opacity: 0.8;
+            }
+            
+            main {
+                margin-left: calc(150px + 25px * 2);
+                padding: 25px;
+            }
+            
+            aside {
+                position: fixed;
+                overflow-y: auto;
+                top: 158px;
+                height: calc(100% -  158px);
+                box-shadow: 0 0 15px #333;   /* Maybe the tone should be lowered to contrast the header's shadow?   */
+                padding: 25px;
+                width: 150px;
+            }
+            
+            .tree-item {
+                padding: 3px;
+                
+            }
+            
+            .tree-item:not(.tree-item-expanded)::before {
+                height: 9px;
+                width: 9px;
+                margin-right: 4px;
+                display: inline-block;
+                content: url(/static/icon_plus.png);
+            }
+            
+            .tree-item.tree-item-expanded::before {
+                height: 9px;
+                width: 9px;
+                margin-right: 4px;
+                display: inline-block;
+                content: url(/static/icon_minus.png);
+            }
+            
+            .tree_view_indentation {
+                margin-left: 25px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <a href="/">
+                <img src="/static/white_p1sec_logo.svg" style="float: right; margin-top: -14px" height="80"> diameter-db
+            </a>
+        </header>
+        
+        <aside>
+            {% for application in all_applications %}
+                <!--div data-object-id="{{ application.application_id }}"><a href="/applications/{{ application.object_id }}" target="_blank">{{ application.application_name }}</a></div-->
+                
+                {{ application.to_html_tree_entry(object_id_arborescence)|safe }}
+            {% endfor %}
+            
+            {% for command_code in alone_command_codes %}
+                <!--div>{{ command_code.command_name }}</div>
+                <div data-object-id="{{ command_code.object_id }}"><a href="/commands/{{ command_code.object_id }}" target="_blank">{{ command_code.command_name }}</a></div-->
+                
+                {{ command_code.to_html_tree_entry(object_id_arborescence)|safe }}
+            {% endfor %}
+        </aside>
+        
+        <main>
+            {% block contents %} {% endblock   %}
+        </main>
+    </body>
+</html>
