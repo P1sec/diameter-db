@@ -24,7 +24,7 @@ app = Flask('bus-app')
 
 app.config['PROPAGATE_EXCEPTIONS'] = True
 
-app.jinja_env.trim_blocks = True
+#app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 app.jinja_env.auto_reload = True
 
@@ -39,6 +39,14 @@ async def index():
         return await render_template('index.html',
             all_applications = sql_session.query(DiameterApplication).order_by(DiameterApplication.application_name.asc()).all(),
             alone_command_codes = sql_session.query(DiameterCommand).order_by(DiameterCommand.command_name.asc()).filter(~DiameterCommand.applications.any()),
+            
+            num_of_applications = sql_session.query(DiameterApplication).count(),
+            num_of_commands = sql_session.query(DiameterCommand).count(),
+            num_of_vendors = sql_session.query(DiameterVendor).count(),
+            
+            num_of_avps = sql_session.query(DiameterAVPDefinition).count(),
+            num_of_avps_occurrences = sql_session.query(DiameterCommandAVPOccurrence).count(),
+            
             
             object_id_arborescence = None)
     
@@ -75,19 +83,55 @@ async def serve_application(object_id):
 
 @app.route('/command-code/<object_id>') # object_id of DiameterCommand
 async def serve_command_code(object_id):
-    object_id_arborescence : Union[None, List[str]] = None
+    object_id_arborescence : List[str] = []
     
     if request.args.get('object-id-arborescence'):
         object_id_arborescence =  request.args.get('object-id-arborescence').split(',')
+
+    object_id_arborescence.append(object_id)
+
+    sql_session =  Session()
+    try:
+        command =  sql_session.query(DiameterCommand).filter_by(object_id  = object_id).first()
+        return await render_template('command_code.html',
+            command = command,
+            
+            DiameterAVPRequirement = DiameterAVPRequirement,
+            
+            all_applications = sql_session.query(DiameterApplication).order_by(DiameterApplication.application_name.asc()).all(),
+            alone_command_codes = sql_session.query(DiameterCommand).order_by(DiameterCommand.command_name.asc()).filter(~DiameterCommand.applications.any()),
+            
+            object_id_arborescence = object_id_arborescence,
+            
+        )
+    finally:
+        sql_session.close()
 
 @app.route('/avp/<object_id>') # object_id of DiameterAVPDefinition
 async def serve_avp(object_id):
-    object_id_arborescence : Union[None, List[str]] = None
+    object_id_arborescence : List[str] = []
     
     if request.args.get('object-id-arborescence'):
         object_id_arborescence =  request.args.get('object-id-arborescence').split(',')
 
-#      @app.route('/avp_type/<avp_type>')
+    object_id_arborescence.append(object_id)
+
+    sql_session =  Session()
+    try:
+        avp =  sql_session.query(DiameterAVPDefinition).filter_by(object_id  = object_id).first()
+        return await render_template('avp.html',
+            avp = avp,
+            
+            DiameterAVPRequirement = DiameterAVPRequirement,
+            
+            all_applications = sql_session.query(DiameterApplication).order_by(DiameterApplication.application_name.asc()).all(),
+            alone_command_codes = sql_session.query(DiameterCommand).order_by(DiameterCommand.command_name.asc()).filter(~DiameterCommand.applications.any()),
+            
+            object_id_arborescence = object_id_arborescence,
+            
+        )
+    finally:
+        sql_session.close()
 
 
 if __name__ == '__main__':

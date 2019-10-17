@@ -7,7 +7,7 @@
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from enum import IntEnum
+from enum import IntEnum, Enum as PythonEnum
 from html import escape
 from typing import Sequence, List, Dict, Set, Tuple, Union
 
@@ -35,12 +35,12 @@ Session.configure(bind = engine)
 
 
 
-class DiameterDataSource(IntEnum):
-    wireshark_database = 1
-    iana_database = 2
-    tgpp_specifications = 3
-    ietf_specifications = 4
-    diafuzzer_database = 5
+class DiameterDataSource(PythonEnum):
+    wireshark_database = 'Wireshark'
+    iana_database = 'IANA'
+    tgpp_specifications = '3GPP'
+    ietf_specifications = 'IETF'
+    diafuzzer_database = 'Diafuzzer'
 
 class VersionedDiameterObject(Base):
     __tablename__ = 'versioned_diameter_object'
@@ -63,27 +63,27 @@ class VersionedDiameterObject(Base):
     
     def to_html_tree_entry(self, current_page_object_id_arborescence :   Union[None, List[str]]  = None,  this_object__parent_object_id_arborescence  : List[str]  = None) -> str:
         
-        css_class, entry_name = self.obtain_css_class_and_name_of_tree_entry()
+        css_class, declared_object_id, entry_name = self.obtain_css_class_and_name_of_tree_entry()
         
-        this_object__parent_object_id_arborescence = this_object__parent_object_id_arborescence or []
+        this_object__parent_object_id_arborescence = list(this_object__parent_object_id_arborescence or [])
         
-        current_page_object_id_arborescence = current_page_object_id_arborescence or []
+        current_page_object_id_arborescence = list(current_page_object_id_arborescence or [])
         
         extra_classes  : str = ''
-        if self.object_id in current_page_object_id_arborescence:
+        if declared_object_id in current_page_object_id_arborescence:
             extra_classes  += ' tree-item-expanded'
         
         returned_html  = '<div class="tree-%s tree-item%s"><a href="/%s/%s%s" target="_blank">%s</a>' % (
             css_class,
             extra_classes,
             css_class,
-            self.object_id,
+            declared_object_id,
             ('?object-id-arborescence=' +  ','.join(this_object__parent_object_id_arborescence)  ) if this_object__parent_object_id_arborescence  else  '',
             escape(entry_name))
         
-        this_object__parent_object_id_arborescence.append(self.object_id)
+        this_object__parent_object_id_arborescence.append(declared_object_id)
 
-        if current_page_object_id_arborescence  and self.object_id == current_page_object_id_arborescence[0]:
+        if current_page_object_id_arborescence  and declared_object_id == current_page_object_id_arborescence[0]:
             returned_html  += '<div class="tree_view_indentation">'
             for child_object in self.obtain_child_objects():
                 returned_html  += child_object.to_html_tree_entry(current_page_object_id_arborescence[1:], this_object__parent_object_id_arborescence)
@@ -127,8 +127,8 @@ class DiameterApplication(VersionedDiameterObject):
             *self.avps
         ]
     
-    def obtain_css_class_and_name_of_tree_entry(self) -> Tuple[str, str]:
-        return ['application', self.application_name]
+    def obtain_css_class_and_name_of_tree_entry(self) -> Tuple[str, str, str]:
+        return ['application', self.object_id, self.application_name]
         
     
 class DiameterVendor(VersionedDiameterObject):
@@ -160,15 +160,15 @@ class DiameterCommand(VersionedDiameterObject):
     
     applications = relationship('DiameterApplication', uselist = True, secondary = 'diameter_command_application_occurrence', backref = 'commands')
     vendor = relationship('DiameterVendor', uselist = False, backref = 'commands')
-    avp_occurrences = relationship('DiameterCommandAVPOccurrence', uselist = True)
+    avp_occurrences = relationship('DiameterCommandAVPOccurrence', uselist = True, order_by = 'DiameterCommandAVPOccurrence.avp_index_within_command', backref='command', primaryjoin = 'and_(DiameterCommandAVPOccurrence.command_code == DiameterCommand.command_code, DiameterCommandAVPOccurrence.req_bit == DiameterCommand.req_bit)')
     
     def obtain_child_objects(self) -> Sequence[Union['DiameterAVPDefinition']]:
         return [
-            *self.avps
+            *self.avp_occurrences
         ]
     
-    def obtain_css_class_and_name_of_tree_entry(self) -> Tuple[str, str]:
-        return ['command-code', self.command_name]
+    def obtain_css_class_and_name_of_tree_entry(self) -> Tuple[str, str, str]:
+        return ['command-code', self.object_id, self.command_name]
 
 class DiameterCommandApplicationOccurrence(VersionedDiameterObject):
     __tablename__ = 'diameter_command_application_occurrence'
@@ -205,6 +205,14 @@ class DiameterCommandAVPOccurrence(VersionedDiameterObject):
     max_occurrences = Column(Integer, index = True, nullable = True)
     
     avp_requirement = Column(Enum(DiameterAVPRequirement), index = True)
+    
+    def obtain_child_objects(self) -> Sequence[Union['DiameterAVPDefinition']]:
+        return [
+            # *self.nested_avps
+        ]
+    
+    def obtain_css_class_and_name_of_tree_entry(self) -> Tuple[str, str, str]:
+        return ['avp', self.avp.object_id, self.avp.avp_name]
 
 class DiameterNestedAVPOccurrence(VersionedDiameterObject):
     __tablename__ = 'diameter_nested_avp_occurrence'
@@ -225,6 +233,8 @@ class DiameterNestedAVPOccurrence(VersionedDiameterObject):
     max_occurrences = Column(Integer, index = True, nullable = True)
     
     avp_requirement = Column(Enum(DiameterAVPRequirement), index = True)
+    
+    nested_avp = relationship('DiameterAVPDefinition', foreign_keys = [nested_avp_object_id], primaryjoin = 'DiameterAVPDefinition.object_id == DiameterNestedAVPOccurrence.nested_avp_object_id', uselist = False, backref = 'grouped_avps')
 
 class DiameterAVPTypeDefinition(VersionedDiameterObject):
     __tablename__ = 'diameter_avp_type_definition'
@@ -266,7 +276,7 @@ class DiameterAVPDefinition(VersionedDiameterObject):
     type_definition = relationship('DiameterAVPTypeDefinition', uselist = False, backref = 'avps')
     enum_values = relationship('DiameterAVPEnumValue', uselist = True, backref = 'avp')
 
-    nested_avps = relationship('DiameterNestedAVPOccurrence', foreign_keys = [avp_code], primaryjoin = 'DiameterAVPDefinition.avp_code == DiameterNestedAVPOccurrence.nested_avp_code', uselist = True, backref = 'parent_avp')
+    nested_avps = relationship('DiameterNestedAVPOccurrence', foreign_keys = [avp_code], primaryjoin = 'DiameterAVPDefinition.avp_code == DiameterNestedAVPOccurrence.parent_avp_code', uselist = True, backref = 'parent_avp')
 
     avp_occurrences = relationship('DiameterCommandAVPOccurrence', uselist = True, backref = 'avp')
     
@@ -275,8 +285,8 @@ class DiameterAVPDefinition(VersionedDiameterObject):
             # *self.nested_avps
         ]
     
-    def obtain_css_class_and_name_of_tree_entry(self) -> Tuple[str, str]:
-        return ['avp', self.avp_name]
+    def obtain_css_class_and_name_of_tree_entry(self) -> Tuple[str, str, str]:
+        return ['avp', self.object_id, self.avp_name]
 
 class DiameterAVPEnumValue(VersionedDiameterObject):
     __tablename__ = 'diameter_avp_enum_value'
