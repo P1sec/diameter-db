@@ -36,7 +36,7 @@ IETF_RFCS_FOLDER = realpath(SCRIPT_DIR + '/ietf_rfcs')
     CCF is specified here: https://tools.ietf.org/html/rfc6733#section-3.2
 """
 
-CCF_AVP_REGEX = '(?:[\d\s]*\*[\d\s]*)?(?:\s*\[[^\]]+?\s*\]\s*|\s*<[^>]+?\s*>(?!\s*::)\s*|\s*\{[^\}]*?\s*\}\s*)'
+CCF_AVP_REGEX = '(?:[\d\s]*\*[\d\s]*)?(?:\s*\[[^\]]+?\s*\]\s*|\s*<[^>]+?\s*>(?!\s*::)\s*|\s*\{[^\}]*?\s*\}\s*)(?:;[^\n\]\[{}<>*]*[^0-9\n\]\[{}<>*]\s*)?'
 
 CCF_MESSAGE_REGEX = r'<?\s*([^<>\n ]+?)\s*>?\s*::\s*=\s*<\s*Diameter[-\s_]*Header([^>]*?)\s*>'
 CCF_MESSAGE_REGEX += r'((?:' + CCF_AVP_REGEX + ')+)'
@@ -244,7 +244,7 @@ try:
             
             spec_information = dict(
                 spec_url = 'http://www.3gpp.org/DynaReport/%s.htm' % tgpp_ts_code.replace('.', ''),
-                alternate_spec_url = 'https://protorisk.p1sec.com/3gpp/%s.htm' % tgpp_ts_code,
+                alternate_spec_url = 'https://protorisk.p1sec.com/3gpp/%s.html' % tgpp_ts_code,
                 short_spec_name = '%s %s' % (protorisk_spec_object.type, protorisk_spec_object.code),
                 long_spec_name_prefix = '3GPP %s %s' % (protorisk_spec_object.type, protorisk_spec_object.code),
                 long_spec_name_suffix = protorisk_spec_object.name
@@ -354,7 +354,7 @@ try:
             
             parse_extracted_ccf(file_contents, source = DiameterDataSource.tgpp_specifications, source_url = source_url, spec_metadata_row_dict =  dict(
                 spec_url = source_url,
-                alternate_spec_url = 'https://protorisk.p1sec.com/3gpp/%s.htm' % tgpp_spec_name,
+                alternate_spec_url = 'https://protorisk.p1sec.com/3gpp/%s.html' % tgpp_spec_name,
                 short_spec_name = '%s %s' % (protorisk_spec_object.type, protorisk_spec_object.code),
                 long_spec_name_prefix = ('3GPP %s %s' % (protorisk_spec_object.type, protorisk_spec_object.code)),
                 long_spec_name_suffix = protorisk_spec_object.name if tgpp_spec_name else None

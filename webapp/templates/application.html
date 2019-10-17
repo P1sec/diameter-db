@@ -6,36 +6,76 @@
     
     <p>The "{{ application.application_name }}" Diameter application uses the application ID code "{{ application.application_id }}".</p>
     
+    {% if application.spec_url and application.spec_url != 'none' %}
+        <p>It is part of the <a href="{{ application.alternate_spec_url or  application.spec_url }}" target="_blank">{% if application.long_spec_name_prefix -%} {{- application.long_spec_name_prefix or '' }}: {{ application.long_spec_name_suffix or '' -}} {%- else -%} {{- application.spec_url -}} {%- endif %}</a> specification.</p>
+    {% endif %}
+    
     <p>
-        It can be used to exchange the following command codes:
-        
-        <table>
-            <tr>
-                <th>Command code</th>
-                <th>Command name</th>
-            </tr>
-            {% for command in application.commands %}
+        {% if application.commands %}
+            
+            It can be used to exchange the following command codes:
+            
+            <table>
                 <tr>
-                    <td>{{ command.command_code }}</td>
-                    <td><a href="/command-code/{{ command.object_id }}">{{ command.command_name }}</a></td>
+                    <th>Command code</th>
+                    <th>Command name</th>
+                    <th>Abbreviation</th>
                 </tr>
-            {% endfor %}
-        </table>
+                {% for command in application.commands %}
+                    <tr>
+                        <td>{{ command.command_code }}</td>
+                        <td><a href="/command-code/{{ command.object_id }}?object-id-arborescence={{ application.object_id }}" target="_blank">{{ command.command_name }}</a></td>
+                        <td>{% if command.command_three_char_abbreviation %} {{ command.command_three_char_abbreviation }} {% endif %}</td>
+                    </tr>
+                {% endfor %}
+            </table>
         
-        It also defines the following AVPs:
+        {% endif %}
         
-        <table>
-            <tr>
-                <th>AVP code</th>
-                <th>AVP name</th>
-            </tr>
-            {% for avp in application.avps %}
+        {% if application.avps %}
+            
+            It also defines the following AVPs:
+            
+            <table>
                 <tr>
-                    <td>{{ avp.avp_code }}</td>
-                    <td><a href="/avp/{{ avp.object_id }}">{{ avp.avp_name }}</a></td>
+                    <th>AVP code</th>
+                    <th>AVP name</th>
                 </tr>
-            {% endfor %}
-        </table>
+                {% for avp in application.avps %}
+                    <tr>
+                        <td>{{ avp.avp_code }}</td>
+                        <td><a href="/avp/{{ avp.object_id }}?object-id-arborescence={{ application.object_id }}">{{ avp.avp_name }}</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        
+        {% endif %}
+        
+        {% if application.updates %}
+            
+            <br>
+            <br>
+            <hr>
+            <br>
+            <br>
+            
+            <table>
+            
+                <tr>
+                    <th>Update source</th>
+                    <th>Insertion date</th>
+                </tr>
+            
+                {% for update in application.updates %}
+                    <tr>
+                        <td><a href="{{ update.source_url }}" target="_blank">{{ update.source.value }}</a></td>
+                        <td>{{ update.insertion_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                    </tr>
+                {% endfor %}
+            
+            </table>
+        
+        {% endif %}
     </p>
 
 {% endblock %}

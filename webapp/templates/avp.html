@@ -1,0 +1,133 @@
+{% extends 'base.html'  %}
+
+{% block contents %}
+
+    <h1>The "{{ avp.avp_name }}" AVP</h1>
+    
+    <p>The "{{ avp.avp_name }}" Diameter AVP {% if avp.vendor %}, of type {{ avp.avp_type }}, is defined by {{ avp.vendor.vendor_name }} and {% endif %} uses the AVP code "{{ avp.avp_code }}".</p>
+    
+    {% if avp.mandatory_flag or avp.protected_flag or avp.vendor_specific_flag or avp.may_encrypt %}
+        <p>
+            It has the
+            {% if avp.mandatory_flag %}MANDATORY flag{% if avp.protected_flag or avp.vendor_specific_flag or avp.may_encrypt %}, {% endif %}{% endif -%}
+            {%- if avp.protected_flag %}PROTECTED flag{% if avp.vendor_specific_flag or avp.may_encrypt %}, {% endif %}{% endif -%}
+            {%- if avp.vendor_specific_flag %}VENDOR-SPECIFIC flag{% if avp.may_encrypt %}, {% endif %}{% endif -%}
+            {%- if avp.may_encrypt %}MAY-ENCRYPT flag{% endif %}.</p>
+    {% endif %}
+    
+    {% if avp.avp_occurrences %}
+        <p>It is part of the {% for avp_occurrence in avp.avp_occurrences %}{% if loop.index0 > 0 %}, {% endif %}<a href="/command-code/{{ avp_occurrence.command.object_id }}" target="_blank">{{ avp_occurrence.command.command_name }}</a>{% endfor %} command{% if avp.avp_occurrences|length > 1 %}s{% endif %}.</p>
+    {% endif %}
+    
+    {% if avp.application %}
+    
+        <p>It is part of the <a href="/application/{{ avp.application.object_id }}" target="_blank">{{ avp.application.application_name }}</a> application.</p>
+    
+    {% endif %}
+    
+    {% if avp.spec_url and avp.spec_url != 'none' %}
+        <p>It is part of the <a href="{{ avp.alternate_spec_url or  avp.spec_url }}" target="_blank">{% if avp.long_spec_name_prefix -%} {{- avp.long_spec_name_prefix or '' }}: {{ avp.long_spec_name_suffix or '' -}} {%- else -%} {{- avp.spec_url -}} {%- endif %}</a> specification.</p>
+    {% endif %}
+    
+    {% if avp.enum_values %}
+    
+        <p>It is an enumerated AVP, which can hold the following values:</p>
+        
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Integer value</th>
+            </tr>
+            {% for enum_value in avp.enum_values %}
+                <tr>
+                    <td>{{ enum_value.enum_name_string }}</td>
+                    <td>{{ enum_value.enum_value_integer }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    
+    {% endif %}
+    
+    {% if avp.nested_avps %}
+    
+        <p>It is a grouped AVP, which can hold the following nested AVPs:</p>
+    
+            <table>
+                <tr>
+                    <th>AVP code</th>
+                    <th>AVP name</th>
+                    <th>AVP requirement</th>
+                </tr>
+                {% for nested_avp in avp.nested_avps %}
+                    <tr>
+                        <td>{{ nested_avp.nested_avp_code }}</td>
+                        <td><a href="/avp/{{ nested_avp.nested_avp_object_id }}?object-id-arborescence={{ ','.join(object_id_arborescence) }}" target="_blank">{{ nested_avp.nested_avp.avp_name }}</a></td>
+                        <td>
+                            {% if nested_avp.avp_requirement == DiameterAVPRequirement.fixed %}
+                                Fixed
+                            {% elif nested_avp.avp_requirement == DiameterAVPRequirement.optional %}
+                                Optional
+                            {% elif nested_avp.avp_requirement == DiameterAVPRequirement.required %}
+                                Required
+                            {% endif %}
+                            {% if (nested_avp.min_occurrences or nested_avp.max_occurrences) %}
+                                {% if nested_avp.min_occurrences == nested_avp.max_occurrences %}
+                                    ({{ nested_avp.max_occurrences }})
+                                {% elif nested_avp.min_occurrences and nested_avp.max_occurrences %}
+                                    ({{ nested_avp.min_occurrences }} to {{ nested_avp.max_occurrences }})
+                                {% elif nested_avp.min_occurrences %}
+                                    (at least {{ nested_avp.min_occurrences }})
+                                {% elif nested_avp.max_occurrences %}
+                                    (up to {{ nested_avp.max_occurrences }})
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        
+            Its <a href="https://tools.ietf.org/html/rfc6733#section-4.4" target="_blank">AVP-header format</a> definition is the following:
+            
+            <pre>&lt; {{ avp.avp_name }} &gt; ::= &lt; AVP-Header: {{ avp.avp_code }}{% if avp.vendor_id %}, {{ avp.vendor_id }}{% endif %} &gt; {% for nested_avp in avp.nested_avps %}
+{% if not (nested_avp.avp_requirement == DiameterAVPRequirement.optional and (nested_avp.min_occurrences, nested_avp.max_occurrences) == (0, 1)) and not (nested_avp.avp_requirement in (DiameterAVPRequirement.fixed, DiameterAVPRequirement.required) and nested_avp.min_occurrences == nested_avp.max_occurrences ==     1) -%}
+    {%- if nested_avp.min_occurrences -%}
+        {{ nested_avp.min_occurrences }}
+    {%- endif -%}
+    *
+    {%- if nested_avp.max_occurrences -%}
+        {{ nested_avp.max_occurrences }}
+    {%- endif %} {% endif -%}
+{%- if nested_avp.avp_requirement == DiameterAVPRequirement.fixed %}&lt; {{ nested_avp.nested_avp.avp_name }} &gt;
+{%- elif nested_avp.avp_requirement == DiameterAVPRequirement.required %}{ {{ nested_avp.nested_avp.avp_name }} }
+{%- else %}[ {{ nested_avp.nested_avp.avp_name }} ]{% endif %}{% endfor %}</pre>
+
+    {% endif %}
+            
+        {% if avp.updates %}
+            
+            <br>
+            <br>
+            <hr>
+            <br>
+            <br>
+            
+            <table>
+            
+                <tr>
+                    <th>Update source</th>
+                    <th>Insertion date</th>
+                </tr>
+            
+                {% for update in avp.updates %}
+                    <tr>
+                        <td><a href="{{ update.source_url }}" target="_blank">{{ update.source.value }}</a></td>
+                        <td>{{ update.insertion_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                    </tr>
+                {% endfor %}
+            
+            </table>
+        
+        {% endif %}
+    </p>
+
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends 'base.html'  %}
+
+{% block contents %}
+
+    <h1>The "{{ command.command_name }}" Diameter command code</h1>
+    
+    <p>The "{{ command.command_name }}" Diameter command {% if command.vendor %} is defined by {{ command.vendor_name }} and {% endif %} uses the command code "{{ command.command_code }}".</p>
+    
+    {% if command.req_bit or command.pxy_bit %}
+        <p>It has the {% if command.req_bit and command.pxy_bit %}REQ and PXY bits{% elif command.req_bit %}REQ bit{% elif command.pxy_bit %}PXY bit{% endif %}.</p>
+    {% endif %}
+    
+    {% if command.applications %}
+    
+        <p>It is part of the {% for application in command.applications %}{% if loop.index0 > 0 %}, {% endif %}<a href="/application/{{ application.object_id }}" target="_blank">{{ application.application_name }}</a>{% endfor %} application{% if command.applications|length > 1 %}s{% endif %}.</p>
+    
+    {% endif %}
+    
+    {% if command.spec_url and command.spec_url != 'none' %}
+        <p>It is part of the <a href="{{ command.alternate_spec_url or  command.spec_url }}" target="_blank">{% if command.long_spec_name_prefix -%} {{- command.long_spec_name_prefix or '' }}: {{ command.long_spec_name_suffix or '' -}} {%- else -%} {{- command.spec_url -}} {%- endif %}</a> specification.</p>
+    {% endif %}
+    
+    <p>
+        {% if command.avp_occurrences %}
+            
+            It contains the following AVPs:
+            
+            <table>
+                <tr>
+                    <th>AVP code</th>
+                    <th>AVP name</th>
+                    <th>AVP requirement</th>
+                </tr>
+                {% for avp_occurrence in command.avp_occurrences %}
+                    <tr>
+                        <td>{{ avp_occurrence.avp_code }}</td>
+                        <td><a href="/avp/{{ avp_occurrence.avp.object_id }}?object-id-arborescence={{ ','.join(object_id_arborescence) }}" target="_blank">{{ avp_occurrence.avp.avp_name }}</a></td>
+                        <!--td>{% if avp_occurrence.req_bit %}[REQ]{% endif %}</td-->
+                        <td>
+                            {% if avp_occurrence.avp_requirement == DiameterAVPRequirement.fixed %}
+                                Fixed
+                            {% elif avp_occurrence.avp_requirement == DiameterAVPRequirement.optional %}
+                                Optional
+                            {% elif avp_occurrence.avp_requirement == DiameterAVPRequirement.required %}
+                                Required
+                            {% endif %}
+                            {% if (avp_occurrence.min_occurrences or avp_occurrence.max_occurrences) %}
+                                {% if avp_occurrence.min_occurrences == avp_occurrence.max_occurrences %}
+                                    ({{ avp_occurrence.max_occurrences }})
+                                {% elif avp_occurrence.min_occurrences and avp_occurrence.max_occurrences %}
+                                    ({{ avp_occurrence.min_occurrences }} to {{ avp_occurrence.max_occurrences }})
+                                {% elif avp_occurrence.min_occurrences %}
+                                    (at least {{ avp_occurrence.min_occurrences }})
+                                {% elif avp_occurrence.max_occurrences %}
+                                    (up to {{ avp_occurrence.max_occurrences }})
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        
+            Its <a href="https://tools.ietf.org/html/rfc6733#section-3.2" title="Command Code Format" target="_blank">CCF</a> definition is the following:
+            
+            <pre>&lt; {{ command.command_name }} &gt; ::= &lt; Diameter-Header: {{ command.command_code }}{% if command.req_bit %}, REQ{% endif %}
+            {%- if command.pxy_bit %}, PXY{% endif -%}
+            {%- if command.err_bit %}, ERR{% endif -%}
+            {%- if command.applications and command.applications|length == 1 %}, {{ command.applications[0].application_id }}
+            {%- endif %} &gt; {% for avp_occurrence in command.avp_occurrences %}
+{% if not (avp_occurrence.avp_requirement == DiameterAVPRequirement.optional and (avp_occurrence.min_occurrences, avp_occurrence.max_occurrences) == (0, 1)) and not (avp_occurrence.avp_requirement in (DiameterAVPRequirement.fixed, DiameterAVPRequirement.required) and avp_occurrence.min_occurrences == avp_occurrence.max_occurrences ==     1) -%}
+    {%- if avp_occurrence.min_occurrences -%}
+        {{ avp_occurrence.min_occurrences }}
+    {%- endif -%}
+    *
+    {%- if avp_occurrence.max_occurrences -%}
+        {{ avp_occurrence.max_occurrences }}
+    {%- endif %} {% endif -%}
+{%- if avp_occurrence.avp_requirement == DiameterAVPRequirement.fixed %}&lt; {{ avp_occurrence.avp.avp_name }} &gt;
+{%- elif avp_occurrence.avp_requirement == DiameterAVPRequirement.required %}{ {{ avp_occurrence.avp.avp_name }} }
+{%- else %}[ {{ avp_occurrence.avp.avp_name }} ]{% endif %}{% endfor %}</pre>
+        
+        {% endif %}
+
+        {% if command.updates %}
+            
+            <br>
+            <br>
+            <hr>
+            <br>
+            <br>
+            
+            <table>
+            
+                <tr>
+                    <th>Update source</th>
+                    <th>Insertion date</th>
+                </tr>
+            
+                {% for update in command.updates %}
+                    <tr>
+                        <td><a href="{{ update.source_url }}" target="_blank">{{ update.source.value }}</a></td>
+                        <td>{{ update.insertion_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                    </tr>
+                {% endfor %}
+            
+            </table>
+        
+        {% endif %}
+    </p>
+
+{% endblock %}

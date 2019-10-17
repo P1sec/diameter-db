@@ -1,4 +1,40 @@
 {% extends 'base.html'  %}
 
 
-{% block contents %}  Test   {% endblock %}
+{% block contents %}
+
+    <h1>Welcome to diameter-db</h1>
+    
+    <p>Beyond this door there is a mirage, beyond this door there is diameter-db.</p>
+    
+    <p>
+        Our Diameter protocol database currently contains:
+    
+        <ul>
+            <li><b>{{ "{:,}".format(num_of_applications) }}</b> of applications</li>
+            <li><b>{{ "{:,}".format(num_of_vendors) }}</b> of vendors</li>
+            <li><b>{{ "{:,}".format(num_of_commands) }}</b> of commands</li>
+            <li><b>{{ "{:,}".format(num_of_avps) }}</b> of AVPs</li>
+            <li><b>{{ "{:,}".format(num_of_avps_occurrences) }}</b> of AVP occurrences in commands</li>
+        </ul>
+    </p>
+    
+    <p>Pick an option in the right panel to browse an application or command code.</p>
+    
+    <br><br>
+    <hr>
+    <br><br>
+    
+    <form method="get" action="https://github.com/P1sec/diameter-db">
+        <input type="submit" value="View the source code on Github">
+    </form>
+    <br><br>
+    <form method="get" action="https://github.com/P1sec/diameter-db/raw/master/database.sqlite3">
+        <input type="submit" value="Export the .SQLITE database">
+    </form>
+    <br><br>
+    <form method="get" action="https://github.com/P1sec/diameter-db/raw/master/database_diameter.py">
+        <input type="submit" value="Download the SQLAlchemy .PY">
+    </form>
+
+{% endblock %}

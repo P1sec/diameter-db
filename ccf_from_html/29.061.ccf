@@ -405,7 +405,19 @@
 [ MBMS-Session-Identity ]
 [ MBMS-Session-Repetition-number ]
 [ TMGI ]
-* [ 3GPP-SGSN-Address ]
+* [ 3GPP-SGSN-Address ] ; broadcast case only
+* [ 3GPP-SGSN-Ipv6-Address ] ; broadcast case only
+[ MBMS-2G-3G-Indicator ]
+[ MBMS-Time-To-Data-Transfer ]
+[ MBMS-User-Data-Mode-Indication ]
+[ MBMS-BMSC-SSM-IP-Address ]
+[ MBMS-BMSC-SSM-Ipv6-Address ]
+[ MBMS-Flow-Identifier ]
+[ CN-IP-Multicast-Distribution ]
+[ MBMS-HC-Indicator ]
+[ Origin-State-Id ]
+* [ Proxy-Info ]
+* [ Route-Record ]
 
 < RAA > ::= < Diameter-Header: 258, PXY >
 < Session-Id >
@@ -414,7 +426,18 @@
 [ Result-Code ]
 [ Experimental-Result ]
 [ MBMS-StartStop-Indication ]
-[ MBMS-GGSN-Address ]
+[ MBMS-GGSN-Address ] ; for unicast encapsulated user data
+[ MBMS-GGSN-Ipv6-Address ] ; for unicast encapsulated user data
+[ MBMS-GW-UDP-Port] ; for unicast encapsulated user data
+[ MBMS-User-Data-Mode-Indication ]
+[ Origin-State-Id ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+[ Failed-AVP ]
+* [ Redirected-Host ]
+[ Redirected-Host-Usage ]
+[ Redirected-Host-Cache-Time ]
+* [ Proxy-Info ]
 
 < ASR > ::= < Diameter-Header: 274, REQ, PXY >
 < Session-Id >
@@ -473,7 +496,17 @@
 [ MBMS-Flow-Identifier ]
 [ CN-IP-Multicast-Distribution ]
 [ MBMS-HC-Indicator ]
-[ MBMS-GW-UDP-Port-Indicator]
+[ MBMS-GW-UDP-Port-Indicator] ; for IP unicast encapsulated user data
+[ MBMS-GW-SSM-IP-Address ] ; for IP multicast encapsulated user data
+[ MBMS-GW-SSM-Ipv6-Address ] ; for IP multicast encapsulated user data
+[ MBMS-BMSC-SSM-UDP-Port ] ; for IP multicast encapsulated user data
+[ MBMS-Cell-List ]
+[ Local-M1-Information ]
+[ Origin-State-Id ]
+* [ Proxy-Info ]
+* [ Route-Record ]
+* [ Supported-Features ]
+[ Restart-Counter ]
 
 < RAA > ::= < Diameter-Header: 258, PXY >
 < Session-Id >
@@ -482,7 +515,20 @@
 [ Result-Code ]
 [ Experimental-Result ]
 [ MBMS-StartStop-Indication ]
-[ MBMS-GGSN-Address ]
+[ MBMS-GGSN-Address ] ; for unicast encapsulated user data
+[ MBMS-GGSN-Ipv6-Address ] ; for unicast encapsulated user data
+[ MBMS-User-Data-Mode-Indication ]
+[ MBMS-GW-UDP-Port] ; for unicast encapsulated user data
+[ Origin-State-Id ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+[ Failed-AVP ]
+* [ Redirected-Host ]
+[ Redirected-Host-Usage ]
+[ Redirected-Host-Cache-Time ]
+[ Proxy-Info ]
+* [ Supported-Features ]
+[ Restart-Counter ]
 
 < ST-Request > ::= < Diameter-Header: 275, REQ, PXY >
 < Session-Id >

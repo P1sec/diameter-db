@@ -3,7 +3,7 @@
 
 import usercustomize
 
-from re import findall, IGNORECASE, MULTILINE
+from re import findall, IGNORECASE, MULTILINE, search
 from lxml.etree import XMLParser, parse, dump
 from os.path import dirname, realpath
 from typing import Dict, Set, List
@@ -13,6 +13,8 @@ from requests import get
 from io import StringIO
 from os import listdir
 from typing import Set
+
+from database_protorisk import obtain_spec_from_code
 
 SCRIPT_DIR = dirname(realpath(__file__))
 
@@ -57,17 +59,44 @@ try:
     
     for application_id, application_name in wireshark__application_id_to_name.items():
         
-        print('DEBUG: adding application ID %s: %s' % (str(app.get('id')), str(app.get('name'))))
+        print('DEBUG: adding application ID %s: %s' % (application_id, application_name))
         
+        spec_url = wireshark__application_id_to_url[application_id] if '//' in wireshark__application_id_to_url[application_id] else None
+        
+        alternate_spec_url : str = None
+        short_spec_name : str = None
+        long_spec_name_prefix : str = None
+        long_spec_name_suffix : str = None
+        
+        if spec_url:
+            tgpp_spec_match  = search('3gpp.+?/([\d]{5})\D', spec_url, flags = IGNORECASE)
+            if tgpp_spec_match:
+                tgpp_spec_code =  tgpp_spec_match.group(1)
+                tgpp_spec_code = tgpp_spec_code[:2] + '.' + tgpp_spec_code[2:]
+                
+                protorisk_spec_object = obtain_spec_from_code(tgpp_spec_code)
+                
+                alternate_spec_url = 'https://protorisk.p1sec.com/3gpp/%s.html' % tgpp_spec_code
+                short_spec_name = '%s %s' % (protorisk_spec_object.type, protorisk_spec_object.code)
+                long_spec_name_prefix = ('3GPP %s %s' % (protorisk_spec_object.type, protorisk_spec_object.code))
+                long_spec_name_suffix = protorisk_spec_object.name
+                
+                spec_url = 'http://www.3gpp.org/DynaReport/%s.htm' % tgpp_spec_code.replace('.', '')
+            
         sql_session.add(DiameterApplication(
             object_id = 'app_' + str(application_id),
             application_id = application_id,
             application_name = application_name,
-            spec_url = wireshark__application_id_to_url[application_id]
+            
+            spec_url = spec_url,
+            alternate_spec_url = alternate_spec_url,
+            short_spec_name = short_spec_name,
+            long_spec_name_prefix = long_spec_name_prefix,
+            long_spec_name_suffix = long_spec_name_suffix
         ))
         
         sql_session.add(DiameterObjectUpdate(
-            object_id = 'app_' + str(app.get('id')),
+            object_id = 'app_' + str(application_id),
             source = DiameterDataSource.wireshark_database,
             insertion_date = datetime.now(),
             source_url = 'https://github.com/wireshark/wireshark/tree/master/diameter'
