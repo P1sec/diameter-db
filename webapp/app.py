@@ -6,6 +6,7 @@ import usercustomize
 from quart import Quart as Flask, request, redirect, render_template, session, send_from_directory, abort, Response, send_file, redirect, jsonify
 from argparse import ArgumentParser
 from os.path import dirname, realpath
+from itsdangerous import BadSignature
 from typing import List, Union, Dict, Tuple, Set
 from asyncio import get_event_loop
 from sys import path
@@ -19,6 +20,13 @@ path.append(DIAMETER_DB_DIR)
 chdir(dirname(__file__))
 
 from database_diameter import *
+from authentication import login_required
+
+from flask_salt import FLASK_SALT
+
+
+
+app.secret_key = FLASK_SALT
 
 app = Flask('bus-app')
 
@@ -31,6 +39,7 @@ app.jinja_env.auto_reload = True
 app.jinja_env.filters['zip'] = zip
 
 @app.route('/')
+@login_required
 async def index():
     
     sql_session  = Session()
@@ -58,6 +67,7 @@ async def index():
 # tree view objects, for simplicity
 
 @app.route('/application/<object_id>') # object_id of DiameterApplication here
+@login_required
 async def serve_application(object_id):
     object_id_arborescence : List[str] = []
     
@@ -82,6 +92,7 @@ async def serve_application(object_id):
         sql_session.close()
 
 @app.route('/command-code/<object_id>') # object_id of DiameterCommand
+@login_required
 async def serve_command_code(object_id):
     object_id_arborescence : List[str] = []
     
@@ -108,6 +119,7 @@ async def serve_command_code(object_id):
         sql_session.close()
 
 @app.route('/avp/<object_id>') # object_id of DiameterAVPDefinition
+@login_required
 async def serve_avp(object_id):
     object_id_arborescence : List[str] = []
     
@@ -132,6 +144,33 @@ async def serve_avp(object_id):
         )
     finally:
         sql_session.close()
+
+
+@app.route('/jevoudraisdussoafindemidentifierencrossdomainpourdesraisonsdegouvernancesurnosracinesdnsinternes', methods=['POST'])
+async def sso_endpoint():
+    
+    form = await request.form
+    
+    try:
+        
+        remote_session = app.session_interface.get_signing_serializer(app).loads(
+            form['cookie'], max_age=app.permanent_session_lifetime.total_seconds()
+        )
+        
+        print('==>', remote_session)
+        
+        for key, value in remote_session.items():
+            print(key, '=>', value)
+            session[key] = value
+    
+    except BadSignature:
+        
+        return Response('cookie deserialization error')
+    
+    else:
+        
+        return redirect(form['return_to'])
+
 
 
 if __name__ == '__main__':

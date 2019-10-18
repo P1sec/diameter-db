@@ -5,4 +5,5 @@ html_from_doc/
 *.pyc
 __pycache__/
 
+flask_salt.py
 *.swp
