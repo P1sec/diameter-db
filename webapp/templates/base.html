@@ -40,6 +40,22 @@
             header a:hover {
                 opacity: 0.8;
             }
+
+            
+            #search-form {
+                display: inline-block;
+            }
+            
+            #search-form input {
+                font-size: 22px;
+                margin-left: 20px;
+                position: relative;
+                top: -4px;
+            }
+            
+            #search-form input[type="submit"] {
+                margin-left: 15px;
+            }
             
             main {
                 margin-left: calc(150px + 25px * 2);
@@ -91,12 +107,27 @@
                 padding: 3px;
             }
         </style>
+        
+        
+        {% block extra_styles %} {% endblock extra_styles %}
+
     </head>
     <body>
         <header>
             <a href="/"  target="_blank">
                 <img src="/static/white_p1sec_logo.svg" style="float: right; margin-top: -14px" height="80"> diameter-db
             </a>
+
+            <form id="search-form" action="/search">
+                <input type="text" placeholder="Search definitions..." value="{{ search_term }}" name="query">
+                
+                <input type="submit" value="Search">
+            </form>
+            
+
+
+
+
         </header>
         
         <aside>
