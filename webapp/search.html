@@ -1,0 +1,54 @@
+{% set title  = 'Results for "' + search_term + '"' %}
+
+{% extends "base.html" %}
+
+{% block extra_styles %}
+
+    <style>
+        main {
+            margin: 45px 40px;
+        }
+        
+        .pagination {
+            text-align: center;
+        }
+        
+        .result a {
+            display: inline-block;
+            margin-bottom: 3px;
+        }
+    </style>
+        
+{% endblock %}
+
+{% block contents %}
+
+    <main>
+        
+        {% if not results %}
+        
+            No results.
+        
+        {% else %}
+        
+            <p><b>{{ number_results }}</b> results</p>
+            <br><br>
+                
+            <p class="pagination">{{ pagination | safe }}</p>
+        
+            {% for result in results %}
+            
+                <p class="result">
+                    <a href="/3gpp/{{ result.spec_code }}.html">{{ result.spec_name | safe }}</a><br>
+                    {{ result.snippet | safe }}
+                </p>
+            
+            {% endfor %}
+                
+            <p class="pagination">{{ pagination | safe }}</p>
+        
+        {% endif %}
+        
+    </main>
+
+{% endblock %}

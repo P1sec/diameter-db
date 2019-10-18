@@ -11,7 +11,9 @@ from typing import List, Union, Dict, Tuple, Set
 from asyncio import get_event_loop
 from aiohttp import ClientSession
 from re import findall, search, sub, IGNORECASE, match, DOTALL, MULTILINE
-from html import unescape
+from urllib.parse import quote
+from html import unescape, escape
+from math import ceil
 from sys import path
 from os import chdir
 
@@ -175,6 +177,123 @@ async def sso_endpoint():
         return redirect(form['return_to'])
 
 
+
+
+@app.route('/search', methods=['GET'])
+async def search():
+    
+    async with ClientSession() as client_session:
+        
+        RESULTS_PER_PAGE = 15
+        wanted_page = max(1, int(request.args.get('page', 1)))
+        
+        async with client_session.post('http://localhost:9200/diameter_db_pages/indexated_page/_search', params = {
+            'from': (wanted_page - 1) * RESULTS_PER_PAGE,
+            'size': RESULTS_PER_PAGE
+        }, json = {
+            "query": {
+                "simple_query_string": {
+                    "query": request.args.get('query', ''),
+                    "fields": ["title", "contents"],
+                    "default_operator": "and"
+                }
+            },
+            "highlight": {
+                "pre_tags" : ["__BOLDSTART__"],
+                "post_tags" : ["__BOLDEND__"],
+                "fields": {
+                    "name": {
+                        "no_match_size": 2000,
+                        "number_of_fragments" : 1,
+                        "fragment_size" : 2000
+                    },
+                    "contents": {
+                        "no_match_size": 300,
+                        "number_of_fragments" : 3,
+                        "fragment_size" : 200
+                    }
+                }
+            }
+        }, timeout = 30) as response:
+            
+            elastic_results = await response.json()
+            
+            print('DEBUG: JSON response from Elasticsearch:  ', repr(elastic_results))
+            
+            number_results = '{:,}'.format(elastic_results['hits']['total'])
+            
+            total_pages = ceil(elastic_results['hits']['total'] / RESULTS_PER_PAGE)
+            
+            # Results
+            
+            results_object = []
+            
+            for result in elastic_results['hits']['hits']:
+                
+                found_title = ' ... '.join(result['highlight']['title'])
+                found_snippet = ' ... '.join(['', *result['highlight']['contents'], ''])
+                
+                if '__BOLDSTART__' not in found_snippet:
+                    found_snippet = found_snippet.replace(' ... ', '', 1)
+                
+                results_object.append({
+                    'url': result['url'],
+                    'title': escape(found_title).replace('__BOLDSTART__', '<b>').replace('__BOLDEND__', '</b>'),
+                    'snippet': escape(found_snippet).replace('__BOLDSTART__', '<b>').replace('__BOLDEND__', '</b>')
+                })
+            
+            # Pagination
+            
+            pagination_html = ''
+            
+            show_pages = set()
+            
+            for page in range(1, min(total_pages, 5) + 1):
+                show_pages.add(page)
+            
+            for page in range(max(1, wanted_page - 5), min(total_pages, wanted_page + 5) + 1):
+                show_pages.add(page)
+            
+            for page in range(max(1, total_pages - 5), total_pages + 1):
+                show_pages.add(page)
+            
+            prev_page = 0
+            
+            for page in sorted(show_pages):
+                
+                if prev_page != page - 1:
+                    
+                    pagination_html += '... '
+                
+                if page != wanted_page:
+                    
+                    pagination_html += '<a href="%s&page=%d">%d</a> ' % (
+                        sub('&?page=[^&]+', '', escape(request.full_path)),
+                        page,
+                        page
+                    )
+                
+                else:
+                    
+                    pagination_html += '<b>%d</b> ' % page
+                
+                prev_page = page
+            
+            return await             render_template('search.html',
+                                    
+                                   results = results_object,
+                                   number_results = number_results,
+                                   pagination = pagination_html,
+                                   search_term = request.args.get('query', ''))
+                                   
+
+
+
+
+
+
+
+
 async  def indexate_app():
     def undecorate_endpoint(endpoint_function):
         return endpoint_function.__wrapped__
@@ -225,6 +344,8 @@ async  def indexate_app():
     
     finally:
         sql_session.close()
+
+
 
 
 if __name__ == '__main__':
