@@ -202,23 +202,20 @@ async  def indexate_app():
                         
                         ELASTICSEARCH_HOST = 'localhost:9200'
                         
-                        elastic_url = 'http://%s/diameter_db_pages/_update/%s' % (ELASTICSEARCH_HOST,
+                        elastic_url = 'http://%s/diameter_db_pages/indexated_page/%s' % (ELASTICSEARCH_HOST,
                             possible_value or 'index')
                         
                         title_html   = search('<title>(.+?)</title>', rendered_html, flags  = DOTALL | MULTILINE).group(1)
                         main_html  = search('<main>(.+?)</main>', rendered_html, flags  = DOTALL | MULTILINE).group(1)
                         
                         data = {
-                            'doc': {
-                                'title': unescape(sub('<.+?>', '',  title_html, flags = IGNORECASE)).strip(),
-                                'contents': unescape(sub('<.+?>', '',  main_html, flags = IGNORECASE)).strip(),
-                            },
-                            'doc_as_upsert': True
+                            'title': unescape(sub('<.+?>', '',  title_html, flags = IGNORECASE)).strip(),
+                            'contents': unescape(sub('<.+?>', '',  main_html, flags = IGNORECASE)).strip(),
                         }
                         
-                        data['doc']['url'] = url_prefix + (possible_value or '')
+                        data['url'] = url_prefix + (possible_value or '')
                         
-                        async with client_session.post(elastic_url, json = data, headers = {
+                        async with client_session.put(elastic_url, json = data, headers = {
                             'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:65.0) Gecko/20100101 Firefox/65.0'
                         }, timeout = 30) as resp:
                             
