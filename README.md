@@ -22,7 +22,7 @@ git submodule update --recursive --remote --merge
 The following command will run the data generation procedure for both the web application and the data regeneration routine:
 
 ```
-sudo apt install fuse python3-pip git python3.7 sshfs
+sudo apt install fuse python3-pip git python3.7 sshfs p7zip-full sqlite3
 sudo python3.7 -m pip install --upgrade cython # Avoid conflicts with older cython versions installed on the system when installing aiohttp
 sudo python3.7 -m pip install --upgrade sqlalchemy sshtunnel quart requests itsdangerous==0.24 aiohttp
 ```
