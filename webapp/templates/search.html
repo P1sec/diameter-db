@@ -39,7 +39,7 @@
         {% for result in results %}
         
             <p class="result">
-                <a href="{{ result.url }}">{{ result.title | safe }}</a><br>
+                <a href="{{ result.url }}" target="_blank">{{ result.title | safe }}</a><br>
                 {{ result.snippet | safe }}
             </p>
         
