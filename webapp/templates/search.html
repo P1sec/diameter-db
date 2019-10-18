@@ -5,7 +5,7 @@
 {% block extra_styles %}
 
     <style>
-        main p {
+        main {
             font-size: 16px;
         }
         
@@ -32,7 +32,7 @@
     {% else %}
     
         <p><b>{{ number_results }}</b> results</p>
-        <br><br>
+        <br>
             
         <p class="pagination">{{ pagination | safe }}</p>
     
