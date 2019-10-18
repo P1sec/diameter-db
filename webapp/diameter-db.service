@@ -1,0 +1,12 @@
+[Unit]
+Description=toreport-ng
+
+[Service]
+User=p1sec
+Group=p1sec
+WorkingDirectory=/home/p1sec/diameter-db/webapp
+ExecStart=/home/p1sec/diameter-db/webapp/app.py --port 9999
+
+[Install]
+WantedBy=multi-user.target
+
