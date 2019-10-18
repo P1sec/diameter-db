@@ -23,10 +23,11 @@ The following command will run the data generation procedure for both the web ap
 
 ```
 sudo apt install fuse python3-pip git python3.7 sshfs
-sudo python3.7 -m pip install --upgrade sqlalchemy sshtunnel quart requests itsdangerous==0.24
+sudo python3.7 -m pip install --upgrade cython # Avoid conflicts with older cython versions installed on the system when installing aiohttp
+sudo python3.7 -m pip install --upgrade sqlalchemy sshtunnel quart requests itsdangerous==0.24 aiohttp
 ```
 
-In order to regenerate the SQLite database, please run (note: you need a public key with the ability to connect through SSH to `p1sec@protorisk.p1sec.com` in order to be able to mount HTML specifications from Protorisk, and to query the Protorisk MySQL database through the `sshtunnel` Python module):
+In order to regenerate the SQLite database, and to indexate its contents in Elasticsearch if installed, please run (note: you need a public key with the ability to connect through SSH to `p1sec@protorisk.p1sec.com` in order to be able to mount HTML specifications from Protorisk, and to query the Protorisk MySQL database through the `sshtunnel` Python module):
 
 ```
 ./regenerate.sh
@@ -52,7 +53,7 @@ nano webapp/flask_salt.py
 To run the application locally, please run:
 
 ```
-./app.py
+./webapp/app.py
 ```
 
 ## Install the application on the Protorisk server

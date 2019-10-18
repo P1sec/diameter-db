@@ -18,3 +18,7 @@ rm -f database.sqlite3
 ./insert_command_codes.py
 
 ./insert_avps.py
+
+if [ -d /usr/share/elasticsearch/ ]; then
+    ./webapp/app.py --reindexate-elasticsearch
+fi

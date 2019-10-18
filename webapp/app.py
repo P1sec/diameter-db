@@ -9,6 +9,9 @@ from os.path import dirname, realpath
 from itsdangerous import BadSignature
 from typing import List, Union, Dict, Tuple, Set
 from asyncio import get_event_loop
+from aiohttp import ClientSession
+from re import findall, search, sub, IGNORECASE, match, DOTALL, MULTILINE
+from html import unescape
 from sys import path
 from os import chdir
 
@@ -172,17 +175,75 @@ async def sso_endpoint():
         return redirect(form['return_to'])
 
 
+async  def indexate_app():
+    def undecorate_endpoint(endpoint_function):
+        return endpoint_function.__wrapped__
+    
+    sql_session = Session()
+    
+    try:
+        for endpoint, url_prefix, possible_endpoint_values in [
+            (index, '/', None),
+            (serve_application, '/application/', [application.object_id for application in sql_session.query(DiameterApplication)]),
+            (serve_command_code, '/command-code/', [command.object_id for command in sql_session.query(DiameterCommand)]),
+            (serve_avp, '/avp/', [avp.object_id for avp in sql_session.query(DiameterAVPDefinition)])]:
+            
+            for possible_value in (possible_endpoint_values or [None]):
+                
+                async with app.test_request_context(url_prefix + (possible_value or '')):
+                    
+                    if possible_value:
+                        rendered_html =  await undecorate_endpoint(endpoint)(possible_value)
+                    else:
+                        rendered_html =  await undecorate_endpoint(endpoint)()
+
+        
+                    async with ClientSession() as client_session:
+                        
+                        ELASTICSEARCH_HOST = 'localhost:9200'
+                        
+                        elastic_url = 'http://%s/diameter_db_pages/_update/%s' % (ELASTICSEARCH_HOST,
+                            possible_value or 'index')
+                        
+                        title_html   = search('<title>(.+?)</title>', rendered_html, flags  = DOTALL | MULTILINE).group(1)
+                        main_html  = search('<main>(.+?)</main>', rendered_html, flags  = DOTALL | MULTILINE).group(1)
+                        
+                        data = {
+                            'doc': {
+                                'title': unescape(sub('<.+?>', '',  title_html, flags = IGNORECASE)).strip(),
+                                'contents': unescape(sub('<.+?>', '',  main_html, flags = IGNORECASE)).strip(),
+                            },
+                            'doc_as_upsert': True
+                        }
+                        
+                        data['doc']['url'] = url_prefix + (possible_value or '')
+                        
+                        async with client_session.post(elastic_url, json = data, headers = {
+                            'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:65.0) Gecko/20100101 Firefox/65.0'
+                        }, timeout = 30) as resp:
+                            
+                            print('DEBUG: indexating the vulnerability form contents into Elasticsearch returned:', await resp.read())
+
+
+    
+    finally:
+        sql_session.close()
+
 
 if __name__ == '__main__':
     
     args = ArgumentParser()
     
-    args.add_argument('-p', '--port', help = 'Port number to serve on 0.0.0.0', type = int, default = 9999)
+    args.add_argument('-p', '--port', help = 'Port number to serve on 127.0.0.1', type = int, default = 9999)
+    args.add_argument('-r', '--reindexate-elasticsearch', help = 'Reindexate AVP values into elasticsearch', action = 'store_true')
     
     args = args.parse_args()
     
     # Ensure to share the same event loop as the task
     # that was scheduled when importing other potential modules
     
-    app.run(host = '0.0.0.0', loop = get_event_loop(), port = args.port)
+    if args.reindexate_elasticsearch:
+        get_event_loop().run_until_complete(indexate_app())
+    else:
+        app.run(host = '127.0.0.1', loop = get_event_loop(), port = args.port)
 

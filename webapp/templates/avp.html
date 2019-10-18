@@ -1,8 +1,10 @@
+{% set title = 'The "' + avp.avp_name + '" AVP' %}
+    
 {% extends 'base.html'  %}
 
 {% block contents %}
 
-    <h1>The "{{ avp.avp_name }}" AVP</h1>
+    <h1>{{ title }}</h1>
     
     <p>The "{{ avp.avp_name }}" Diameter AVP {% if avp.vendor %}, of type {{ avp.avp_type }}, is defined by {{ avp.vendor.vendor_name }} and {% endif %} uses the AVP code "{{ avp.avp_code }}".</p>
     

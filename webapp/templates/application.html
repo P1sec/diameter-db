@@ -1,8 +1,10 @@
+{% set title = 'The "' + application.application_name + '" Diameter application' %}
+
 {% extends 'base.html'  %}
 
 {% block contents %}
 
-    <h1>The "{{ application.application_name }}" Diameter application</h1>
+    <h1>{{ title }}</h1>
     
     <p>The "{{ application.application_name }}" Diameter application uses the application ID code "{{ application.application_id }}".</p>
     
