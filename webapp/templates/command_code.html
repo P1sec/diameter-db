@@ -1,8 +1,10 @@
+{% set title  = 'The "' + command.command_name + '" Diameter command code' %}
+
 {% extends 'base.html'  %}
 
 {% block contents %}
 
-    <h1>The "{{ command.command_name }}" Diameter command code</h1>
+    <h1>{{ title }}</h1>
     
     <p>The "{{ command.command_name }}" Diameter command {% if command.vendor %} is defined by {{ command.vendor_name }} and {% endif %} uses the command code "{{ command.command_code }}".</p>
     

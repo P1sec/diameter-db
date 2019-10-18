@@ -95,6 +95,8 @@ def login_required(function):
         
         return await function(*args, **kwargs)
     
+    #          decorated_function.__wrapped__ = function
+    
     return decorated_function
 
 
