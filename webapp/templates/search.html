@@ -39,7 +39,7 @@
             {% for result in results %}
             
                 <p class="result">
-                    <a href="/3gpp/{{ result.spec_code }}.html">{{ result.spec_name | safe }}</a><br>
+                    <a href="{{ result.url }}">{{ result.title | safe }}</a><br>
                     {{ result.snippet | safe }}
                 </p>
             
