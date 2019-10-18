@@ -182,116 +182,122 @@ async def sso_endpoint():
 @app.route('/search', methods=['GET'])
 async def search():
     
-    async with ClientSession() as client_session:
-        
-        RESULTS_PER_PAGE = 15
-        wanted_page = max(1, int(request.args.get('page', 1)))
-        
-        async with client_session.post('http://localhost:9200/diameter_db_pages/indexated_page/_search', params = {
-            'from': (wanted_page - 1) * RESULTS_PER_PAGE,
-            'size': RESULTS_PER_PAGE
-        }, json = {
-            "query": {
-                "simple_query_string": {
-                    "query": request.args.get('query', ''),
-                    "fields": ["title", "contents"],
-                    "default_operator": "and"
-                }
-            },
-            "highlight": {
-                "pre_tags" : ["__BOLDSTART__"],
-                "post_tags" : ["__BOLDEND__"],
-                "fields": {
-                    "title": {
-                        "no_match_size": 2000,
-                        "number_of_fragments" : 1,
-                        "fragment_size" : 2000
-                    },
-                    "contents": {
-                        "no_match_size": 300,
-                        "number_of_fragments" : 3,
-                        "fragment_size" : 200
+    sql_session = Session()
+    
+    try:
+            
+        async with ClientSession() as client_session:
+            
+            RESULTS_PER_PAGE = 15
+            wanted_page = max(1, int(request.args.get('page', 1)))
+            
+            async with client_session.post('http://localhost:9200/diameter_db_pages/indexated_page/_search', params = {
+                'from': (wanted_page - 1) * RESULTS_PER_PAGE,
+                'size': RESULTS_PER_PAGE
+            }, json = {
+                "query": {
+                    "simple_query_string": {
+                        "query": request.args.get('query', ''),
+                        "fields": ["title", "contents"],
+                        "default_operator": "and"
+                    }
+                },
+                "highlight": {
+                    "pre_tags" : ["__BOLDSTART__"],
+                    "post_tags" : ["__BOLDEND__"],
+                    "fields": {
+                        "title": {
+                            "no_match_size": 2000,
+                            "number_of_fragments" : 1,
+                            "fragment_size" : 2000
+                        },
+                        "contents": {
+                            "no_match_size": 300,
+                            "number_of_fragments" : 3,
+                            "fragment_size" : 200
+                        }
                     }
                 }
-            }
-        }, timeout = 30) as response:
-            
-            elastic_results = await response.json()
-            
-            print('DEBUG: JSON response from Elasticsearch:  ', repr(elastic_results))
-            
-            number_results = '{:,}'.format(elastic_results['hits']['total'])
-            
-            total_pages = ceil(elastic_results['hits']['total'] / RESULTS_PER_PAGE)
-            
-            # Results
-            
-            results_object = []
-            
-            for result in elastic_results['hits']['hits']:
+            }, timeout = 30) as response:
                 
-                found_title = ' ... '.join(result['highlight']['title'])
-                found_snippet = ' ... '.join(['', *result['highlight']['contents'], ''])
+                elastic_results = await response.json()
                 
-                if '__BOLDSTART__' not in found_snippet:
-                    found_snippet = found_snippet.replace(' ... ', '', 1)
+                print('DEBUG: JSON response from Elasticsearch:  ', repr(elastic_results))
                 
-                results_object.append({
-                    'url': result['_source']['url'],
-                    'title': escape(found_title).replace('__BOLDSTART__', '<b>').replace('__BOLDEND__', '</b>'),
-                    'snippet': escape(found_snippet).replace('__BOLDSTART__', '<b>').replace('__BOLDEND__', '</b>')
-                })
-            
-            # Pagination
-            
-            pagination_html = ''
-            
-            show_pages = set()
-            
-            for page in range(1, min(total_pages, 5) + 1):
-                show_pages.add(page)
-            
-            for page in range(max(1, wanted_page - 5), min(total_pages, wanted_page + 5) + 1):
-                show_pages.add(page)
-            
-            for page in range(max(1, total_pages - 5), total_pages + 1):
-                show_pages.add(page)
-            
-            prev_page = 0
-            
-            for page in sorted(show_pages):
+                number_results = '{:,}'.format(elastic_results['hits']['total'])
                 
-                if prev_page != page - 1:
+                total_pages = ceil(elastic_results['hits']['total'] / RESULTS_PER_PAGE)
+                
+                # Results
+                
+                results_object = []
+                
+                for result in elastic_results['hits']['hits']:
                     
-                    pagination_html += '... '
-                
-                if page != wanted_page:
+                    found_title = ' ... '.join(result['highlight']['title'])
+                    found_snippet = ' ... '.join(['', *result['highlight']['contents'], ''])
                     
-                    pagination_html += '<a href="%s&page=%d">%d</a> ' % (
-                        sub('&?page=[^&]+', '', escape(request.full_path)),
-                        page,
-                        page
-                    )
-                
-                else:
+                    if '__BOLDSTART__' not in found_snippet:
+                        found_snippet = found_snippet.replace(' ... ', '', 1)
                     
-                    pagination_html += '<b>%d</b> ' % page
+                    results_object.append({
+                        'url': result['_source']['url'],
+                        'title': escape(found_title).replace('__BOLDSTART__', '<b>').replace('__BOLDEND__', '</b>'),
+                        'snippet': escape(found_snippet).replace('__BOLDSTART__', '<b>').replace('__BOLDEND__', '</b>')
+                    })
                 
-                prev_page = page
-            
-            return await             render_template('search.html',
-                                    
-                                   results = results_object,
-                                   number_results = number_results,
-                                   pagination = pagination_html,
-                                   search_term = request.args.get('query', ''),
-                                                           
-                                    all_applications = sql_session.query(DiameterApplication).order_by(DiameterApplication.application_name.asc()).all(),
-                                    alone_command_codes = sql_session.query(DiameterCommand).order_by(DiameterCommand.command_name.asc()).filter(~DiameterCommand.applications.any()),
+                # Pagination
+                
+                pagination_html = ''
+                
+                show_pages = set()
+                
+                for page in range(1, min(total_pages, 5) + 1):
+                    show_pages.add(page)
+                
+                for page in range(max(1, wanted_page - 5), min(total_pages, wanted_page + 5) + 1):
+                    show_pages.add(page)
+                
+                for page in range(max(1, total_pages - 5), total_pages + 1):
+                    show_pages.add(page)
+                
+                prev_page = 0
+                
+                for page in sorted(show_pages):
+                    
+                    if prev_page != page - 1:
+                        
+                        pagination_html += '... '
+                    
+                    if page != wanted_page:
+                        
+                        pagination_html += '<a href="%s&page=%d">%d</a> ' % (
+                            sub('&?page=[^&]+', '', escape(request.full_path)),
+                            page,
+                            page
+                        )
+                    
+                    else:
+                        
+                        pagination_html += '<b>%d</b> ' % page
+                    
+                    prev_page = page
+                
+                return await             render_template('search.html',
+                                        
+                                       results = results_object,
+                                       number_results = number_results,
+                                       pagination = pagination_html,
+                                       search_term = request.args.get('query', ''),
+                                                               
+                                        all_applications = sql_session.query(DiameterApplication).order_by(DiameterApplication.application_name.asc()).all(),
+                                        alone_command_codes = sql_session.query(DiameterCommand).order_by(DiameterCommand.command_name.asc()).filter(~DiameterCommand.applications.any()),
 
-                                    object_id_arborescence = None)
-                                   
-
+                                        object_id_arborescence = None)
+                                       
+    finally:
+        
+        sql_session.close()
 
 
 
