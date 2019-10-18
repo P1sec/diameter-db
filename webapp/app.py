@@ -194,7 +194,7 @@ async def search():
             "query": {
                 "simple_query_string": {
                     "query": request.args.get('query', ''),
-                    "fields": ["title", "contents"],
+                    "fields": ["title", "contents", "url"],
                     "default_operator": "and"
                 }
             },
