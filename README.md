@@ -74,7 +74,7 @@ sudo cp ~/diameter-db/webapp/nginx-site-diameter-db.conf /etc/nginx/sites-enable
 sudo systemctl restart nginx
 ```
 
-Setup the letsencrypt certificate: see the commands in the [Protorisk README](https://project.p1sec.com/projects/html-3gpp-documentation/repository/revisions/master/entry/README.md)
+Setup the letsencrypt certificate and the local Elasticsearch server: see the commands in the [Protorisk README](https://project.p1sec.com/projects/html-3gpp-documentation/repository/revisions/master/entry/README.md)
 
 ## Other documentation
 
