@@ -180,7 +180,7 @@ async def sso_endpoint():
 
 
 @app.route('/search', methods=['GET'])
-async def search():
+async def search_engine():
     
     sql_session = Session()
     
@@ -335,7 +335,7 @@ async  def indexate_app():
                         elastic_url = 'http://%s/diameter_db_pages/indexated_page/%s' % (ELASTICSEARCH_HOST,
                             possible_value or 'index')
                         
-                        title_html   = search('<title>(.+?)</title>', rendered_html.split(' - diameter-db')[0], flags  = DOTALL | MULTILINE).group(1)
+                        title_html   = search('<title>(.+?)</title>', rendered_html, flags  = DOTALL | MULTILINE).group(1).split(' - diameter-db')[0]
                         main_html  = search('<main>(.+?)</main>', rendered_html, flags  = DOTALL | MULTILINE).group(1)
                         
                         data = {
