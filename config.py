@@ -7,10 +7,10 @@ from shlex import quote
 
 # mkdir -p html_from_doc; sshfs p1sec@protorisk.p1sec.com:protorisk/fetch/html html_from_doc -C -o allow_other -p47478 -o ro
 
-WEBAPP_PATH = dirname(realpath(__file__))
+DIAMETER_DB_DIR = dirname(realpath(__file__))
 
-HTML_3GPP_DOCS_PATH = WEBAPP_PATH + '/html_from_doc'
-EXTRACTED_CCF_FROM_3GPP_PATH = WEBAPP_PATH + '/ccf_from_html'
+HTML_3GPP_DOCS_PATH = DIAMETER_DB_DIR + '/html_from_doc'
+EXTRACTED_CCF_FROM_3GPP_PATH = DIAMETER_DB_DIR + '/ccf_from_html'
 
 if not exists(HTML_3GPP_DOCS_PATH):
     makedirs(HTML_3GPP_DOCS_PATH, exist_ok = True)

@@ -26,9 +26,9 @@ from flask_salt import FLASK_SALT
 
 
 
-app.secret_key = FLASK_SALT
-
 app = Flask('bus-app')
+
+app.secret_key = FLASK_SALT
 
 app.config['PROPAGATE_EXCEPTIONS'] = True
 
