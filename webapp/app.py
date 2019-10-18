@@ -202,7 +202,7 @@ async def search():
                 "pre_tags" : ["__BOLDSTART__"],
                 "post_tags" : ["__BOLDEND__"],
                 "fields": {
-                    "name": {
+                    "title": {
                         "no_match_size": 2000,
                         "number_of_fragments" : 1,
                         "fragment_size" : 2000
@@ -324,7 +324,7 @@ async  def indexate_app():
                         elastic_url = 'http://%s/diameter_db_pages/indexated_page/%s' % (ELASTICSEARCH_HOST,
                             possible_value or 'index')
                         
-                        title_html   = search('<title>(.+?)</title>', rendered_html, flags  = DOTALL | MULTILINE).group(1)
+                        title_html   = search('<title>(.+?)</title>', rendered_html.split(' - diameter-db')[0], flags  = DOTALL | MULTILINE).group(1)
                         main_html  = search('<main>(.+?)</main>', rendered_html, flags  = DOTALL | MULTILINE).group(1)
                         
                         data = {
