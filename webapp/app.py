@@ -284,7 +284,12 @@ async def search():
                                    results = results_object,
                                    number_results = number_results,
                                    pagination = pagination_html,
-                                   search_term = request.args.get('query', ''))
+                                   search_term = request.args.get('query', ''),
+                                                           
+                                    all_applications = sql_session.query(DiameterApplication).order_by(DiameterApplication.application_name.asc()).all(),
+                                    alone_command_codes = sql_session.query(DiameterCommand).order_by(DiameterCommand.command_name.asc()).filter(~DiameterCommand.applications.any()),
+
+                                    object_id_arborescence = None)
                                    
 
 

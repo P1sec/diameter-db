@@ -6,7 +6,7 @@
 
     <style>
         main {
-            margin: 45px 40px;
+            font-size: 16px;
         }
         
         .pagination {
@@ -23,32 +23,30 @@
 
 {% block contents %}
 
-    <main>
-        
-        {% if not results %}
-        
-            No results.
-        
-        {% else %}
-        
-            <p><b>{{ number_results }}</b> results</p>
-            <br><br>
-                
-            <p class="pagination">{{ pagination | safe }}</p>
-        
-            {% for result in results %}
+    <h1>{{ title }}</h1>
+    
+    {% if not results %}
+    
+        No results.
+    
+    {% else %}
+    
+        <p><b>{{ number_results }}</b> results</p>
+        <br><br>
             
-                <p class="result">
-                    <a href="{{ result.url }}">{{ result.title | safe }}</a><br>
-                    {{ result.snippet | safe }}
-                </p>
+        <p class="pagination">{{ pagination | safe }}</p>
+    
+        {% for result in results %}
+        
+            <p class="result">
+                <a href="{{ result.url }}">{{ result.title | safe }}</a><br>
+                {{ result.snippet | safe }}
+            </p>
+        
+        {% endfor %}
             
-            {% endfor %}
-                
-            <p class="pagination">{{ pagination | safe }}</p>
-        
-        {% endif %}
-        
-    </main>
+        <p class="pagination">{{ pagination | safe }}</p>
+    
+    {% endif %}
 
 {% endblock %}
