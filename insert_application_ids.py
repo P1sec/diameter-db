@@ -70,6 +70,7 @@ try:
         
         if spec_url:
             tgpp_spec_match  = search('3gpp.+?/([\d]{5})\D', spec_url, flags = IGNORECASE)
+            rfc_spec_match = search('/rfc(\d+)', spec_url, flags = IGNORECASE)
             if tgpp_spec_match:
                 tgpp_spec_code =  tgpp_spec_match.group(1)
                 tgpp_spec_code = tgpp_spec_code[:2] + '.' + tgpp_spec_code[2:]
@@ -82,6 +83,17 @@ try:
                 long_spec_name_suffix = protorisk_spec_object.name
                 
                 spec_url = 'http://www.3gpp.org/DynaReport/%s.htm' % tgpp_spec_code.replace('.', '')
+            
+            elif rfc_spec_match:
+                rfc_code =  rfc_spec_match.group(1)
+                
+                alternate_spec_url = None
+                short_spec_name = 'RFC ' + rfc_code
+                long_spec_name_prefix = 'IETF RFC ' + rfc_code
+                long_spec_name_suffix = search('<title>(.+?)</title>', get('https://tools.ietf.org/html/rfc%s' % rfc_code).text).group(1).split('-', 1)[1].strip()
+                
+                spec_url = 'https://tools.ietf.org/html/rfc%s' % rfc_code
+                
             
         sql_session.add(DiameterApplication(
             object_id = 'app_' + str(application_id),
