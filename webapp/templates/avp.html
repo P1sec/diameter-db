@@ -6,7 +6,7 @@
 
     <h1>{{ title }}</h1>
     
-    <p>The "{{ avp.avp_name }}" Diameter AVP, of type {{ avp.avp_type }}, {% if avp.vendor %} is defined by {{ avp.vendor.vendor_name }} and {% endif %} uses the AVP code "{{ avp.avp_code }}".</p>
+    <p>The "{{ avp.avp_name }}" Diameter AVP, which is of type {{ avp.avp_type }}, {% if avp.vendor %} is defined by {{ avp.vendor.vendor_name }} and {% endif %} uses the AVP code "{{ avp.avp_code }}".</p>
     
     {% if avp.mandatory_flag or avp.protected_flag or avp.vendor_specific_flag or avp.may_encrypt %}
         <p>
