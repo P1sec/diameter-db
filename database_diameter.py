@@ -4,6 +4,7 @@
 
 
 
+from os.path import dirname, realpath, exists
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -11,14 +12,14 @@ from enum import IntEnum, Enum as PythonEnum
 from html import escape
 from typing import Sequence, List, Dict, Set, Tuple, Union
 
-from config import WEBAPP_PATH
+DIAMETER_DB_DIR = dirname(realpath(__file__))
 
 """
     CCF = Command Code Format = Diameter's custom ABNF,
     defined in https://tools.ietf.org/html/rfc6733#section-3.2
 """
 
-engine = create_engine(f'sqlite:///' + WEBAPP_PATH + '/database.sqlite3')
+engine = create_engine(f'sqlite:///' + DIAMETER_DB_DIR + '/database.sqlite3')
 # Append the ", echo = True" keyword argument to print sql requests to stdout
 
 metadata = MetaData(bind = engine)
