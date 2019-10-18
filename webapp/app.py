@@ -194,7 +194,7 @@ async def search():
             "query": {
                 "simple_query_string": {
                     "query": request.args.get('query', ''),
-                    "fields": ["title", "contents", "url"],
+                    "fields": ["title", "contents"],
                     "default_operator": "and"
                 }
             },
@@ -237,7 +237,7 @@ async def search():
                     found_snippet = found_snippet.replace(' ... ', '', 1)
                 
                 results_object.append({
-                    'url': result['url'],
+                    'url': result['_source']['url'],
                     'title': escape(found_title).replace('__BOLDSTART__', '<b>').replace('__BOLDEND__', '</b>'),
                     'snippet': escape(found_snippet).replace('__BOLDSTART__', '<b>').replace('__BOLDEND__', '</b>')
                 })
