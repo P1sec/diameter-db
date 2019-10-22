@@ -1000,7 +1000,7 @@ try:
             
         
         vendor_row = None
-        command_vendor_id : int = None
+        avp_vendor_id : int = None
         
         if parent_vendor_tag != []:
             
@@ -1015,20 +1015,26 @@ try:
         if parent_vendor_tag != []:
 
 
-            command_vendor_id = int(parent_vendor_tag.get('code'))
+            avp_vendor_id = int(parent_vendor_tag.get('code'))
             vendor_name = parent_vendor_tag.get('name').strip()
 
             vendor_row =   dict( # DiameterVendor row
-                object_id = 'vendor_%d' % command_vendor_id,
-                vendor_id = command_vendor_id,
+                object_id = 'vendor_%d' % avp_vendor_id,
+                vendor_id = avp_vendor_id,
                 vendor_name =       vendor_name
             )
 
 
         avp_code = int(avp_tag.get('code'))
         
+        if avp_tag.get('vendor-bit') in ('mustnot', 'no'):
+            # assert not bool(avp_vendor_id)
+            avp_vendor_id = None
+        elif avp_tag.get('vendor-bit') in ('must', 'yes'):
+            assert bool(avp_vendor_id)
         
-        print('=>', avp_code, '/', avp_tag.get('name').strip(), '/', command_vendor_id, '/',   vendor_row, '/////////////', '/', parent_vendor_tag, '///', bool(parent_vendor_tag), '///////', avp_tag.get('vendor-id'),   ' DEBUGGGGGGGG  ')
+        
+        print('=>', avp_code, '/', avp_tag.get('name').strip(), '/', avp_vendor_id, '/',   vendor_row, '/////////////', '/', parent_vendor_tag, '///', bool(parent_vendor_tag), '///////', avp_tag.get('vendor-id'),   ' DEBUGGGGGGGG  ')
         
         
         
@@ -1038,14 +1044,39 @@ try:
             for avp_index, gavp_tag in enumerate(grouped_tag.xpath('.//gavp')):
                 print('=>', gavp_tag,      '      /////////         ',           gavp_tag.get('name').strip(),         ' =====>    DEBUG        ===========>       ', xml_file.xpath('.//avp[@name="%s" or @name="%s "]' % (gavp_tag.get('name').strip(), gavp_tag.get('name').strip())  )        )      #       DEBUG
                 
+        list_of_grouped_avp_row_dicts : List[Dict[str, dict]] = None
         
+        if grouped_tag != []:
+            
+            list_of_grouped_avp_row_dicts = []
+            
+            for avp_index, gavp_tag in enumerate(grouped_tag.xpath('.//gavp')):
+                
+                nested_avp_tag = xml_file.xpath('.//avp[@name="%s" or @name="%s "]' % (gavp_tag.get('name').strip(), gavp_tag.get('name').strip())  )[0]
+                
+                if nested_avp_tag.get('vendor-bit') == 'must':
+                    nested_avp_vendor_id : Union[int, None] = int((xml_file.xpath('ancestor::vendor') or xml_file.xpath('vendor[@vendor-id="%s"]' % nested_avp_tag.get('vendor-id')))[0].get('code'))
+                else:
+                    nested_avp_vendor_id : Union[int, None] = None
+                    
+                
+                list_of_grouped_avp_row_dicts.append(dict( #  like DiameterNestedAVPOccurrence
+                    object_id = 'nested_avp_%d_%d' % (avp_code, int(xml_file.xpath('.//avp[@name="%s" or @name="%s "]' % (gavp_tag.get('name').strip(), gavp_tag.get('name').strip())  )[0].get('code'))),
+                    parent_avp_code = avp_code,
+                    parent_avp_object_id = 'avp_%d_%d' % (avp_code,   avp_vendor_id   or   0),
+                    avp_index_within_grouped_avp = avp_index,
+                    
+                    nested_avp_code = int(nested_avp_tag.get('code')),
+                    nested_avp_object_id = 'avp_%d_%d' % ( int(nested_avp_tag.get('code')),   nested_avp_vendor_id or 0),
+                ))
+
             
         create_or_merge_avp(
             avp_row_dict = dict( # based on DiameterAvpDefinition
-                object_id = 'avp_%d_%d' % (int(avp_tag.get('code')), command_vendor_id or 0),
+                object_id = 'avp_%d_%d' % (int(avp_tag.get('code')), avp_vendor_id or 0),
                 
                 application_id = application_id,
-                vendor_id = command_vendor_id,
+                vendor_id = avp_vendor_id,
                 
                 mandatory_flag = mandatory_flag,
                 protected_flag = protected_flag,
@@ -1064,28 +1095,13 @@ try:
                 
             ),
             list_of_enum_value_row_dicts = [dict( #  like DiameterAVPEnumValue
-                object_id = 'avp_enum_%d_%d_%d' % (avp_code,  command_vendor_id or 0,   int(enum_tag.get('code'))),
+                object_id = 'avp_enum_%d_%d_%d' % (avp_code,  avp_vendor_id or 0,   int(enum_tag.get('code'))),
                 avp_code = avp_code,
                 enum_name_string = enum_tag.get('name').strip(),
                 enum_value_integer = int(enum_tag.get('code')),
                 
             ) for enum_tag in avp_tag.xpath('.//enum')],
-            
-            
-            
-            
-            
-            list_of_grouped_avp_row_dicts = [dict( #  like DiameterNestedAVPOccurrence
-                object_id = 'nested_avp_%d_%d' % (avp_code, int(xml_file.xpath('.//avp[@name="%s" or @name="%s "]' % (gavp_tag.get('name').strip(), gavp_tag.get('name').strip())  )[0].get('code'))),
-                parent_avp_code = avp_code,
-                parent_avp_object_id = 'avp_%d_%d' % (avp_code,   command_vendor_id   or   0),
-                avp_index_within_grouped_avp = avp_index,
-                
-                nested_avp_code = int(xml_file.xpath('.//avp[@name="%s" or @name="%s "]' % (gavp_tag.get('name').strip(), gavp_tag.get('name').strip())  )[0].get('code')),
-                nested_avp_object_id = 'avp_%d_%d' % ( int(xml_file.xpath('.//avp[@name="%s" or @name="%s "]' % (gavp_tag.get('name').strip(), gavp_tag.get('name').strip())  )[0].get('code')),   command_vendor_id   or    0),
-            ) for avp_index, gavp_tag in enumerate(grouped_tag.xpath('.//gavp'))] if grouped_tag else None,
-            
-            
+            list_of_grouped_avp_row_dicts = list_of_grouped_avp_row_dicts,
             
             
             
