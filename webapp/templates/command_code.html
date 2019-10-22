@@ -31,6 +31,7 @@
                 <tr>
                     <th>AVP code</th>
                     <th>AVP name</th>
+                    <th>AVP type</th>
                     <th>AVP requirement</th>
                 </tr>
                 {% for avp_occurrence in command.avp_occurrences %}
@@ -38,6 +39,7 @@
                         <td>{{ avp_occurrence.avp_code }}</td>
                         <td><a href="/avp/{{ avp_occurrence.avp.object_id }}?object-id-arborescence={{ ','.join(object_id_arborescence) }}" target="_blank">{{ avp_occurrence.avp.avp_name }}</a></td>
                         <!--td>{% if avp_occurrence.req_bit %}[REQ]{% endif %}</td-->
+                        <td>{{ avp_occurrence.avp.avp_type }}</td>
                         <td>
                             {% if avp_occurrence.avp_requirement == DiameterAVPRequirement.fixed %}
                                 Fixed
