@@ -84,7 +84,7 @@ async def serve_application(object_id):
     sql_session =  Session()
     try:
         application =  sql_session.query(DiameterApplication).filter_by(object_id  = object_id).first()
-        if not avp:
+        if not application:
             return abort(404)
         return await render_template('application.html',
             application = application,
@@ -111,7 +111,7 @@ async def serve_command_code(object_id):
     sql_session =  Session()
     try:
         command =  sql_session.query(DiameterCommand).filter_by(object_id  = object_id).first()
-        if not avp:
+        if not command:
             return abort(404)
         return await render_template('command_code.html',
             command = command,
