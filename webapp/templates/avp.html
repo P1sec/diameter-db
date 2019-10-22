@@ -62,12 +62,14 @@
                 <tr>
                     <th>AVP code</th>
                     <th>AVP name</th>
+                    <th>AVP type</th>
                     <th>AVP requirement</th>
                 </tr>
                 {% for nested_avp in avp.nested_avps %}
                     <tr>
                         <td>{{ nested_avp.nested_avp_code }}</td>
                         <td><a href="/avp/{{ nested_avp.nested_avp_object_id }}?object-id-arborescence={{ ','.join(object_id_arborescence) }}" target="_blank">{{ nested_avp.nested_avp.avp_name }}</a></td>
+                        <td>{{ nested_avp.nested_avp.avp_type }}</td>
                         <td>
                             {% if nested_avp.avp_requirement == DiameterAVPRequirement.fixed %}
                                 Fixed
