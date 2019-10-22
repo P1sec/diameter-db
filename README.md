@@ -1,6 +1,6 @@
 The purpose of this application is to aggregate Diameter AVPs/command codes/application IDs from different sources and puts all this in a common sourced and historized backend, which should be fetchable from an unique web frontend then, and possibly exportable in other formats such as SQLite or CSV (why not later Lua or ABNF), etc.
 
-It currently aggregates data from five different sources: [Wireshark](https://github.com/wireshark/wireshark/tree/master/diameter), [Diafuzzer](https://github.com/Orange-OpenSource/diafuzzer), IETF specifications, 3GPP specification and [IANA](https://www.iana.org/assignments/aaa-parameters/aaa-parameters.xhtml).
+It currently aggregates data from five different sources: [Wireshark](https://github.com/wireshark/wireshark/tree/master/diameter), [Diafuzzer](https://github.com/Orange-OpenSource/diafuzzer), IETF specifications, 3GPP specifications and [IANA](https://www.iana.org/assignments/aaa-parameters/aaa-parameters.xhtml).
 
 For examples of how to use with database with your code, you can refer to the [`examples/`](https://github.com/P1sec/diameter-db/tree/master/examples) directory.
 

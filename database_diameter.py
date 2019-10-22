@@ -6,7 +6,7 @@
 
 from os.path import dirname, realpath, exists
 from sqlalchemy import *
-from sqlalchemy.orm import relationship, sessionmaker
+from sqlalchemy.orm import relationship, sessionmaker, backref
 from sqlalchemy.ext.declarative import declarative_base
 from enum import IntEnum, Enum as PythonEnum
 from html import escape
@@ -277,7 +277,7 @@ class DiameterAVPDefinition(VersionedDiameterObject):
     type_definition = relationship('DiameterAVPTypeDefinition', uselist = False, backref = 'avps')
     enum_values = relationship('DiameterAVPEnumValue', uselist = True, backref = 'avp')
 
-    nested_avps = relationship('DiameterNestedAVPOccurrence', foreign_keys = [avp_code], primaryjoin = 'DiameterAVPDefinition.avp_code == DiameterNestedAVPOccurrence.parent_avp_code', uselist = True, backref = 'parent_avp')
+    nested_avps = relationship('DiameterNestedAVPOccurrence', foreign_keys = [object_id], primaryjoin = 'DiameterAVPDefinition.object_id == DiameterNestedAVPOccurrence.parent_avp_object_id', uselist = True, backref = backref('parent_avp', uselist = False))
 
     avp_occurrences = relationship('DiameterCommandAVPOccurrence', uselist = True, backref = 'avp')
     
