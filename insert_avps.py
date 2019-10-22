@@ -394,6 +394,8 @@ try:
                     
                     
                     avp_code = avp_code,
+                    avp_vendor_id = vendor_id,
+                    avp_object_id = 'avp_%d_%d' % (avp_code, vendor_id or 0),
                     
                     avp_requirement = avp_requirement,
                     
@@ -879,6 +881,8 @@ try:
                     dict( #  like DiameterAVPEnumValue
                         object_id = 'avp_enum_%d_%d_%d' % (avp_code,  vendor_id   or 0,   enum_value)     ,
                         avp_code = avp_code,
+                        avp_vendor_id = vendor_id,
+                        avp_object_id = '%d_%d' % (avp_code, vendor_id or 0),
                         enum_name_string = enum_key.strip(),
                         enum_value_integer = enum_value
                     )
