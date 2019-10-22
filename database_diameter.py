@@ -201,6 +201,8 @@ class DiameterCommandAVPOccurrence(VersionedDiameterObject):
     
     #avp_name = Column(String, ForeignKey('index = True, nullable = False)
     avp_code = Column(Integer, ForeignKey('diameter_avp_definition.avp_code'), index = True)
+    avp_vendor_id = Column(Integer, index = True)
+    avp_object_id = Column(Integer, ForeignKey('diameter_avp_definition.object_id'), index = True)
     
     min_occurrences = Column(Integer, index = True, nullable = True)
     max_occurrences = Column(Integer, index = True, nullable = True)
@@ -235,7 +237,7 @@ class DiameterNestedAVPOccurrence(VersionedDiameterObject):
     
     avp_requirement = Column(Enum(DiameterAVPRequirement), index = True)
     
-    nested_avp = relationship('DiameterAVPDefinition', foreign_keys = [nested_avp_object_id], primaryjoin = 'DiameterAVPDefinition.object_id == DiameterNestedAVPOccurrence.nested_avp_object_id', uselist = False, backref = 'grouped_avps')
+    nested_avp = relationship('DiameterAVPDefinition', foreign_keys = [nested_avp_object_id], primaryjoin = 'DiameterAVPDefinition.object_id == DiameterNestedAVPOccurrence.nested_avp_object_id', uselist = False, backref = backref('grouped_avps', uselist = True))
 
 class DiameterAVPTypeDefinition(VersionedDiameterObject):
     __tablename__ = 'diameter_avp_type_definition'
@@ -275,11 +277,12 @@ class DiameterAVPDefinition(VersionedDiameterObject):
     vendor = relationship('DiameterVendor', uselist = False, backref = 'avps')
     application = relationship('DiameterApplication', uselist = False, backref = 'avps')
     type_definition = relationship('DiameterAVPTypeDefinition', uselist = False, backref = 'avps')
-    enum_values = relationship('DiameterAVPEnumValue', uselist = True, backref = 'avp')
+    enum_values = relationship('DiameterAVPEnumValue', foreign_keys = [object_id], primaryjoin = 'DiameterAVPDefinition.object_id == DiameterAVPEnumValue.avp_object_id', uselist = True, backref = backref('avp', uselist = False))
 
     nested_avps = relationship('DiameterNestedAVPOccurrence', foreign_keys = [object_id], primaryjoin = 'DiameterAVPDefinition.object_id == DiameterNestedAVPOccurrence.parent_avp_object_id', uselist = True, backref = backref('parent_avp', uselist = False))
 
-    avp_occurrences = relationship('DiameterCommandAVPOccurrence', uselist = True, backref = 'avp')
+    avp_occurrences = relationship('DiameterCommandAVPOccurrence', foreign_keys = [object_id], primaryjoin = 'DiameterAVPDefinition.object_id == DiameterCommandAVPOccurrence.avp_object_id', uselist = True, backref = backref('avp', uselist = False))
+
     
     def obtain_child_objects(self) -> Sequence[Union['DiameterAVPDefinition']]:
         return [
@@ -296,6 +299,8 @@ class DiameterAVPEnumValue(VersionedDiameterObject):
     __mapper_args__ = {'polymorphic_identity': __tablename__, 'inherit_condition': (object_id == VersionedDiameterObject.object_id)}
     
     avp_code = Column(Integer, ForeignKey('diameter_avp_definition.avp_code'), index = True)
+    avp_vendor_id = Column(Integer, index = True)
+    avp_object_id = Column(Integer, ForeignKey('diameter_avp_definition.object_id'), index = True)
     
     enum_name_string = Column(String, index = True, nullable = False)
     
