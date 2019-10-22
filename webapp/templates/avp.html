@@ -6,19 +6,23 @@
 
     <h1>{{ title }}</h1>
     
-    <p>The "{{ avp.avp_name }}" Diameter AVP, which is of type {{ avp.avp_type }}, {% if avp.vendor %} is defined by {{ avp.vendor.vendor_name }} and {% endif %} uses the AVP code "{{ avp.avp_code }}".</p>
+    <p>The "{{ avp.avp_name }}" Diameter AVP, which is of type {{ avp.avp_type }}, {% if avp.vendor %} is defined by {{ avp.vendor.vendor_name }} (vendor ID {{ avp.vendor.vendor_id }}) and {% endif %} uses the AVP code "{{ avp.avp_code }}".</p>
     
     {% if avp.mandatory_flag or avp.protected_flag or avp.vendor_specific_flag or avp.may_encrypt %}
         <p>
-            It has the
-            {% if avp.mandatory_flag %}MANDATORY flag{% if avp.protected_flag or avp.vendor_specific_flag or avp.may_encrypt %}, {% endif %}{% endif -%}
-            {%- if avp.protected_flag %}PROTECTED flag{% if avp.vendor_specific_flag or avp.may_encrypt %}, {% endif %}{% endif -%}
-            {%- if avp.vendor_specific_flag %}VENDOR-SPECIFIC flag{% if avp.may_encrypt %}, {% endif %}{% endif -%}
-            {%- if avp.may_encrypt %}MAY-ENCRYPT flag{% endif %}.</p>
+            It has
+            {% if avp.mandatory_flag %}the MANDATORY flag{% if avp.protected_flag or avp.vendor_specific_flag or avp.may_encrypt %}, {% endif %}{% endif -%}
+            {%- if avp.protected_flag %}the PROTECTED flag{% if avp.vendor_specific_flag or avp.may_encrypt %}, {% endif %}{% endif -%}
+            {%- if avp.vendor_specific_flag %}the VENDOR-SPECIFIC flag{% if avp.may_encrypt %}, {% endif %}{% endif -%}
+            {%- if avp.may_encrypt %}the MAY-ENCRYPT flag{% endif %}.</p>
     {% endif %}
     
     {% if avp.avp_occurrences %}
         <p>It is part of the {% for avp_occurrence in avp.avp_occurrences %}{% if loop.index0 > 0 %}, {% endif %}<a href="/command-code/{{ avp_occurrence.command.object_id }}" target="_blank">{{ avp_occurrence.command.command_name }}</a>{% endfor %} command{% if avp.avp_occurrences|length > 1 %}s{% endif %}.</p>
+    {% endif %}
+    
+    {% if avp.grouped_avps %}
+        <p>It is part of the {% for grouped_avp_occurrence in avp.grouped_avps %}{% if loop.index0 > 0 %}, {% endif %}<a href="/avp/{{ grouped_avp_occurrence.parent_avp.object_id }}" target="_blank">{{ grouped_avp_occurrence.parent_avp.avp_name }}</a>{% endfor %} grouped AVP{% if avp.grouped_avps|length > 1 %}s{% endif %}.</p>
     {% endif %}
     
     {% if avp.application %}
