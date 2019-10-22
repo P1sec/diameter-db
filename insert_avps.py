@@ -646,7 +646,8 @@ try:
                 
                 if nested_avp_name in avp_name_to_code:
                     
-                    nested_avp_code = avp_name_to_code[nested_avp_name]
+                    nested_avp_code : int = avp_name_to_code[nested_avp_name]
+                    nested_avp_vendor_id : int = grouped_avp_vendor_id or 0
                 
                 
                 else:
@@ -660,7 +661,8 @@ try:
                         
                         continue
                     
-                    nested_avp_code = nested_avp.avp_code
+                    nested_avp_code : int = nested_avp.avp_code
+                    nested_avp_vendor_id : int = nested_avp.vendor_id or 0
                 
                 object_id = 'nested_avp_%d_%d' % (int(grouped_avp_code), nested_avp_code)
                 
@@ -673,7 +675,7 @@ try:
                         'parent_avp_object_id': 'avp_%d_%d' % (grouped_avp_code, grouped_avp_vendor_id or  0),
                         'avp_index_within_grouped_avp': nested_avp_index,
                         'nested_avp_code': nested_avp_code,
-                        'nested_avp_object_id': 'avp_%d_%d' % (nested_avp_code, grouped_avp_vendor_id or  0),
+                        'nested_avp_object_id': 'avp_%d_%d' % (nested_avp_code, nested_avp_vendor_id or  0),
                         'min_occurrences': min_occurrences,
                         'max_occurrences': max_occurrences,
                         'avp_requirement': avp_requirement

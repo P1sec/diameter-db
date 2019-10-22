@@ -11,13 +11,15 @@ rm -f database.sqlite3
 
 ./download_rfcs.sh
 
-./database_diameter.py
+./database_diameter.py # Creates the database or missing tables
 
 ./insert_application_ids.py
 
 ./insert_command_codes.py
 
 ./insert_avps.py
+
+mkdir -p /tmp/csv_export_diameter_db/
 
 for table in $(sqlite3 database.sqlite3 .tables); do
     time sqlite3 -header -csv database.sqlite3 "select * from ${table};" > /tmp/csv_export_diameter_db/${table}.csv
