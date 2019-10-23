@@ -1,5 +1,5 @@
 [Unit]
-Description=toreport-ng
+Description=diameter-db
 
 [Service]
 User=p1sec
