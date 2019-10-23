@@ -646,25 +646,27 @@ try:
                 if nested_avp_name in ('MIP-HA-to-MN-SPI', 'MIP-MN-FA-SPI', 'MIP-MN-HA-SPI'):
                     continue  # Omissions from RFC   4004
                 
-                if nested_avp_name in avp_name_to_code:
-                    
-                    nested_avp_code : int = avp_name_to_code[nested_avp_name]
-                    nested_avp_vendor_id : int = grouped_avp_vendor_id or 0
-                
                 
                 else:
                     
                     nested_avp =  sql_session.query(DiameterAVPDefinition).filter_by(avp_name = nested_avp_name).first()
                     
-                    if not nested_avp:
+                    if nested_avp:                        
+                                            
+                        nested_avp_code : int = nested_avp.avp_code
+                        nested_avp_vendor_id : int = nested_avp.vendor_id or 0
+
+                    elif nested_avp_name in avp_name_to_code:
+                        
+                        nested_avp_code : int = avp_name_to_code[nested_avp_name]
+                        nested_avp_vendor_id : int = grouped_avp_vendor_id or 0
+
+                    else:
                         
                         print('NOTE:  Omitting nested AVP which is present in no known CCF definition:   %s'    %  nested_avp_name)
                         
                         
                         continue
-                    
-                    nested_avp_code : int = nested_avp.avp_code
-                    nested_avp_vendor_id : int = nested_avp.vendor_id or 0
                 
                 object_id = 'nested_avp_%d_%d' % (int(grouped_avp_code), nested_avp_code)
                 
