@@ -82,8 +82,8 @@ async def is_authenticated():
     
     elif session.get('user_group') in ('p1', 'admin'):
         return True
-        
-        return False
+    
+    return False
 
 def login_required(function):
     
