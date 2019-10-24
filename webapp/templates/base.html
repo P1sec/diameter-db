@@ -172,7 +172,7 @@
     </head>
     <body>
         <header>
-            <a href="/"  target="_blank">
+            <a href="/" >
                 <img src="/static/white_p1sec_logo.svg" style="float: right; margin-top: -14px" height="80"> diameter-db
             </a>
 
@@ -190,14 +190,14 @@
         
         <aside>
             {% for application in all_applications %}
-                <!--div data-object-id="{{ application.application_id }}"><a href="/applications/{{ application.object_id }}" target="_blank">{{ application.application_name }}</a></div-->
+                <!--div data-object-id="{{ application.application_id }}"><a href="/applications/{{ application.object_id }}">{{ application.application_name }}</a></div-->
                 
                 {{ application.to_html_tree_entry(object_id_arborescence)|safe }}
             {% endfor %}
             
             {% for command_code in alone_command_codes %}
                 <!--div>{{ command_code.command_name }}</div>
-                <div data-object-id="{{ command_code.object_id }}"><a href="/commands/{{ command_code.object_id }}" target="_blank">{{ command_code.command_name }}</a></div-->
+                <div data-object-id="{{ command_code.object_id }}"><a href="/commands/{{ command_code.object_id }}">{{ command_code.command_name }}</a></div-->
                 
                 {{ command_code.to_html_tree_entry(object_id_arborescence)|safe }}
             {% endfor %}
