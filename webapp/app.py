@@ -156,6 +156,28 @@ async def serve_avp(object_id):
     finally:
         sql_session.close()
 
+@app.route('/expanded_arborescence_item', methods=['GET'])
+async def expanded_arborescence_item():  # Called through Ajax when expanding a tree item on the side panel
+    
+    sql_session = Session()
+    
+    try:
+        object_to_render = sql_session.query(VersionedDiameterObject).filter_by(object_id = request.args['object_id']).one()
+        
+        # querying_class = with_polymorphic(VersionedDiameterObject, [DiameterApplication, DiameterAVPDefinition, DiameterCommand])
+        
+        contents = object_to_render.to_html_tree_entry(
+            current_page_object_id_arborescence = [request.args['object_id']] if request.args['do_expand'] == '1' else None,
+            this_object__parent_object_id_arborescence = (request.args['object_id_arborescence'].split(',') if request.args['object_id_arborescence'] else None)
+        )
+        
+        resp = Response(contents)
+        resp.headers['X-Robots-Tag'] = 'noindex'
+        return resp
+    
+    finally:
+        sql_session.close
+
 
 @app.route('/jevoudraisdussoafindemidentifierencrossdomainpourdesraisonsdegouvernancesurnosracinesdnsinternes', methods=['POST'])
 async def sso_endpoint():

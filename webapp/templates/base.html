@@ -77,7 +77,15 @@
                 
             }
             
-            .tree-item:not(.tree-item-expanded)::before {
+            .tree-action-icon {
+                cursor: pointer;
+            }
+            
+            .tree-action-icon:hover {
+                opacity: 0.8;
+            }
+            
+            .tree-item:not(.tree-item-expanded) > .tree-action-icon {
                 height: 9px;
                 width: 9px;
                 margin-right: 4px;
@@ -85,7 +93,7 @@
                 content: url(/static/icon_plus.png);
             }
             
-            .tree-item.tree-item-expanded::before {
+            .tree-item.tree-item-expanded > .tree-action-icon {
                 height: 9px;
                 width: 9px;
                 margin-right: 4px;
@@ -110,6 +118,56 @@
         
         
         {% block extra_styles %} {% endblock extra_styles %}
+        
+        <script>
+        
+            /* Make divs actually expandable */
+            
+            var make_tree_icon_divs_expandables = function() {
+                
+                for(var expand_action_icon of document.querySelectorAll('.tree-action-icon')) {
+                    
+                    expand_action_icon.onclick = function() {
+                        
+                        var selected_tree_item_div = this.parentElement;
+                        
+                        var selected_tree_item_link = selected_tree_item_div.querySelector('a');
+                        
+                        var selected_tree_item_id = selected_tree_item_link.href.split('/').pop().split('?').shift();
+                        
+                        if(selected_tree_item_link.href.indexOf('?') != -1) {
+                            var selected_tree_item_object_id_arborescence = selected_tree_item_link.href.split('=').pop();
+                        }
+                        else {
+                            var selected_tree_item_object_id_arborescence = '';
+                        }
+                        
+                        var xhr = new XMLHttpRequest();
+                        
+                        xhr.open('GET', ('/expanded_arborescence_item?' +
+                            'object_id=' + encodeURIComponent(selected_tree_item_id) +
+                            '&do_expand=' + (selected_tree_item_div.className.indexOf('expanded') == -1 ? '1' : '0') +
+                            '&object_id_arborescence=' + encodeURIComponent(selected_tree_item_object_id_arborescence)));
+                        
+                        xhr.onload = function() {
+                            
+                            selected_tree_item_div.outerHTML =  xhr.responseText;
+                            
+                            make_tree_icon_divs_expandables();
+                            
+                        };
+                        
+                        xhr.send(null);
+                        
+                    };
+                    
+                }
+                
+            };
+            
+            window.addEventListener('load', make_tree_icon_divs_expandables, true);
+        
+        </script>
 
     </head>
     <body>
