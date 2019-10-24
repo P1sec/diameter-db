@@ -74,7 +74,7 @@ class VersionedDiameterObject(Base):
         if declared_object_id in current_page_object_id_arborescence:
             extra_classes  += ' tree-item-expanded'
         
-        returned_html  = '<div class="tree-%s tree-item%s"><a href="/%s/%s%s" target="_blank">%s</a>' % (
+        returned_html  = '<div class="tree-%s tree-item%s"><span class="tree-action-icon"></span><a href="/%s/%s%s" target="_blank">%s</a>' % (
             css_class,
             extra_classes,
             css_class,
