@@ -14,12 +14,12 @@
     
     {% if command.applications %}
     
-        <p>It is part of the {% for application in command.applications %}{% if loop.index0 > 0 %}, {% endif %}<a href="/application/{{ application.object_id }}" target="_blank">{{ application.application_name }}</a>{% endfor %} application{% if command.applications|length > 1 %}s{% endif %}.</p>
+        <p>It is part of the {% for application in command.applications %}{% if loop.index0 > 0 %}, {% endif %}<a href="/application/{{ application.object_id }}">{{ application.application_name }}</a>{% endfor %} application{% if command.applications|length > 1 %}s{% endif %}.</p>
     
     {% endif %}
     
     {% if command.spec_url and command.spec_url != 'none' %}
-        <p>It is defined in the <a href="{{ command.alternate_spec_url or  command.spec_url }}" target="_blank">{% if command.long_spec_name_prefix -%} {{- command.long_spec_name_prefix or '' -}} {%- if command.long_spec_name_suffix %}: {{ command.long_spec_name_suffix or '' -}} {%- endif -%} {%- else -%} {{- command.spec_url -}} {%- endif %}</a> specification.</p>
+        <p>It is defined in the <a href="{{ command.alternate_spec_url or  command.spec_url }}">{% if command.long_spec_name_prefix -%} {{- command.long_spec_name_prefix or '' -}} {%- if command.long_spec_name_suffix %}: {{ command.long_spec_name_suffix or '' -}} {%- endif -%} {%- else -%} {{- command.spec_url -}} {%- endif %}</a> specification.</p>
     {% endif %}
     
     <p>
@@ -37,7 +37,7 @@
                 {% for avp_occurrence in command.avp_occurrences %}
                     <tr>
                         <td>{{ avp_occurrence.avp_code }}</td>
-                        <td><a href="/avp/{{ avp_occurrence.avp.object_id }}?object-id-arborescence={{ ','.join(object_id_arborescence) }}" target="_blank">{{ avp_occurrence.avp.avp_name }}</a></td>
+                        <td><a href="/avp/{{ avp_occurrence.avp.object_id }}?object-id-arborescence={{ ','.join(object_id_arborescence) }}">{{ avp_occurrence.avp.avp_name }}</a></td>
                         <!--td>{% if avp_occurrence.req_bit %}[REQ]{% endif %}</td-->
                         <td>{{ avp_occurrence.avp.avp_type }}</td>
                         <td>
@@ -64,7 +64,7 @@
                 {% endfor %}
             </table>
         
-            Its <a href="https://tools.ietf.org/html/rfc6733#section-3.2" title="Command Code Format" target="_blank">CCF</a> definition is the following:
+            Its <a href="https://tools.ietf.org/html/rfc6733#section-3.2" title="Command Code Format">CCF</a> definition is the following:
             
             <pre>&lt; {{ command.command_name }} &gt; ::= &lt; Diameter-Header: {{ command.command_code }}{% if command.req_bit %}, REQ{% endif %}
             {%- if command.pxy_bit %}, PXY{% endif -%}
@@ -102,7 +102,7 @@
             
                 {% for update in command.updates %}
                     <tr>
-                        <td><a href="{{ update.source_url }}" target="_blank">{{ update.source.value }}</a></td>
+                        <td><a href="{{ update.source_url }}">{{ update.source.value }}</a></td>
                         <td>{{ update.insertion_date.strftime('%Y-%m-%d %H:%M') }}</td>
                     </tr>
                 {% endfor %}

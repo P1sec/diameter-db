@@ -18,21 +18,21 @@
     {% endif %}
     
     {% if avp.avp_occurrences %}
-        <p>It is part of the {% for avp_occurrence in avp.avp_occurrences %}{% if loop.index0 > 0 %}, {% endif %}<a href="/command-code/{{ avp_occurrence.command.object_id }}" target="_blank">{{ avp_occurrence.command.command_name }}</a>{% endfor %} command{% if avp.avp_occurrences|length > 1 %}s{% endif %}.</p>
+        <p>It is part of the {% for avp_occurrence in avp.avp_occurrences %}{% if loop.index0 > 0 %}, {% endif %}<a href="/command-code/{{ avp_occurrence.command.object_id }}">{{ avp_occurrence.command.command_name }}</a>{% endfor %} command{% if avp.avp_occurrences|length > 1 %}s{% endif %}.</p>
     {% endif %}
     
     {% if avp.grouped_avps %}
-        <p>It is part of the {% for grouped_avp_occurrence in avp.grouped_avps %}{% if loop.index0 > 0 %}, {% endif %}<a href="/avp/{{ grouped_avp_occurrence.parent_avp.object_id }}" target="_blank">{{ grouped_avp_occurrence.parent_avp.avp_name }}</a>{% endfor %} grouped AVP{% if avp.grouped_avps|length > 1 %}s{% endif %}.</p>
+        <p>It is part of the {% for grouped_avp_occurrence in avp.grouped_avps %}{% if loop.index0 > 0 %}, {% endif %}<a href="/avp/{{ grouped_avp_occurrence.parent_avp.object_id }}">{{ grouped_avp_occurrence.parent_avp.avp_name }}</a>{% endfor %} grouped AVP{% if avp.grouped_avps|length > 1 %}s{% endif %}.</p>
     {% endif %}
     
     {% if avp.application %}
     
-        <p>It is part of the <a href="/application/{{ avp.application.object_id }}" target="_blank">{{ avp.application.application_name }}</a> application.</p>
+        <p>It is part of the <a href="/application/{{ avp.application.object_id }}">{{ avp.application.application_name }}</a> application.</p>
     
     {% endif %}
     
     {% if avp.spec_url and avp.spec_url != 'none' %}
-        <p>It is defined in the <a href="{{ avp.alternate_spec_url or  avp.spec_url }}" target="_blank">{% if avp.long_spec_name_prefix -%} {{- avp.long_spec_name_prefix or '' -}} {%- if avp.long_spec_name_suffix %}: {{ avp.long_spec_name_suffix or '' -}} {%- endif -%} {%- else -%} {{- avp.spec_url -}} {%- endif %}</a> specification.</p>
+        <p>It is defined in the <a href="{{ avp.alternate_spec_url or  avp.spec_url }}">{% if avp.long_spec_name_prefix -%} {{- avp.long_spec_name_prefix or '' -}} {%- if avp.long_spec_name_suffix %}: {{ avp.long_spec_name_suffix or '' -}} {%- endif -%} {%- else -%} {{- avp.spec_url -}} {%- endif %}</a> specification.</p>
     {% endif %}
     
     {% if avp.enum_values %}
@@ -68,7 +68,7 @@
                 {% for nested_avp in avp.nested_avps %}
                     <tr>
                         <td>{{ nested_avp.nested_avp_code }}</td>
-                        <td><a href="/avp/{{ nested_avp.nested_avp_object_id }}?object-id-arborescence={{ ','.join(object_id_arborescence) }}" target="_blank">{{ nested_avp.nested_avp.avp_name }}</a></td>
+                        <td><a href="/avp/{{ nested_avp.nested_avp_object_id }}?object-id-arborescence={{ ','.join(object_id_arborescence) }}">{{ nested_avp.nested_avp.avp_name }}</a></td>
                         <td>{{ nested_avp.nested_avp.avp_type }}</td>
                         <td>
                             {% if nested_avp.avp_requirement == DiameterAVPRequirement.fixed %}
@@ -94,7 +94,7 @@
                 {% endfor %}
             </table>
         
-            Its <a href="https://tools.ietf.org/html/rfc6733#section-4.4" target="_blank">AVP-header format</a> definition is the following:
+            Its <a href="https://tools.ietf.org/html/rfc6733#section-4.4">AVP-header format</a> definition is the following:
             
             <pre>&lt; {{ avp.avp_name }} &gt; ::= &lt; AVP-Header: {{ avp.avp_code }}{% if avp.vendor_id %}, {{ avp.vendor_id }}{% endif %} &gt; {% for nested_avp in avp.nested_avps %}
 {% if not (nested_avp.avp_requirement == DiameterAVPRequirement.optional and (nested_avp.min_occurrences, nested_avp.max_occurrences) == (0, 1)) and not (nested_avp.avp_requirement in (DiameterAVPRequirement.fixed, DiameterAVPRequirement.required) and nested_avp.min_occurrences == nested_avp.max_occurrences ==     1) -%}
@@ -128,7 +128,7 @@
             
                 {% for update in avp.updates %}
                     <tr>
-                        <td><a href="{{ update.source_url }}" target="_blank">{{ update.source.value }}</a></td>
+                        <td><a href="{{ update.source_url }}">{{ update.source.value }}</a></td>
                         <td>{{ update.insertion_date.strftime('%Y-%m-%d %H:%M') }}</td>
                     </tr>
                 {% endfor %}
