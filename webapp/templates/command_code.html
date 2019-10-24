@@ -19,7 +19,7 @@
     {% endif %}
     
     {% if command.spec_url and command.spec_url != 'none' %}
-        <p>It is defined in the <a href="{{ command.alternate_spec_url or  command.spec_url }}">{% if command.long_spec_name_prefix -%} {{- command.long_spec_name_prefix or '' -}} {%- if command.long_spec_name_suffix %}: {{ command.long_spec_name_suffix or '' -}} {%- endif -%} {%- else -%} {{- command.spec_url -}} {%- endif %}</a> specification.</p>
+        <p>It is defined in the <a target="_blank" href="{{ command.alternate_spec_url or  command.spec_url }}">{% if command.long_spec_name_prefix -%} {{- command.long_spec_name_prefix or '' -}} {%- if command.long_spec_name_suffix %}: {{ command.long_spec_name_suffix or '' -}} {%- endif -%} {%- else -%} {{- command.spec_url -}} {%- endif %}</a> specification.</p>
     {% endif %}
     
     <p>
@@ -102,7 +102,7 @@
             
                 {% for update in command.updates %}
                     <tr>
-                        <td><a href="{{ update.source_url }}">{{ update.source.value }}</a></td>
+                        <td><a target="_blank" href="{{ update.source_url }}">{{ update.source.value }}</a></td>
                         <td>{{ update.insertion_date.strftime('%Y-%m-%d %H:%M') }}</td>
                     </tr>
                 {% endfor %}
