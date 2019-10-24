@@ -9,7 +9,7 @@
     <p>The "{{ application.application_name }}" Diameter application uses the application ID code "{{ application.application_id }}".</p>
     
     {% if application.spec_url and application.spec_url != 'none' %}
-        <p>It is defined in the <a href="{{ application.alternate_spec_url or  application.spec_url }}">{% if application.long_spec_name_prefix -%} {{- application.long_spec_name_prefix or '' -}} {%- if application.long_spec_name_suffix %}: {{ application.long_spec_name_suffix or '' -}} {%- endif -%} {%- else -%} {{- application.spec_url -}} {%- endif %}</a> specification.</p>
+        <p>It is defined in the <a target="_blank" href="{{ application.alternate_spec_url or  application.spec_url }}">{% if application.long_spec_name_prefix -%} {{- application.long_spec_name_prefix or '' -}} {%- if application.long_spec_name_suffix %}: {{ application.long_spec_name_suffix or '' -}} {%- endif -%} {%- else -%} {{- application.spec_url -}} {%- endif %}</a> specification.</p>
     {% endif %}
     
     <p>
@@ -70,7 +70,7 @@
             
                 {% for update in application.updates %}
                     <tr>
-                        <td><a href="{{ update.source_url }}">{{ update.source.value }}</a></td>
+                        <td><a target="_blank" href="{{ update.source_url }}">{{ update.source.value }}</a></td>
                         <td>{{ update.insertion_date.strftime('%Y-%m-%d %H:%M') }}</td>
                     </tr>
                 {% endfor %}
