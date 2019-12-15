@@ -1100,7 +1100,7 @@ try:
                 object_id = 'avp_enum_%d_%d_%d' % (avp_code,  avp_vendor_id or 0,   int(enum_tag.get('code'))),
                 avp_code = avp_code,
                 avp_vendor_id = avp_vendor_id,
-                avp_object_id = '%d_%d' % (avp_code, avp_vendor_id or 0),
+                avp_object_id = 'avp_%d_%d' % (avp_code, avp_vendor_id or 0),
                 enum_name_string = enum_tag.get('name').strip(),
                 enum_value_integer = int(enum_tag.get('code')),
                 
