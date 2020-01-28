@@ -4,11 +4,11 @@
 { Auth-Session-State }
 { Origin-Host }
 { Origin-Realm }
-{Destination-Host }
+{ Destination-Host }
 { Destination-Realm }
 { SLg-Location-Type }
 [ User-Name ]
-[ MSISDN]
+[ MSISDN ]
 [ IMEI ]
 { LCS-EPS-Client-Name }
 { LCS-Client-Type }
@@ -16,14 +16,20 @@
 [ LCS-Priority ]
 [ LCS-QoS ]
 [ Velocity-Requested ]
-[LCS-Supported-GAD-Shapes ]
+[ LCS-Supported-GAD-Shapes ]
 [ LCS-Service-Type-ID ]
 [ LCS-Codeword ]
 [ LCS-Privacy-Check-Non-Session ]
 [ LCS-Privacy-Check-Session ]
-[Service-Selection ]
+[ Service-Selection ]
 [ Deferred-Location-Type ]
+[ LCS-Reference-Number ]
+[ Area-Event-Info ]
+[ GMLC-Address ]
 [ PLR-Flags ]
+[ Periodic-LDR-Information ]
+[ Reporting-PLMN-List ]
+[ Motion-Event-Info ]
 *[ Supported-Features ]
 *[ AVP ]
 *[ Proxy-Info ]

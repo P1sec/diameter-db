@@ -58,6 +58,7 @@
 [ 3GPP-Negotiated-DSCP ]
 [ 3GPP-Allocate-IP-Type ]
 [ TWAN-Identifier ]
+[ 3GPP-IP-Address-Pool-Id]
 * [ Supported-Features ]
 * [ AVP ]
 

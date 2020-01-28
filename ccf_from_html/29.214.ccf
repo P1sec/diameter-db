@@ -27,6 +27,10 @@
 [ GCS-Identifier ]
 [ MCPTT-Identifier ]
 [ MCVideo-Identifier ]
+[ IMS-Content-Identifier ]
+[ IMS-Content-Type ]
+*[ Calling-Party-Address ]
+[ Callee-Information ]
 [ Rx-Request-Type ]
 *[ Required-Access-Info ]
 [AF-Requested-Data ]
@@ -239,6 +243,14 @@
 [ Min-Desired-Bandwidth-DL ]
 [ Min-Requested-Bandwidth-UL ]
 [ Min-Requested-Bandwidth-DL ]
+[ Extended-Max-Requested-BW-UL ]
+[ Extended-Max-Requested-BW-DL ]
+[ Extended-Max-Supported-BW-UL ]
+[ Extended-Max-Supported-BW-DL ]
+[ Extended-Min-Desired-BW-UL ]
+[ Extended-Min-Desired-BW-DL ]
+[ Extended-Min-Requested-BW-UL ]
+[ Extended-Min-Requested-BW-DL ]
 [ Flow-Status ]
 [ Priority-Sharing-Indicator ]
 [ Pre-emption-Capability ]
@@ -246,10 +258,12 @@
 [ Reservation-Priority ]
 [ RS-Bandwidth ]
 [ RR-Bandwidth ]
-*[ Codec-Data ]
+0*2[ Codec-Data ]
 [ Sharing-Key-DL ]
 [ Sharing-Key-UL ]
 [ Content-Version ]
+[ Max-PLR-DL ]
+[ Max-PLR-UL ]
 *[ AVP ]
 
 < Media-Sub-Component > ::= < AVP-Header: 519 >
@@ -259,6 +273,8 @@
 [ Flow-Usage ]
 [ Max-Requested-Bandwidth-UL ]
 [ Max-Requested-Bandwidth-DL ]
+[ Extended-Max-Requested-BW-UL ]
+[ Extended-Max-Requested-BW-DL ]
 [ AF-Signalling-Protocol ]
 [ ToS-Traffic-Class ]
 *[ AVP ]
@@ -267,6 +283,8 @@
 *[ Media-Component-Description]
 [ Max-Requested-Bandwidth-DL ]
 [ Max-Requested-Bandwidth-UL ]
+[ Extended-Max-Requested-BW-DL ]
+[ Extended-Max-Requested-BW-UL ]
 *[ AVP ]
 
 < Sponsored-Connectivity-Data > ::= < AVP-Header: 530 >
@@ -276,6 +294,12 @@
 [ Used-Service-Unit ]
 [ Sponsoring-Action ]
 *[ AVP ]
+
+< Callee-Information > ::= < AVP-Header: 565 >
+[Called-Party-Address]
+*[Requested-Party-Address]
+*[Called-Asserted-Identity]
+*[AVP]
 
 The Abort-Cause AVP (AVP code 500) is of type Enumerated
 The Access-Network-Charging-Address AVP (AVP code 501) is of type Address
@@ -325,4 +349,14 @@ The Priority-Sharing-Indicator AVP (AVP code 550) is of type Enumerated
 The Media-Component-Status AVP (AVP code 549) is of type Unsigned32
 The Content-Version AVP (AVP code 552) is of type Unsigned64
 The AF-Requested-Data AVP (AVP code 551) is of type Unsigned32
+The Extended-Max-Requested-BW-DL AVP (AVP code 554) is of type Unsigned32
+The Extended-Max-Supported-BW-DL AVP (AVP code 556) is of type Unsigned32
+The Extended-Max-Supported-BW-UL AVP (AVP code 557) is of type Unsigned32
+The Extended-Min-Desired-BW-DL AVP (AVP code 558) is of type Unsigned32
+The Extended-Min-Desired-BW-UL AVP (AVP code 559) is of type Unsigned32
+The Extended-Min-Requested-BW-DL AVP (AVP code 560) is of type Unsigned32
+The Extended-Min-Requested-Bandwidth-UL AVP (AVP code 561) is of type Unsigned32
+The IMS-Content-Identifier AVP (AVP code 563) is of type OctetString
+The IMS-Content-Type AVP (AVP code 564) is of type Enumerated
+The Callee-Information AVP (AVP code 565) is of type Grouped
 The Experimental-Result-Code AVP (AVP Code 298) is of type Unsigned32
