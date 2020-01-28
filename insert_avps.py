@@ -1231,7 +1231,49 @@ try:
             parse_extracted_ccf(file_contents, source = DiameterDataSource.diafuzzer_database, source_url = 'https://github.com/Orange-OpenSource/diafuzzer/tree/master/specs', spec_metadata_row_dict = {
                 
             })
+
+            
+    sql_session.commit()
+    
+    """
+        6) Also add unused vendor IDs from Wireshark
+    """
+    
+    for vendor_tag in xml_file.iterfind('.//vendor'):
+        
+        avp_vendor_id = int(vendor_tag.get('code'))
+        vendor_name = vendor_tag.get('name').strip()
+
+        vendor_row_dict =   dict( # DiameterVendor row
+            object_id = 'vendor_%d' % avp_vendor_id,
+            vendor_id = avp_vendor_id,
+            vendor_name =       vendor_name
+        )
+
+        # Is there an existing row for this "Vendor ID - Vendor Name" association?
+        
+        diameter_vendor_row = sql_session.query(DiameterVendor).filter_by(object_id = vendor_row_dict['object_id']).first()
+        
+        if not diameter_vendor_row:
+            
+            sql_session.add(DiameterVendor(**vendor_row_dict))
+            
+            source_row_dict = dict(  # DiameterObjectUpdate without "object_id"
+                source = DiameterDataSource.wireshark_database,
+                source_url = 'https://github.com/wireshark/wireshark/tree/master/diameter',
+                source_information_html_excerpts = None,
+                #   source_update_date = ,
                 
+                insertion_date = datetime.now()
+            )
+
+            sql_session.add(DiameterObjectUpdate(
+                **source_row_dict,
+                object_id = vendor_row_dict['object_id']
+            ))
+
+
+            
     sql_session.commit()
     
 

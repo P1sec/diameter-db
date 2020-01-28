@@ -83,6 +83,7 @@
 { TMGI}
 { MBMS-Flow-Identifier }
 { MBMS-Bearer-Event }
+*[ Userplane-Protocol‑Result ]
 *[ AVP ]
 
 < MBMS-Bearer-Request > ::= < AVP-Header: 3504 >
@@ -96,6 +97,9 @@
 [ MBMS-Cell-List ]
 [ Local-M1-Information ]
 [ Local-MB2-U-Information ]
+[ FEC-Request ]
+*[ ROHC-Request ]
+[ ROHC-Max-CID ]
 *[ AVP ]
 
 < MBMS-Bearer-Response > ::= < AVP-Header: 3505 >
@@ -107,6 +111,7 @@
 [ BMSC-Port ]
 [ MB2U-Security ]
 *[ Radio-Frequency ]
+*[ Userplane-Protocol‑Result ]
 *[ AVP ]
 
 < TMGI-Allocation-Request > ::= < AVP-Header: 3509 >
@@ -144,6 +149,18 @@
 [ BMSC-Address ]
 [ BMSC-Port ]
 
+< ROHC-Request > ::= < AVP-Header: 3525 >
+1*{ Flow-Description }
+[ ROHC-Full-Header-Periodicity ]
+{ ROHC-Profile }
+*[ AVP ]
+
+< Userplane-Protocol-Result > ::= < AVP-Header: 3525 >
+*[ Flow-Description ]
+[ ROHC-Result ]
+[ FEC-Result ]
+*[ AVP ]
+
 The Radio-Frequency AVP (AVP code 3508) is of type Unsigned32
 The Local-M1-Information AVP (AVP code 3518) is of type Grouped
 The Local-MB2-U-Information AVP (AVP code 3519) is of type Grouped
@@ -152,3 +169,7 @@ The MBMS-eNB-IPv6-Multicast-Address AVP (AVP code 3521) is of type Address
 The MBMS-GW-SSM-IP-Address AVP (AVP code 3522) is of type Address
 The MBMS-GW-SSM-IPv6-Address AVP (AVP code 3523) is of type Address
 The Common-Tunnel-Endpoint-Identifier AVP (AVP code 3524) is of type OctetString
+The FEC-Request AVP (AVP code 3525) is of type OctetString
+The ROHC-Full-Header-Periodicity AVP (AVP code 3527) is of type Float32
+The ROHC-Profile AVP (AVP code 3528) is of type Unsigned32
+The ROHC-Max-CID AVP (AVP code 3532) is of type Unsigned32

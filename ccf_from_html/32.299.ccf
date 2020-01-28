@@ -872,6 +872,7 @@
 [ 3GPP-PS-Data-Off-Status ]
 [Traffic-Steering-Policy-Identifier-DL]
 [Traffic-Steering-Policy-Identifier-UL]
+[VoLTE-Information]
 
 < Service-Information > ::= < AVP-Header: 873 >
 * [ Subscription-Id ]
@@ -1043,6 +1044,10 @@
 [ Start-of-Charging ]
 [ Stop-Time ]
 [ PS-Free-Format-Data ]
+
+< VoLTE-Information > ::= < AVP-Header: 1323 >
+[ Calling-Party-Address ]
+[ Callee-Information ]
 
 < WLAN-Operator-Id > ::= < AVP-Header: 1306 >
 [ WLAN-PLMN-Id ]
@@ -1452,6 +1457,7 @@ The Variable-Part-Order AVP (AVP code 3908) is of type Unsigned32
 The Variable-Part-Type AVP (AVP Code 3909) is of type Unsigned32
 The Variable-Part-Value AVP (AVP Code 3910) is of type UTF8String
 The VCS-Information AVP (AVP code 3410) is of type Grouped
+The VoLTE-Information AVP (AVP code 1323) is of type Grouped
 The Volume-Quota-Threshold AVP (AVP code 869) is of type Unsigned32
 The WLAN-Operator-Id AVP (AVP code 1306) is of type Grouped
 The WLAN-Operator-Name AVP (AVP code 1307) is of type UTF8String

@@ -166,6 +166,7 @@
 [ IP-CAN-Type ]
 [ PRA-Install ]
 [ PRA-Remove ]
+*[ CSG-Information-Reporting ]
 *[ Proxy-Info ]
 *[ Route-Record ]
 *[ AVP ]
@@ -442,6 +443,7 @@
 [ Framed-Ipv6-Prefix ]
 [ QoS-Information ]
 *[ Event-Trigger ]
+*[ CSG-Information-Reporting ]
 [ Event-Report-Indication ]
 [ Origin-State-Id ]
 *[ Redirect-Host ]
@@ -474,6 +476,7 @@
 [ OC-Supported-Features ]
 [ QoS-Information ]
 *[ Event-Trigger ]
+*[ CSG-Information-Reporting ]
 [ Event-Report-Indication ]
 *[ ADC-Rule-Remove ]
 *[ ADC-Rule-Install ]
@@ -724,12 +727,14 @@
 [ Reporting-Level ]
 [ Online ]
 [ Offline ]
+[ Max-PLR-DL ]
+[ Max-PLR-UL ]
 [ Metering-Method ]
 [ Precedence ]
 [ AF-Charging-Identifier ]
 *[ Flows ]
 [ Monitoring-Key]
-[ Redirect-Information ]
+0*2 [ Redirect-Information ]
 [ Mute-Notification ]
 [ AF-Signalling-Protocol ]
 [ Sponsor-Identity ]
@@ -740,6 +745,8 @@
 [ Traffic-Steering-Policy-Identifier-DL ]
 [ Traffic-Steering-Policy-Identifier-UL ]
 [ Content-Version ]
+*[ Calling-Party-Address ]
+[ Callee-Information ]
 *[ AVP ]
 
 < TFT-Packet-Filter-Information > ::= < AVP-Header: 1013 >
@@ -755,12 +762,18 @@
 [ QoS-Class-Identifier ]
 [ Max-Requested-Bandwidth-UL ]
 [ Max-Requested-Bandwidth-DL ]
+[ Extended-Max-Requested-BW-UL ]
+[ Extended-Max-Requested-BW-DL ]
 [ Guaranteed-Bitrate-UL ]
 [ Guaranteed-Bitrate-DL ]
+[ Extended-GBR-UL ]
+[ Extended-GBR-DL ]
 [ Bearer-Identifier ]
 [ Allocation-Retention-Priority ]
 [ APN-Aggregate-Max-Bitrate-UL ]
 [ APN-Aggregate-Max-Bitrate-DL ]
+[ Extended-APN-AMBR-UL ]
+[ Extended-APN-AMBR-DL ]
 *[ Conditional-APN-Aggregate-Max-Bitrate ]
 *[ AVP ]
 
@@ -906,6 +919,8 @@
 < Conditional-APN-Aggregate-Max-Bitrate > ::= < AVP-Header: 2818 >
 [ APN-Aggregate-Max-Bitrate-UL ]
 [ APN-Aggregate-Max-Bitrate-DL ]
+[ Extended-APN-AMBR-UL ]
+[ Extended-APN-AMBR-DL ]
 *[ IP-CAN-Type ]
 *[ RAT-Type ]
 *[ AVP ]
@@ -914,6 +929,7 @@
 [ Presence-Reporting-Area-Identifier ]
 [ Presence-Reporting-Area-Status ]
 [ Presence-Reporting-Area-Elements-List ]
+[ Presence-Reporting-Area-Node ]
 *[ AVP ]
 
 < Fixed-User-Location-Info > ::= < AVP-Header: 2825 >
@@ -934,6 +950,8 @@
 [ Default-EPS-Bearer-QoS ]
 [ APN-Aggregate-Max-Bitrate-UL ]
 [ APN-Aggregate-Max-Bitrate-DL ]
+[ Extended-APN-AMBR-UL ]
+[ Extended-APN-AMBR-DL ]
 *[ Conditional-APN-Aggregate-Max-Bitrate ]
 *[ AVP ]
 
@@ -1015,7 +1033,7 @@
 [ Monitoring-Key ]
 [ Sponsor-Identity ]
 [ Application-Service-Provider-Identity ]
-[ Redirect-Information ]
+0*2[ Redirect-Information ]
 [ Mute-Notification ]
 [ Traffic-Steering-Policy-Identifier-DL ]
 [ Traffic-Steering-Policy-Identifier-UL ]
@@ -1152,6 +1170,14 @@ The PRA-Install AVP (AVP code 2845) is of type Grouped
 The PRA-Remove AVP (AVP code 2846) is of type Grouped
 The Default-Bearer-Indication AVP (AVP code 2844) is of type Enumerated
 The 3GPP-PS-Data-Off-Status AVP (AVP code 2847) is of type Enumerated
+The Extended-APN-AMBR-DL AVP (AVP code 2848) is of type Unsigned32
+The Extended-APN-AMBR-UL AVP (AVP code 2849) is of type Unsigned32
+The Extended-GBR-DL AVP (AVP code 2850) is of type Unsigned32
+The Extended-GBR-UL AVP (AVP code 2851) is of type Unsigned32
+The Max-PLR-DL AVP (AVP code 2852) is of type Unsigned32
+The Max-PLR-UL AVP (AVP code 2853) is of type Unsigned32
+The UE-Status AVP (AVP code 2854) is of type Unsigned32
+The Presence-Reporting-Area-Node AVP (AVP code 2855) is of type Unsigned32
 The Experimental-Result-Code AVP (AVP Code 298) is of type Unsigned32
 The QoS-Rule-Install AVP (AVP code 1051) is of type Grouped
 The QoS-Rule-Remove AVP (AVP code 1052) is of type Grouped

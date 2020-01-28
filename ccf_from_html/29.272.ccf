@@ -560,6 +560,7 @@
 [ Aerial-UE-Subscription-Information ]
 [ Core-Network-Restrictions ]
 *[ Paging-Time-Window ]
+[ Subscribed-ARPI ]
 *[ AVP ]
 
 < Terminal-Information > ::= < AVP-Header: 1401 10415 >
@@ -855,7 +856,7 @@
 { Daylight-Saving-Time }
 * [ AVP ]
 
-< ProSe-Subscription-Data > ::= < AVP-Header: xxx 10415 >
+< ProSe-Subscription-Data > ::= < AVP-Header: 3701 10415 >
 { ProSe-Permission }
 *[AVP]
 
@@ -895,6 +896,7 @@
 [ Stationary-Indication ]
 [ Reference-ID-Validity-Time ]
 [ Traffic-Profile ]
+[ Battery-Indicator ]
 *[AVP]
 
 < Monitoring-Event-Configuration > ::= < AVP-Header: 3122 10415 >

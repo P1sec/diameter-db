@@ -97,7 +97,8 @@
 *[ Supported-Features ]
 [ User-Identifier ]
 *[ Monitoring-Event-Report ]
-*[ Group-Monitoring-Event-Report ]
+*[ Group-Report ]
+[ Updated-Network-Configuration ]
 [ RIR-Flags ]
 *[ Supported-Services ]
 *[ Proxy-Info ]
@@ -275,6 +276,7 @@
 { SCEF-ID }
 *[ SCEF-Reference-ID-for-Deletion ]
 *[ Communication-Pattern-Set ]
+[ MTC-Provider-Info ]
 *[ AVP ]
 
 < Communication-Pattern-Set > ::= < AVP-Header: 3114 10415 >
@@ -285,6 +287,7 @@
 [ Stationary-Indication ]
 [ Reference-ID-Validity-Time ]
 [ Traffic-Profile ]
+[ Battery-Indicator ]
 *[ AVP ]
 
 < Scheduled-communication-time > ::= < AVP-Header: 3118 10415 >
@@ -378,13 +381,13 @@
 *[ APN-Validity-Time ]
 *[AVP]
 
-< Group-Monitoring-Event-Report > ::= < AVP-Header: 3165 10415 >
+< Group-Report > ::= < AVP-Header: 3165 10415 >
 { SCEF-Reference-ID }
 [ SCEF-ID ]
-*[ Group-Monitoring-Event-Report-Item ]
+*[ Group-Report-Item ]
 *[AVP]
 
-< Group-Monitoring-Event-Report-Item > ::= < AVP-Header: 3166 10415 >
+< Group-Report-Item > ::= < AVP-Header: 3166 10415 >
 { User-Identifier }
 [ Visited-PLMN-Id ]
 [ Roaming-Information ]
@@ -397,6 +400,8 @@
 [ S6t-HSS-Cause ]
 [ Idle-Status-Indication ]
 [ Reporting-Time-Stamp ]
+[ Updated-Network-Configuration ]
+*[ SCEF-Reference-ID-for-Deletion ]
 *[AVP]
 
 < APN-Validity-Time > ::= < AVP-Header: 3169 10415 >
@@ -410,7 +415,8 @@
 [ Subscribed-Periodic-RAU-TAU-Timer ]
 [ Active-Time ]
 [ DL-Buffering-Suggested-Packet-Count ]
-[ Group-Reporting-Guard-Timer ]
+[ MTC-Provider-Info ]
+*[ SCEF-Reference-ID-for-Deletion ]
 *[AVP]
 
 < Monitoring-Event-Report-Status > ::= < AVP-Header: 3171 10415 >
@@ -445,4 +451,13 @@
 [ Non-IP-PDN-Type-Indicator ]
 [ Non-IP-Data-Delivery-Mechanism ]
 *2 [ Served-Party-IP-Address ]
+*[AVP]
+
+< Updated-Network-Configuration > ::= < AVP-Header: 3184 10415 >
+{ SCEF-ID }
+[ SCEF-Reference-ID ]
+*[ SCEF-Reference-ID-for-Deletion ]
+[ Subscribed-Periodic-RAU-TAU-Timer ]
+[ Active-Time ]
+[ DL-Buffering-Suggested-Packet-Count ]
 *[AVP]
