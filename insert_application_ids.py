@@ -1,4 +1,4 @@
-#!/usr/bin/python3.7 -Su
+#!/usr/bin/python3
 #-*- encoding: Utf-8 -*-
 
 import usercustomize
