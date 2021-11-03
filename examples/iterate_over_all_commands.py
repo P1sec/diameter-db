@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 #-*- encoding: Utf-8 -*-
 
-import usercustomize
-
 from os.path import dirname, realpath
 from sys import path
 

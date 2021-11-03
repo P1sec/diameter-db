@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 #-*- encoding: Utf-8 -*-
 
-import usercustomize
-
 from quart import session, redirect, request, Response, websocket
 from csv import DictReader, QUOTE_NONE
 from os.path import dirname, realpath

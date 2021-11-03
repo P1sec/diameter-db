@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 #-*- encoding: Utf-8 -*-
 
-import usercustomize
-
 from re import sub, findall, search,    IGNORECASE, MULTILINE, DOTALL
 from html import unescape
 from os import listdir

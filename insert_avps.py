@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 #-*- encoding: Utf-8 -*-
 
-import usercustomize
-
 from lxml.etree import XMLParser, parse, dump, tostring, _Comment
 from re import findall, search, sub, match, IGNORECASE, MULTILINE
 from typing import Set, List, Dict, Union

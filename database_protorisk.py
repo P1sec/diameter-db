@@ -1,6 +1,5 @@
-
-
-
+#!/usr/bin/python3
+#-*- encoding: Utf-8 -*-
 
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
