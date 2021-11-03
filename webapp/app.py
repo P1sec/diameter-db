@@ -29,7 +29,7 @@ from flask_salt import FLASK_SALT
 
 
 
-app = Flask('bus-app')
+app = Flask('diameter-db')
 
 app.secret_key = FLASK_SALT
 
