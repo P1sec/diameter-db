@@ -27,8 +27,8 @@ The following command will run the data generation procedure for both the web ap
 
 ```
 sudo apt install fuse python3-pip git python3.7 sshfs p7zip-full sqlite3
-sudo python3.7 -m pip install --upgrade cython # Avoid conflicts with older cython versions installed on the system when installing aiohttp
-sudo python3.7 -m pip install --upgrade sqlalchemy sshtunnel quart requests itsdangerous==0.24 aiohttp
+sudo pip3 install --upgrade cython # Avoid conflicts with older cython versions installed on the system when installing aiohttp
+sudo pip3 install --upgrade sqlalchemy sshtunnel quart requests itsdangerous==0.24 aiohttp
 ```
 
 In order to regenerate the SQLite database, and to indexate its contents in Elasticsearch if installed, please run (note: you need a public key with the ability to connect through SSH to `p1sec@protorisk.p1sec.com` in order to be able to mount HTML specifications from Protorisk, and to query the Protorisk MySQL database through the `sshtunnel` Python module):
@@ -41,7 +41,7 @@ In order to regenerate the SQLite database, and to indexate its contents in Elas
 
 You will find the command which is able to install the dependencies for the web application above.
 
-In order to run the application, Python 3.7 (present in Ubuntu 18.04 LTS repositories, not as the default `python` (2.7) or `python3` (3.6) command but `python3.7`) is required.
+In order to run the application, Python 3.7+ (present in Ubuntu 18.04 LTS repositories, not as the default `python` (2.7) or `python3` (3.6) command but `python3.7`) is required.
 
 itsdangerous==0.24 is also required, because itsdangerous 1.1.0 will not accept cookies signed by 0.24, while 0.24 will accepts cookies signed by 1.1.0, and Protorisk originally runs on 0.24; upgrading Protorisk to 1.0 would unnecessarily log off users; 1.1.0 is the version that comes just after 0.24, despite its name)
 
