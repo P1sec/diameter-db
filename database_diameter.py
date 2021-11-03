@@ -1,9 +1,6 @@
 #!/usr/bin/python3
 #-*- encoding: Utf-8 -*-
 
-
-
-
 from os.path import dirname, realpath, exists
 from sqlalchemy import *
 from sqlalchemy.orm import relationship, sessionmaker, backref

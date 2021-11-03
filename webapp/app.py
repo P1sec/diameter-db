@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 #-*- encoding: Utf-8 -*-
 
-import usercustomize
-
 from quart import Quart as Flask, request, redirect, render_template, session, send_from_directory, abort, Response, send_file, redirect, jsonify
 from argparse import ArgumentParser
 from os.path import dirname, realpath
