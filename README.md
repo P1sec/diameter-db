@@ -28,7 +28,7 @@ The following command will run the data generation procedure for both the web ap
 ```
 sudo apt install fuse python3-pip git python3.7 sshfs p7zip-full sqlite3
 sudo pip3 install --upgrade cython # Avoid conflicts with older cython versions installed on the system when installing aiohttp
-sudo pip3 install --upgrade sqlalchemy sshtunnel quart requests itsdangerous==0.24 aiohttp
+sudo pip3 install --upgrade SQLAlchemy==1.4.32 MarkupSafe==1.1.0 werkzeug==2.0.3 quart==0.16.3 sshtunnel requests itsdangerous==0.24 aiohttp
 ```
 
 In order to regenerate the SQLite database, and to indexate its contents in Elasticsearch if installed, please run (note: you need a public key with the ability to connect through SSH to `p1sec@protorisk.p1sec.com` in order to be able to mount HTML specifications from Protorisk, and to query the Protorisk MySQL database through the `sshtunnel` Python module):
