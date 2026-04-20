@@ -1,4 +1,6 @@
-The purpose of this application is to aggregate Diameter AVPs/command codes/application IDs from different sources and puts all this in a common sourced and historized backend, which should be fetchable from an unique web frontend then, and possibly exportable in other formats such as SQLite or CSV (why not later Lua or ABNF), etc.
+# `diameter-db`
+
+The purpose of this application is to aggregate Diameter AVPs/command codes/application IDs from different sources, and to put all this in a common sourced and historized backend, which should then be fetchable from an unique web frontend, and possibly exportable into other formats such as SQLite or CSV (why not later Lua or ABNF), etc.
 
 It currently aggregates data from five different sources: [Wireshark](https://github.com/wireshark/wireshark/tree/master/diameter), [Diafuzzer](https://github.com/Orange-OpenSource/diafuzzer), IETF specifications, 3GPP specifications and [IANA](https://www.iana.org/assignments/aaa-parameters/aaa-parameters.xhtml).
 
@@ -10,13 +12,21 @@ All this data is currently visualizable and exportable through a web frontend ac
 
 In order to clone it including the `compare_data_sources/{wireshark,diafuzzer}` directories, use:
 
-```
+```bash
+sudo apt install git
 git clone --recursive https://github.com/P1sec/diameter-db
+cd diameter-db/
+```
+
+(Or, if you have already cloned the repo forgetting to include `--recursive`):
+
+```bash
+git submodule update --init --recursive
 ```
 
 Update the nested repositories from their respective remotes:
 
-```
+```bash
 git submodule update --recursive --remote --merge
 ```
 
@@ -25,16 +35,16 @@ git submodule update --recursive --remote --merge
 
 The following command will run the data generation procedure for both the web application and the data regeneration routine:
 
-```
-sudo apt install fuse python3-pip git python3.7 sshfs p7zip-full sqlite3
-sudo pip3 install --upgrade cython # Avoid conflicts with older cython versions installed on the system when installing aiohttp
-sudo pip3 install --upgrade SQLAlchemy==1.4.32 MarkupSafe==1.1.0 werkzeug==2.0.3 quart==0.16.3 sshtunnel requests itsdangerous==0.24 aiohttp
+```bash
+sudo apt install fuse python3-pip python3-dev sshfs p7zip-full sqlite3
+sudo snap install --classic astral-uv
+uv tool install -e .
 ```
 
 In order to regenerate the SQLite database, and to indexate its contents in Elasticsearch if installed, please run (note: you need a public key with the ability to connect through SSH to `p1sec@protorisk.p1sec.com` in order to be able to mount HTML specifications from Protorisk, and to query the Protorisk MySQL database through the `sshtunnel` Python module):
 
-```
-./regenerate.sh
+```bash
+diameter-db-regenerate
 ```
 
 ## How to run the application locally
@@ -49,15 +59,23 @@ Before running your application, you should known that is shares its authenticat
 
 You should also adapt the Flask session cookie salt, in order to provide correct interoperability with the Protorisk SSO:
 
+```bash
+cd src/diameter_db/webapp/
+cp flask_salt.sample.py flask_salt.py 
+nano flask_salt.py
 ```
-cp webapp/flask_salt.sample.py webapp/flask_salt.py 
-nano webapp/flask_salt.py
+
+And create a vhost under `*.p1sec.fr` for cross-domain authentication:
+
+```bash
+echo 127.0.0.1 diameter-db-local.p1sec.fr | sudo tee -a /etc/hosts
 ```
 
 To run the application locally, please run:
 
-```
-./webapp/app.py
+```bash
+diameter-db-webapp
+xdg-open http://diameter-db-local.p1sec.fr:9999
 ```
 
 ## Install the application on the Protorisk server
@@ -67,7 +85,7 @@ You should run the following commands:
 
 Setup Hypercorn and nginx:
 
-```
+```bash
 sudo cp ~/diameter-db/webapp/diameter-db.service /etc/systemd/system/diameter-db.service
 sudo systemctl daemon-reload
 sudo systemctl enable diameter-db
