@@ -19,7 +19,7 @@ dependencies = [
 
 [project.scripts]
 diameter-db-create-schema = "diameter_db.common.database:main"
-diameter-db-regenerate = "diameter_db.fetch.regenerate:main"
+diameter-db-regenerate = "diameter_db.utils.regenerate:main"
 diameter-db-webapp = "diameter_db.webapp.app:main"
 
 [project.urls]
