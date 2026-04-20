@@ -89,9 +89,9 @@ try:
 
         if spec_url:
             tgpp_spec_match = search(
-                '3gpp.+?/([\d]{5})\D', spec_url, flags=IGNORECASE
+                r'3gpp.+?/([\d]{5})\D', spec_url, flags=IGNORECASE
             )
-            rfc_spec_match = search('/rfc(\d+)', spec_url, flags=IGNORECASE)
+            rfc_spec_match = search(r'/rfc(\d+)', spec_url, flags=IGNORECASE)
             if tgpp_spec_match:
                 tgpp_spec_code = tgpp_spec_match.group(1)
                 tgpp_spec_code = tgpp_spec_code[:2] + '.' + tgpp_spec_code[2:]
@@ -124,7 +124,7 @@ try:
                 long_spec_name_prefix = 'IETF RFC ' + rfc_code
                 long_spec_name_suffix = (
                     search(
-                        '<title>(.+?)</title>',
+                        r'<title>(.+?)</title>',
                         get(
                             'https://tools.ietf.org/html/rfc%s' % rfc_code
                         ).text,

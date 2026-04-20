@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
 # -*- encoding: Utf-8 -*-
 
-from os.path import dirname, realpath, exists
 from sqlalchemy import *
-from sqlalchemy.orm import relationship, sessionmaker, backref
-from sqlalchemy.ext.declarative import declarative_base
+
+from sqlalchemy.orm import (
+    relationship,
+    sessionmaker,
+    backref,
+    declarative_base,
+)
+from os.path import dirname, realpath, exists
 from enum import IntEnum, Enum as PythonEnum
-from html import escape
-from logging import debug, info, getLogger, DEBUG
 from typing import Sequence, List, Dict, Set, Tuple, Union
+from logging import debug, info, getLogger, DEBUG
+from html import escape
 
 COMMON_DIR = dirname(realpath(__file__))
 MODULE_DIR = dirname(realpath(COMMON_DIR))
