@@ -38,7 +38,6 @@ The following command will run the data generation procedure for both the web ap
 ```bash
 sudo apt install python3-pip python3-dev p7zip-full sqlite3
 sudo snap install --classic astral-uv
-uv tool install hypercorn
 uv tool install -e .
 ```
 
@@ -87,14 +86,16 @@ You should run the following commands:
 Setup Hypercorn and nginx:
 
 ```bash
-sudo cp ~/diameter-db/webapp/diameter-db.service /etc/systemd/system/diameter-db.service
+uv tool install uv
+uv tool install hypercorn
+sudo cp ~/diameter-db/src/diameter_db/webapp/diameter-db.service /etc/systemd/system/diameter-db.service
 sudo systemctl daemon-reload
 sudo systemctl enable diameter-db
 sudo systemctl start diameter-db
 
 sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 
-sudo cp ~/diameter-db/webapp/nginx-site-diameter-db.conf /etc/nginx/sites-enabled/
+sudo cp ~/diameter-db/src/diameter_db/webapp/nginx-site-diameter-db.conf /etc/nginx/sites-enabled/
 sudo systemctl restart nginx
 ```
 
