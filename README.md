@@ -36,8 +36,9 @@ git submodule update --recursive --remote --merge
 The following command will run the data generation procedure for both the web application and the data regeneration routine:
 
 ```bash
-sudo apt install fuse python3-pip python3-dev sshfs p7zip-full sqlite3
+sudo apt install python3-pip python3-dev p7zip-full sqlite3
 sudo snap install --classic astral-uv
+uv tool install hypercorn
 uv tool install -e .
 ```
 
