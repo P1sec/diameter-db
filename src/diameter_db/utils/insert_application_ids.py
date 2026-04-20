@@ -3,14 +3,14 @@
 
 from re import findall, IGNORECASE, MULTILINE, search
 from lxml.etree import XMLParser, parse, dump
-from os.path import dirname, realpath
+from os.path import dirname, realpath, join
 from typing import Dict, Set, List
 from datetime import datetime
-from os import listdir, join
 from csv import DictReader
 from requests import get
 from io import StringIO
 from typing import Set
+from os import listdir
 
 from diameter_db.common.database_protorisk import obtain_spec_from_code
 

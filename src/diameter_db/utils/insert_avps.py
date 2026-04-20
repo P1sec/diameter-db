@@ -3,11 +3,11 @@
 
 from lxml.etree import XMLParser, parse, dump, tostring, _Comment
 from re import findall, search, sub, match, IGNORECASE, MULTILINE
+from os.path import dirname, realpath, join
 from typing import Set, List, Dict, Union
-from os import listdir, scandir, join
-from os.path import dirname, realpath
 from collections import defaultdict
 from typing import Dict, Set, List
+from os import listdir, scandir
 from datetime import datetime
 from subprocess import run
 from csv import DictReader
