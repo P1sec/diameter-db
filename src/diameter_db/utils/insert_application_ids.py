@@ -6,24 +6,28 @@ from lxml.etree import XMLParser, parse, dump
 from os.path import dirname, realpath
 from typing import Dict, Set, List
 from datetime import datetime
+from os import listdir, join
 from csv import DictReader
 from requests import get
 from io import StringIO
-from os import listdir
 from typing import Set
 
 from diameter_db.common.database_protorisk import obtain_spec_from_code
 
 SCRIPT_DIR = dirname(realpath(__file__))
+MODULE_DIR = dirname(realpath(SCRIPT_DIR))
+SRC_DIR = dirname(realpath(MODULE_DIR))
+ROOT_DIR = dirname(realpath(SRC_DIR))
+DATA_DIR = realpath(join(ROOT_DIR, 'data'))
 
 OLD_DIAFUZZER_DATA_DIR = realpath(
-    SCRIPT_DIR + '/compare_data_sources/diafuzzer/specs/'
+    ROOT_DIR + '/compare_data_sources/diafuzzer/specs/'
 )
 WIRESHARK_DATA_DIR = realpath(
-    SCRIPT_DIR + '/compare_data_sources/wireshark/diameter/'
+    ROOT_DIR + '/compare_data_sources/wireshark/diameter/'
 )
 
-EXTRACTED_CCF_FROM_3GPP_PATH = realpath(SCRIPT_DIR + '/ccf_from_html')
+EXTRACTED_CCF_FROM_3GPP_PATH = realpath(DATA_DIR + '/ccf_from_html')
 
 
 from diameter_db.common.database import *
@@ -35,7 +39,9 @@ try:
         Obtain application IDs from Wireshark
     """
 
-    xml_parser = XMLParser()  # load_dtd = True, no_network = False
+    xml_parser = XMLParser(
+        resolve_entities=True
+    )  # load_dtd = True, no_network = False
 
     xml_file = parse(
         WIRESHARK_DATA_DIR + '/' + 'dictionary.xml', parser=xml_parser

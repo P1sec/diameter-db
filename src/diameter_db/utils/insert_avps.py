@@ -4,10 +4,10 @@
 from lxml.etree import XMLParser, parse, dump, tostring, _Comment
 from re import findall, search, sub, match, IGNORECASE, MULTILINE
 from typing import Set, List, Dict, Union
+from os import listdir, scandir, join
 from os.path import dirname, realpath
 from collections import defaultdict
 from typing import Dict, Set, List
-from os import listdir, scandir
 from datetime import datetime
 from subprocess import run
 from csv import DictReader
@@ -18,16 +18,20 @@ from time import time
 from diameter_db.common.database_protorisk import obtain_spec_from_code
 
 SCRIPT_DIR = dirname(realpath(__file__))
+MODULE_DIR = dirname(realpath(SCRIPT_DIR))
+SRC_DIR = dirname(realpath(MODULE_DIR))
+ROOT_DIR = dirname(realpath(SRC_DIR))
+DATA_DIR = realpath(join(ROOT_DIR, 'data'))
 
 OLD_DIAFUZZER_DATA_DIR = realpath(
-    SCRIPT_DIR + '/compare_data_sources/diafuzzer/specs/'
+    ROOT_DIR + '/compare_data_sources/diafuzzer/specs/'
 )
 WIRESHARK_DATA_DIR = realpath(
-    SCRIPT_DIR + '/compare_data_sources/wireshark/diameter/'
+    ROOT_DIR + '/compare_data_sources/wireshark/diameter/'
 )
 
-EXTRACTED_CCF_FROM_3GPP_PATH = realpath(SCRIPT_DIR + '/ccf_from_html')
-IETF_RFCS_FOLDER = realpath(SCRIPT_DIR + '/ietf_rfcs')
+EXTRACTED_CCF_FROM_3GPP_PATH = realpath(DATA_DIR + '/ccf_from_html')
+IETF_RFCS_FOLDER = realpath(DATA_DIR + '/ietf_rfcs')
 
 """
     We'll parse the custom Diameter ABNF (CCF)
@@ -1111,7 +1115,9 @@ try:
         1) Add information from Wireshark (containg the specification of AVP themselves)
     """
 
-    xml_parser = XMLParser()  # load_dtd = True, no_network = False
+    xml_parser = XMLParser(
+        resolve_entities=True
+    )  # load_dtd = True, no_network = False
 
     xml_file = parse(
         WIRESHARK_DATA_DIR + '/' + 'dictionary.xml', parser=xml_parser
