@@ -43,7 +43,7 @@ IETF_RFCS_FOLDER = realpath(DATA_DIR + '/ietf_rfcs')
     CCF is specified here: https://tools.ietf.org/html/rfc6733#section-3.2
 """
 
-CCF_AVP_REGEX = '(?:[\d\s]*\*[\d\s]*)?(?:\s*\[[^\]]+?\s*\]\s*|\s*<[^>]+?\s*>(?!\s*::)\s*|\s*\{[^\}]*?\s*\}\s*)(?:;[^\n\]\[{}<>*]*[^0-9\n\]\[{}<>*]\s*)?'
+CCF_AVP_REGEX = r'(?:[\d\s]*\*[\d\s]*)?(?:\s*\[[^\]]+?\s*\]\s*|\s*<[^>]+?\s*>(?!\s*::)\s*|\s*\{[^\}]*?\s*\}\s*)(?:;[^\n\]\[{}<>*]*[^0-9\n\]\[{}<>*]\s*)?'
 
 CCF_MESSAGE_REGEX = (
     r'<?\s*([^<>\n ]+?)\s*>?\s*::\s*=\s*<\s*Diameter[-\s_]*Header([^>]*?)\s*>'
@@ -280,7 +280,7 @@ try:
             cmd_code_name = cmd_code_name.strip()
 
             """
-            three_char_prefix_regex = match('^([A-Z]{2})-([RA])(?:equest|nswer)', cmd_code_name, flags = MULTILINE)
+            three_char_prefix_regex = match(r'^([A-Z]{2})-([RA])(?:equest|nswer)', cmd_code_name, flags = MULTILINE)
             
             command_three_char_abbreviation = None
             if len(cmd_code_name) == 3 and cmd_code_name.isupper():
@@ -310,7 +310,7 @@ try:
                 min_occurrences: Union[int, None] = None
                 max_occurrences: Union[int, None] = None
 
-                min_max_references = match('^\s*(\d*)\s*\*\s*(\d*)\s*', avp)
+                min_max_references = match(r'^\s*(\d*)\s*\*\s*(\d*)\s*', avp)
                 if min_max_references:
                     if min_max_references.group(1):
                         min_occurrences = int(min_max_references.group(1))
@@ -736,7 +736,7 @@ try:
                 max_occurrences: Union[int, None] = None
 
                 min_max_references = match(
-                    '^\s*(\d*)\s*\*\s*(\d*)\s*', nested_avp
+                    r'^\s*(\d*)\s*\*\s*(\d*)\s*', nested_avp
                 )
                 if min_max_references:
                     if min_max_references.group(1):
@@ -997,7 +997,7 @@ try:
                 max_occurrences: Union[int, None] = None
 
                 min_max_references = match(
-                    '^\s*(\d*)\s*\*\s*(\d*)\s*', nested_avp
+                    r'^\s*(\d*)\s*\*\s*(\d*)\s*', nested_avp
                 )
                 if min_max_references:
                     if min_max_references.group(1):
@@ -1386,7 +1386,7 @@ try:
             with open(file_entry.path) as fd:
                 file_contents = fd.read()
 
-                rfc_number = int(search('\d+', file_entry.name).group(0))
+                rfc_number = int(search(r'\d+', file_entry.name).group(0))
 
                 extract_plain_text_avp_definitions_from_spec(
                     file_contents,
@@ -1426,7 +1426,7 @@ try:
         with open(file_entry.path) as fd:
             file_contents = fd.read()
 
-            rfc_number = int(search('\d+', file_entry.name).group(0))
+            rfc_number = int(search(r'\d+', file_entry.name).group(0))
 
             source_url = 'https://tools.ietf.org/html/rfc%d' % rfc_number
 
@@ -1439,7 +1439,7 @@ try:
                     short_spec_name='RFC %s' % rfc_number,
                     long_spec_name_prefix=('IETF RFC %s' % rfc_number),
                     long_spec_name_suffix=search(
-                        '<title>(.+?)</title>',
+                        r'<title>(.+?)</title>',
                         get(
                             'https://tools.ietf.org/html/rfc%s' % rfc_number
                         ).text,

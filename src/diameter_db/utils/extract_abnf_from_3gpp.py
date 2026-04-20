@@ -100,7 +100,7 @@ for file_name in listdir(HTML_3GPP_DOCS_PATH):  # ['29.272.html']: # DEBUG
             )
 
         for plain_text_avp_definition in findall(
-            'The [\w\d-]+ AVP \(AVP Code \d+\) is of type [\w\d-]+',
+            r'The [\w\d-]+ AVP \(AVP Code \d+\) is of type [\w\d-]+',
             file_contents,
             flags=IGNORECASE,
         ):

@@ -42,7 +42,7 @@ IETF_RFCS_FOLDER = realpath(DATA_DIR + '/ietf_rfcs')
     CCF is specified here: https://tools.ietf.org/html/rfc6733#section-3.2
 """
 
-CCF_AVP_REGEX = '(?:[\d\s]*\*[\d\s]*)?(?:\s*\[[^\]]+?\s*\]\s*|\s*<[^>]+?\s*>(?!\s*::)\s*|\s*\{[^\}]*?\s*\}\s*)(?:;[^\n\]\[{}<>*]*[^0-9\n\]\[{}<>*]\s*)?'
+CCF_AVP_REGEX = r'(?:[\d\s]*\*[\d\s]*)?(?:\s*\[[^\]]+?\s*\]\s*|\s*<[^>]+?\s*>(?!\s*::)\s*|\s*\{[^\}]*?\s*\}\s*)(?:;[^\n\]\[{}<>*]*[^0-9\n\]\[{}<>*]\s*)?'
 
 CCF_MESSAGE_REGEX = (
     r'<?\s*([^<>\n ]+?)\s*>?\s*::\s*=\s*<\s*Diameter[-\s_]*Header([^>]*?)\s*>'
@@ -229,7 +229,7 @@ try:
             cmd_code_name = cmd_code_name.strip()
 
             three_char_prefix_regex = match(
-                '^([A-Z]{2})-([RA])(?:equest|nswer)',
+                r'^([A-Z]{2})-([RA])(?:equest|nswer)',
                 cmd_code_name,
                 flags=MULTILINE,
             )
@@ -331,7 +331,7 @@ try:
                 short_spec_name='Rec.' + itu_code,
                 long_spec_name_prefix='ITU-T Rec. %s' % (itu_code),
                 long_spec_name_suffix=search(
-                    '<title>(.+?)</title>',
+                    r'<title>(.+?)</title>',
                     get('https://www.itu.int/rec/T-REC-%s' % itu_code).text,
                 )
                 .group(1)
@@ -346,7 +346,7 @@ try:
                 short_spec_name='RFC ' + rfc_code,
                 long_spec_name_prefix='IETF RFC ' + rfc_code,
                 long_spec_name_suffix=search(
-                    '<title>(.+?)</title>',
+                    r'<title>(.+?)</title>',
                     get('https://tools.ietf.org/html/rfc%s' % rfc_code).text,
                 )
                 .group(1)
@@ -447,7 +447,7 @@ try:
         with open(file_entry.path) as fd:
             file_contents = fd.read()
 
-            rfc_number = int(search('\d+', file_entry.name).group(0))
+            rfc_number = int(search(r'\d+', file_entry.name).group(0))
 
             source_url = 'https://tools.ietf.org/html/rfc%d' % rfc_number
 
@@ -561,28 +561,28 @@ try:
             if '\n' not in comment_text:
                 if 'TS ' in comment_text:
                     tgpp_ts_code = search(
-                        'TS\s*(\d+\.\d+)', comment_text
+                        r'TS\s*(\d+\.\d+)', comment_text
                     ).group(1)
 
                 elif 'ITU-T Rec.' in comment_text:
                     itu_code = search(
-                        'ITU(?:-T)?\s*Rec\.*\s*(Q\.[\d.]+)', comment_text
+                        r'ITU(?:-T)?\s*Rec\.*\s*(Q\.[\d.]+)', comment_text
                     ).group(1)
 
                 elif 'RFC' in comment_text:
-                    rfc_code = search('RFC\s*(\d+)', comment_text).group(1)
+                    rfc_code = search(r'RFC\s*(\d+)', comment_text).group(1)
 
-                if search('[A-Z]{2,}R\s*/\s*[A-Z]{2,}[AI]', comment_text):
+                if search(r'[A-Z]{2,}R\s*/\s*[A-Z]{2,}[AI]', comment_text):
                     trigram_prefix = search(
-                        '([A-Z]{2,})R\s*/\s*[A-Z]{2,}[AI]', comment_text
+                        r'([A-Z]{2,})R\s*/\s*[A-Z]{2,}[AI]', comment_text
                     ).group(1)
 
                     # There is a "GPR/GPI" pair in TS 29.230, we'll consider
                     # it as a mistake for "GPR/GPA"
 
-                elif search('[A-Z]{2,}[AI]', comment_text):
+                elif search(r'[A-Z]{2,}[AI]', comment_text):
                     trigram_prefix = search(
-                        '([A-Z]{2,})[AI]', comment_text
+                        r'([A-Z]{2,})[AI]', comment_text
                     ).group(1)
 
         # Split this command in one Request and one Answer
