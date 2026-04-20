@@ -4,8 +4,8 @@ Description=diameter-db
 [Service]
 User=p1sec
 Group=p1sec
-WorkingDirectory=/home/p1sec/diameter-db/webapp
-ExecStart=/home/p1sec/diameter-db/webapp/app.py --port 9999
+WorkingDirectory=/home/p1sec/diameter-db
+ExecStart=/home/p1sec/.local/bin/uv run hypercorn --bind localhost:9999 diameter_db.webapp.app
 
 [Install]
 WantedBy=multi-user.target
