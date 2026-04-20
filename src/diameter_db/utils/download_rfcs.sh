@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # From https://www.google.com/search?q=%22Diameter+Header%22+OR+%22AVP+header%22+site:https://tools.ietf.org/html+-inurl:draft++-inurl:dime+%22diameter%22
 
