@@ -95,7 +95,7 @@ sudo systemctl start diameter-db
 
 sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 
-sudo cp ~/diameter-db/src/diameter_db/webapp/nginx-site-diameter-db.conf /etc/nginx/sites-enabled/
+sudo cp ~/diameter-db/src/diameter_db/webapp/nginx-site-diameter-db.conf /etc/nginx/sites-enabled/diameter-db.conf
 sudo systemctl restart nginx
 ```
 
