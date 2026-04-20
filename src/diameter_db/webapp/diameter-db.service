@@ -5,7 +5,7 @@ Description=diameter-db
 User=p1sec
 Group=p1sec
 WorkingDirectory=/home/p1sec/diameter-db
-ExecStart=/home/p1sec/.local/bin/uv run hypercorn -w 4 --umask 0111 --bind 'unix:/var/tmp/hypercorn.sock' diameter_db.webapp.app
+ExecStart=/home/p1sec/.local/bin/uv run hypercorn -w 4 --bind 'unix:/var/tmp/hypercorn.sock' diameter_db.webapp.app
 
 [Install]
 WantedBy=multi-user.target
