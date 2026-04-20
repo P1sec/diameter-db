@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- encoding: Utf-8 -*-
 from re import findall, IGNORECASE, MULTILINE
-from lxml.etree import XMLParser, parse, dump
+from lxml.etree import XMLParser, DTD, parse, dump
 from os.path import dirname, realpath
 from csv import DictReader
 from requests import get
@@ -14,7 +14,7 @@ SCRIPT_DIR = dirname(realpath(__file__))
 OLD_DIAFUZZER_DATA_DIR = realpath(SCRIPT_DIR + '/diafuzzer/specs/')
 WIRESHARK_DATA_DIR = realpath(SCRIPT_DIR + '/wireshark/diameter/')
 
-EXTRACTED_CCF_FROM_3GPP_PATH = realpath(SCRIPT_DIR + '/../ccf_from_html')
+EXTRACTED_CCF_FROM_3GPP_PATH = realpath(SCRIPT_DIR + '/../data/ccf_from_html')
 
 old_diafuzzer_avp_ids: Set[int] = set()
 old_diafuzzer_cmd_ids: Set[int] = set()
@@ -37,7 +37,7 @@ for spec_file in listdir(OLD_DIAFUZZER_DATA_DIR):
         spec_contents = fd.read()
 
         for command_code_id, application_id in findall(
-            '<\s*Diameter[\s-]*Header\s*:\s*(\d+).+?(\d+)\s*>',
+            r'<\s*Diameter[\s-]*Header\s*:\s*(\d+).+?(\d+)\s*>',
             spec_contents,
             flags=IGNORECASE,
         ):
@@ -45,7 +45,7 @@ for spec_file in listdir(OLD_DIAFUZZER_DATA_DIR):
             old_diafuzzer_app_ids.add(int(application_id))
 
         for avp_id in findall(
-            '^[\w-]+\s+(\d+)\s+\S+\s+', spec_contents, flags=MULTILINE
+            r'^[\w-]+\s+(\d+)\s+\S+\s+', spec_contents, flags=MULTILINE
         ):
             old_diafuzzer_avp_ids.add(int(avp_id))
 
@@ -62,7 +62,7 @@ for file_name in listdir(EXTRACTED_CCF_FROM_3GPP_PATH):
         ccf_data = fd.read()
 
         for cmd_code, app_id in findall(
-            'Diameter[ -]Header\s*:\s*(\d+).+?(\d+)\s*>',
+            r'Diameter[ -]Header\s*:\s*(\d+).+?(\d+)\s*>',
             ccf_data,
             flags=IGNORECASE,
         ):
@@ -72,7 +72,7 @@ for file_name in listdir(EXTRACTED_CCF_FROM_3GPP_PATH):
             cmd_ids_only_in_live_3gpp.add(int(cmd_code))
 
         for command_code_id in findall(
-            '<\s*Diameter[\s-]*Header\s*:\s*(\d+)', ccf_data, flags=IGNORECASE
+            r'<\s*Diameter[\s-]*Header\s*:\s*(\d+)', ccf_data, flags=IGNORECASE
         ):
             old_diafuzzer_cmd_ids.add(int(command_code_id))
 
@@ -83,7 +83,9 @@ for file_name in listdir(EXTRACTED_CCF_FROM_3GPP_PATH):
     Then, do the same with Wireshark XML files
 """
 
-xml_parser = XMLParser()  # load_dtd = True, no_network = False
+xml_parser = XMLParser(
+    resolve_entities=True
+)  # load_dtd = True, no_network = False
 
 xml_file = parse(
     WIRESHARK_DATA_DIR + '/' + 'dictionary.xml', parser=xml_parser

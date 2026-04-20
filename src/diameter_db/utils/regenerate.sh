@@ -8,7 +8,7 @@ rm -f ../../../database.sqlite3
 
 # uv run ./extract_abnf_from_3gpp.py # Quite slow, don't always run
 uv run ./download_rfcs.sh
-uv run ./database_diameter.py # Creates the database or missing tables
+uv run ../common/database.py # Creates the database or missing tables
 uv run ./insert_application_ids.py
 uv run ./insert_command_codes.py
 uv run ./insert_avps.py
