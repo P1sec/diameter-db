@@ -26,7 +26,7 @@ CCF_MESSAGE_REGEX = (
 CCF_MESSAGE_REGEX += r'((?:' + CCF_AVP_REGEX + ')+)'
 
 CCF_GROUPED_AVP_REGEX = r'<?\s*([^<>\n ]+?)\s*>?\s*::\s*=\s*<\s*AVP[-\s_]*Header\s*:?\s*([^>]*?)\s*>'
-CCF_GROUPED_AVP_REGEX += r'((?:' + CCF_AVP_REGEX + ')+)'
+CCF_GROUPED_AVP_REGEX += r'((?:' + CCF_AVP_REGEX + r')+)'
 
 for file_name in listdir(HTML_3GPP_DOCS_PATH):  # ['29.272.html']: # DEBUG
     obtained_ccf_contents = ''

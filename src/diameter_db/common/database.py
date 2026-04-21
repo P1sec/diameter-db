@@ -15,17 +15,17 @@ from typing import Sequence, List, Dict, Set, Tuple, Union
 from logging import debug, info, getLogger, DEBUG
 from html import escape
 
-COMMON_DIR = dirname(realpath(__file__))
-MODULE_DIR = dirname(realpath(COMMON_DIR))
+SCRIPT_DIR = dirname(realpath(__file__))
+MODULE_DIR = dirname(realpath(SCRIPT_DIR))
 SRC_DIR = dirname(realpath(MODULE_DIR))
-DIAMETER_DB_DIR = dirname(realpath(SRC_DIR))
+ROOT_DIR = dirname(realpath(SRC_DIR))
 
 """
     CCF = Command Code Format = Diameter's custom ABNF,
     defined in https://datatracker.ietf.org/doc/html/rfc6733#section-3.2
 """
 
-SQLITE_URI = f'sqlite:///' + DIAMETER_DB_DIR + '/database.sqlite3'
+SQLITE_URI = f'sqlite:///' + ROOT_DIR + '/database.sqlite3'
 
 debug('Opening database at: %s' % SQLITE_URI)
 

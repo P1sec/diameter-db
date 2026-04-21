@@ -27,10 +27,12 @@ from math import ceil
 from sys import path
 from os import chdir
 
-WEBAPP_DIR = realpath(dirname(__file__))
-DIAMETER_DB_DIR = realpath(WEBAPP_DIR + '/..')
+SCRIPT_DIR = dirname(realpath(__file__))
+MODULE_DIR = dirname(realpath(SCRIPT_DIR))
+SRC_DIR = dirname(realpath(MODULE_DIR))
+ROOT_DIR = dirname(realpath(SRC_DIR))
 
-path.append(DIAMETER_DB_DIR)
+path.append(SRC_DIR)
 
 chdir(dirname(__file__))
 

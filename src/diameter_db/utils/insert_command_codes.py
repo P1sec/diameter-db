@@ -341,14 +341,18 @@ try:
 
         elif rfc_code:
             spec_information = dict(
-                spec_url='https://datatracker.ietf.org/doc/html/rfc%s' % rfc_code,
+                spec_url='https://datatracker.ietf.org/doc/html/rfc%s'
+                % rfc_code,
                 alternate_spec_url=None,
                 short_spec_name='RFC ' + rfc_code,
                 long_spec_name_prefix='IETF RFC ' + rfc_code,
                 long_spec_name_suffix=search(
                     r'<title>(.+?)</title>',
-                    get('https://datatracker.ietf.org/doc/html/rfc%s' % rfc_code).text,
-                    DOTALL
+                    get(
+                        'https://datatracker.ietf.org/doc/html/rfc%s'
+                        % rfc_code
+                    ).text,
+                    DOTALL,
                 )
                 .group(1)
                 .split('-', 1)[1]
@@ -450,7 +454,9 @@ try:
 
             rfc_number = int(search(r'\d+', file_entry.name).group(0))
 
-            source_url = 'https://datatracker.ietf.org/doc/html/rfc%d' % rfc_number
+            source_url = (
+                'https://datatracker.ietf.org/doc/html/rfc%d' % rfc_number
+            )
 
             parse_extracted_ccf(
                 file_contents,
@@ -463,9 +469,10 @@ try:
                     long_spec_name_suffix=search(
                         '<title>(.+?)</title>',
                         get(
-                            'https://datatracker.ietf.org/doc/html/rfc%s' % rfc_number
+                            'https://datatracker.ietf.org/doc/html/rfc%s'
+                            % rfc_number
                         ).text,
-                        DOTALL
+                        DOTALL,
                     )
                     .group(1)
                     .split('-', 1)[1]

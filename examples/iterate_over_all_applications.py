@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 # -*- encoding: Utf-8 -*-
 
-from os.path import dirname, realpath
+from os.path import dirname, realpath, join
 from sys import path
 
-EXAMPLES_DIR = realpath(dirname(__file__))
-DIAMETER_DB_DIR = realpath(EXAMPLES_DIR + '/..')
+EXAMPLES_DIR = dirname(realpath(__file__))
+ROOT_DIR = dirname(realpath(EXAMPLES_DIR))
+SRC_DIR = realpath(join(EXAMPLES_DIR, 'src'))
 
-path.append(DIAMETER_DB_DIR)
+path.append(SRC_DIR)
 
 from diameter_db.common.database import *
 
