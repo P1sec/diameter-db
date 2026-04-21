@@ -48,10 +48,10 @@ CCF_AVP_REGEX = r'(?:[\d\s]*\*[\d\s]*)?(?:\s*\[[^\]]+?\s*\]\s*|\s*<[^>]+?\s*>(?!
 CCF_MESSAGE_REGEX = (
     r'<?\s*([^<>\n ]+?)\s*>?\s*::\s*=\s*<\s*Diameter[-\s_]*Header([^>]*?)\s*>'
 )
-CCF_MESSAGE_REGEX += r'((?:' + CCF_AVP_REGEX + ')+)'
+CCF_MESSAGE_REGEX += r'((?:' + CCF_AVP_REGEX + r')+)'
 
 CCF_GROUPED_AVP_REGEX = r'<?\s*([^<>\n ]+?)\s*>?\s*::\s*=\s*<\s*AVP[-\s_]*Header\s*:?\s*([^>]*?)\s*>'
-CCF_GROUPED_AVP_REGEX += r'((?:' + CCF_AVP_REGEX + ')+)'
+CCF_GROUPED_AVP_REGEX += r'((?:' + CCF_AVP_REGEX + r')+)'
 
 
 # Ensure that we have messages defined in the CCF
@@ -499,7 +499,7 @@ try:
             avp_line_trailer_and_flags,
             next_line_contents,
         ) in findall(
-            '^[ \t\xa0|]*(\S+)[ \t\xa0|]+(\d+)[ \t\xa0|]+(\d+\.[\d\.]+)[ \t\xa0|]+(\S+)(.+)(?=\n(.*))',
+            r'^[ \t\xa0|]*(\S+)[ \t\xa0|]+(\d+)[ \t\xa0|]+(\d+\.[\d\.]+)[ \t\xa0|]+(\S+)(.+)(?=\n(.*))',
             rfc_contents,
             flags=MULTILINE,
         ):
@@ -581,7 +581,7 @@ try:
         # 1b. Parse plain text AVP type definitions
 
         for avp_name, avp_code, avp_type in findall(
-            'The ([\w\d-]+) AVP \(AVP Code (\d+)\) is of type ([\w\d-]+)',
+            r'The ([\w\d-]+) AVP \(AVP Code (\d+)\) is of type ([\w\d-]+)',
             rfc_contents,
             flags=IGNORECASE,
         ):
@@ -1428,7 +1428,9 @@ try:
 
             rfc_number = int(search(r'\d+', file_entry.name).group(0))
 
-            source_url = 'https://datatracker.ietf.org/doc/html/rfc%d' % rfc_number
+            source_url = (
+                'https://datatracker.ietf.org/doc/html/rfc%d' % rfc_number
+            )
 
             parse_extracted_ccf(
                 file_contents,
@@ -1441,9 +1443,10 @@ try:
                     long_spec_name_suffix=search(
                         r'<title>(.+?)</title>',
                         get(
-                            'https://datatracker.ietf.org/doc/html/rfc%s' % rfc_number
+                            'https://datatracker.ietf.org/doc/html/rfc%s'
+                            % rfc_number
                         ).text,
-                        DOTALL
+                        DOTALL,
                     )
                     .group(1)
                     .split('-', 1)[1]

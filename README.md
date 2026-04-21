@@ -36,12 +36,26 @@ git submodule update --recursive --remote --merge
 The following command will run the data generation procedure for both the web application and the data regeneration routine:
 
 ```bash
-sudo apt install python3-pip python3-dev p7zip-full sqlite3
+sudo apt install fuse python3-pip python3-dev p7zip-full sshfs sqlite3
 sudo snap install --classic astral-uv
 uv tool install -e .
 ```
 
-In order to regenerate the SQLite database, and to indexate its contents in Elasticsearch if installed, please run (note: you need a public key with the ability to connect through SSH to `p1sec@protorisk.p1sec.com` in order to be able to mount HTML specifications from Protorisk, and to query the Protorisk MySQL database through the `sshtunnel` Python module):
+In order to regenerate the SQLite database, and to indexate its contents in Elasticsearch if installed, please run (note: you need a public key with the ability to connect through SSH to `p1sec@protorisk` in order to be able to mount HTML specifications from Protorisk, and to query the Protorisk MySQL database through the `sshtunnel` Python module):
+
+```bash
+$ cat ~/.ssh/.config
+(...)
+Host protorisk
+    Hostname protorisk
+    User p1sec
+    ProxyCommand "/usr/local/bin/tsh" proxy ssh --user=$PROXY_USER --proxy=tele.$PROXY_DOMAIN %r@%h:%p
+```
+
+```bash
+sudo sed -ri 's/#user_allow_other/user_allow_other/' /etc/fuse.conf
+tsh login
+```
 
 ```bash
 diameter-db-regenerate

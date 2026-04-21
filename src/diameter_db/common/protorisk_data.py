@@ -18,13 +18,16 @@ with open(JSON_PATH) as json_file:
 # See https://protorisk.p1sec.com/v1/specification_list.json
 # that was download to ../../../data
 
+
 class Spec:
     type: str  # "TS", "TR", "GSM"...
     code: str  # "27.323"
     name: str
 
+
 # Used to obtain type, code and name:
 # e.g TS 27.002 Diameter something
+
 
 def obtain_spec_from_code(spec_code) -> Spec:
 

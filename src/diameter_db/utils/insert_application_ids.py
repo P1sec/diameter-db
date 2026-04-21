@@ -126,16 +126,19 @@ try:
                     search(
                         r'<title>(.+?)</title>',
                         get(
-                            'https://datatracker.ietf.org/doc/html/rfc%s' % rfc_code
+                            'https://datatracker.ietf.org/doc/html/rfc%s'
+                            % rfc_code
                         ).text,
-                        DOTALL
+                        DOTALL,
                     )
                     .group(1)
                     .split('-', 1)[1]
                     .strip()
                 )
 
-                spec_url = 'https://datatracker.ietf.org/doc/html/rfc%s' % rfc_code
+                spec_url = (
+                    'https://datatracker.ietf.org/doc/html/rfc%s' % rfc_code
+                )
 
         sql_session.add(
             DiameterApplication(
