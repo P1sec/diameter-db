@@ -46,7 +46,9 @@ for revision in map(
         obtained_ccf_contents = ''
 
         with open(join(HTML_3GPP_DOCS_PATH, revision, file_name)) as fd:
-            file_contents = unescape(sub(r'<.+?>', '', fd.read()))
+            file_contents = unescape(
+                sub(r'<.+?>', '', fd.read(), flags=DOTALL)
+            )
             file_contents = sub(r'\s+', ' ', file_contents)
 
             if 'diameter' not in file_contents.lower() or (
