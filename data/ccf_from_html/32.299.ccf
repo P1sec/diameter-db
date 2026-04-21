@@ -756,6 +756,7 @@
 [ SCS-AS-Address ]
 [ Unused-Quota-Timer ]
 * [ RAN-Secondary-RAT-Usage-Report ]
+[ PSCell-Info ]
 
 < Radio-Parameter-Set-Info > ::= < AVP-Header: 3463 >
 [ Radio-Parameter-Set-Values ]
@@ -1052,6 +1053,9 @@
 < WLAN-Operator-Id > ::= < AVP-Header: 1306 >
 [ WLAN-PLMN-Id ]
 [ WLAN-Operator-Name ]
+
+< PSCell-Info > ::= < AVP-Header: 1324 >
+[ Nr-Cgi ]
 
 < 3GPP-OC-Specific-Reduction > ::= < AVP-Header: 1320 >
 * [ 3GPP-OC-Rating-Group ]
@@ -1462,5 +1466,7 @@ The Volume-Quota-Threshold AVP (AVP code 869) is of type Unsigned32
 The WLAN-Operator-Id AVP (AVP code 1306) is of type Grouped
 The WLAN-Operator-Name AVP (AVP code 1307) is of type UTF8String
 The WLAN-PLMN-Id AVP (AVP code 1308) is of type UTF8String
+The Nr-Cgi AVP (AVP code 1325) is of type UTF8String
+The PSCell-Info AVP (AVP code 1324) is of type Grouped
 The 3GPP-OC-Specific-Reduction AVP (AVP code 1320) is of type Grouped
 The OC-OLR AVP (AVP code 623) is of type Grouped

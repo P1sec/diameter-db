@@ -36,6 +36,7 @@
 [AF-Requested-Data ]
 [ Reference-Id ]
 [ Pre-emption-Control-Info ]
+[ MPS-Action ]
 [ Origin-State-Id ]
 *[ Proxy-Info ]
 *[ Route-Record ]
@@ -57,6 +58,7 @@
 [ AN-Trusted ]
 [ Service-Authorization-Info ]
 [ IP-CAN-Type ]
+[ MA-Information ]
 [ NetLoc-Access-Support ]
 [ RAT-Type ]
 *[ Flows ]
@@ -65,7 +67,9 @@
 *[ Supported-Features ]
 *[ Subscription-Id ]
 [ User-Equipment-Info ]
+[ User-Equipment-Info-Extension ]
 [ 3GPP-SGSN-MCC-MNC ]
+[ NID ]
 *[ Class ]
 [ Error-Message ]
 [ Error-Reporting-Host ]
@@ -97,18 +101,24 @@
 *[ Subscription-Id ]
 [ Abort-Cause ]
 [ IP-CAN-Type ]
+[ MA-Information ]
 [ NetLoc-Access-Support ]
 [ RAT-Type ]
 [ Sponsored-Connectivity-Data ]
 [ 3GPP-User-Location-Info ]
 [ User-Location-Info-Time ]
 [ 3GPP-MS-TimeZone ]
+[ Serving-Satellite-Identity ]
 *[ RAN-NAS-Release-Cause ]
+*[ 5GS-RAN-NAS-Release-Cause ]
 [ 3GPP-SGSN-MCC-MNC ]
+[ NID ]
 [ TWAN-Identifier ]
 [ TCP-Source-Port ]
 [ UDP-Source-Port ]
 [ UE-Local-IP-Address ]
+[ Wireline-User-Location-Info ]
+[ PC-Session-Recovery-Status ]
 [ Origin-State-Id ]
 *[ Class ]
 *[ Proxy-Info ]
@@ -170,13 +180,17 @@
 [ 3GPP-User-Location-Info ]
 [ User-Location-Info-Time ]
 [ 3GPP-MS-TimeZone ]
+[ Serving-Satellite-Identity ]
 *[ RAN-NAS-Release-Cause ]
+*[ 5GS-RAN-NAS-Release-Cause ]
 [ 3GPP-SGSN-MCC-MNC ]
+[ NID ]
 [ TWAN-Identifier ]
 [ TCP-Source-Port ]
 [ UDP-Source-Port ]
 [ UE-Local-IP-Address ]
 [ Netloc-Access-Support ]
+[ Wireline-User-Location-Info ]
 *[ Class ]
 *[ Redirect-Host ]
 [ Redirect-Host-Usage ]
@@ -234,6 +248,7 @@
 { Media-Component-Number } ; Ordinal number of the media comp.
 *[ Media-Sub-Component ] ; Set of flows for one flow identifier
 [ AF-Application-Identifier ]
+[ FLUS-Identifier ]
 [ Media-Type ]
 [ Max-Requested-Bandwidth-UL ]
 [ Max-Requested-Bandwidth-DL ]
@@ -264,6 +279,8 @@
 [ Content-Version ]
 [ Max-PLR-DL ]
 [ Max-PLR-UL ]
+[ Desired-Max-Latency ]
+[ Desired-Max-Loss ]
 *[ AVP ]
 
 < Media-Sub-Component > ::= < AVP-Header: 519 >
@@ -300,6 +317,28 @@
 *[Requested-Party-Address]
 *[Called-Asserted-Identity]
 *[AVP]
+
+< MA-Information > ::= < AVP-Header: 570 >
+[ IP-CAN-Type ]
+[ RAT-Type ]
+[ MA-Information-Action ]
+*[ AVP ]
+
+< 5GS-RAN-NAS-Release-Cause > ::= < AVP-Header: 572 >
+[5GMM-Cause]
+[5GSM-Cause]
+[NGAP-Cause]
+*[ AVP ]
+
+< NGAP-Cause > ::= < AVP-Header: 575 >
+{NGAP-Group}
+{NGAP-Value}
+
+< Wireline-User-Location-Info > ::= < AVP-Header: 578 >
+[ HFC-Node-Identifier ]
+[ GLI-Identifier ]
+[ Line-Type ]
+*[ AVP ]
 
 The Abort-Cause AVP (AVP code 500) is of type Enumerated
 The Access-Network-Charging-Address AVP (AVP code 501) is of type Address
@@ -359,4 +398,23 @@ The Extended-Min-Requested-Bandwidth-UL AVP (AVP code 561) is of type Unsigned32
 The IMS-Content-Identifier AVP (AVP code 563) is of type OctetString
 The IMS-Content-Type AVP (AVP code 564) is of type Enumerated
 The Callee-Information AVP (AVP code 565) is of type Grouped
+The FLUS-Identifier AVP (AVP code 566) is of type OctetString
+The Desired-Max-Latency AVP (AVP code 567) is of type Float32
+The Desired-Max-Loss AVP (AVP code 568) is of type Float32
+The MA-Information AVP (AVP code 570) is of type Grouped
+The MA-Information-Action AVP (AVP code 571) is of type Unsigned32
+The NID AVP (AVP code 569) is of type OctetString
+The 5GS-RAN-NAS-Release-Cause AVP (AVP code 572) is of type Grouped
+The 5GMM-Cause AVP (AVP code 573) is of type Unsigned32
+The 5GSM-Cause AVP (AVP code 574) is of type Unsigned32
+The NGAP-Cause AVP (AVP code 575) is of type Grouped
+The NGAP-Group AVP (AVP code 576) is of type Unsigned32
+The NGAP-Value AVP (AVP code 577) is of type Unsigned32
+The Wireline-User-Location-Info AVP (AVP code 578) is of type Grouped
+The HFC-Node-Identifier AVP (AVP code 579) is of type OctetString
+The GLI-Identifier AVP (AVP code 580) is of type OctetString
+The Line-Type AVP (AVP code 581) is of type Unsigned32
+The MPS-Action AVP (AVP code 582) is of type Enumerated
+The Serving-Satellite-Identity AVP (AVP code 583) is of type OctetString
+The PC-Session-Recovery-Status AVP (AVP code 584) is of type Enumerated
 The Experimental-Result-Code AVP (AVP Code 298) is of type Unsigned32

@@ -11,6 +11,7 @@
 [ User-Identifier ]
 *[ Data-Identification ]
 [ DPR-Flags ]
+[ User-Data-Id ]
 [ OC-Supported-Features ]
 *[ AVP ]
 *[ Proxy-Info ]

@@ -1,0 +1,59 @@
+< -Request > ::= < Diameter-Header: 306, REQ, PXY, 16777363 >
+< Session-Id >
+[ DRMP ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ Destination-Host ]
+{ Destination-Realm }
+{ User-Identity }
+*[ Service-Indication ]
+*{ Data-Reference }
+*[ AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+
+< User-Data-Answer > ::= < Diameter-Header: 306, PXY, 16777363 >
+< Session-Id >
+[ DRMP ]
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ User-Data ]
+*[ AVP ]
+[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+
+< Profile-Update-Request > ::= < Diameter-Header: 307, REQ, PXY, 16777363 >
+< Session-Id >
+[ DRMP ]
+{ Vendor-Specific-Application-Id }
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ Destination-Host ]
+{ Destination-Realm }
+{ User-Identity }
+*{ Data-Reference }
+{ User-Data }
+*[ AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+
+< Profile-Update-Answer > ::= < Diameter-Header: 307, PXY, 16777363 >
+< Session-Id >
+[ DRMP ]
+{ Vendor-Specific-Application-Id }
+[ Result-Code ]
+[ Experimental-Result ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+[ Repository-Data-ID ]
+*[ AVP ]
+[ Failed-AVP ]
+*[ Proxy-Info ]
+*[ Route-Record ]

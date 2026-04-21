@@ -13,7 +13,7 @@
 [ Terminal-Information ]
 { RAT-Type }
 { ULR-Flags }
-[UE-SRVCC-Capability ]
+[ UE-SRVCC-Capability ]
 { Visited-PLMN-Id }
 [ SGSN-Number ]
 [ Homogeneous-Support-of-IMS-Voice-Over-PS-Sessions ]
@@ -26,6 +26,8 @@
 [ Coupled-Node-Diameter-ID ]
 [ Adjacent-PLMNs ]
 [ Supported-Services ]
+[ SF-ULR-Timestamp ]
+[ SF-Provisional-Indication ]
 *[ AVP ]
 *[ Proxy-Info ]
 *[ Route-Record ]
@@ -135,8 +137,8 @@
 { Destination-Host }
 { Destination-Realm }
 { User-Name }
-*[ Supported-Features]
-{ Subscription-Data}
+*[ Supported-Features ]
+{ Subscription-Data }
 [ IDR- Flags ]
 *[ Reset-ID ]
 *[ AVP ]
@@ -552,6 +554,7 @@
 *[ Monitoring-Event-Configuration ]
 [ Emergency-Info ]
 [ V2X-Subscription-Data ]
+[ V2X-Subscription-Data-Nr ]
 *[ eDRX-Cycle-Length ]
 [ External-Identifier ]
 [ Active-Time ]
@@ -561,6 +564,8 @@
 [ Core-Network-Restrictions ]
 *[ Paging-Time-Window ]
 [ Subscribed-ARPI ]
+[ IAB-Operation-Permission ]
+[ PLMN-RAT-Usage-Control ]
 *[ AVP ]
 
 < Terminal-Information > ::= < AVP-Header: 1401 10415 >
@@ -614,6 +619,7 @@
 < APN-Configuration-Profile > ::= < AVP-Header: 1429 10415 >
 { Context-Identifier }
 [ Additional-Context-Identifier ]
+[ Third-Context-Identifier ]
 { All-APN-Configurations-Included-Indicator }
 1*{APN-Configuration}
 *[AVP]
@@ -680,6 +686,8 @@
 [OMC-Id]
 {Trace-Collection-Entity}
 [MDT-Configuration]
+[MDT-Configuration-NR]
+[Trace-Reporting-Consumer-Uri]
 *[AVP]
 
 < GPRS-Subscription-Data > ::= < AVP-Header: 1467 10415 >
@@ -824,7 +832,7 @@
 [ Logging-Duration ]
 [ Measurement-Period-LTE ]
 [ Measurement-Period-UMTS ]
-[ Collection-Period-RMM-LTE ]
+[ Collection-Period- RRM-LTE ]
 [ Collection-Period-RRM-UMTS ]
 [ Positioning-Method ]
 [ Measurement-Quantity]
@@ -840,6 +848,7 @@
 *[ Routing-Area-Identity ]
 *[ Location-Area-Identity ]
 *[ Tracking-Area-Identity ]
+*[ NR-Cell-Global-Identity ]
 *[ AVP ]
 
 < Equivalent-PLMN-List > ::= < AVP-Header: 1637 10415 >
@@ -882,8 +891,10 @@
 
 < AESE-Communication-Pattern > ::= < AVP-Header: 3113 10415 >
 [ SCEF-Reference-ID ]
+[ SCEF-Reference-ID-Ext ]
 { SCEF-ID }
 *[ SCEF-Reference-ID-for-Deletion ]
+*[ SCEF-Reference-ID-for-Deletion-Ext ]
 *[ Communication-Pattern-Set ]
 [ MTC-Provider-Info ]
 *[AVP]
@@ -901,9 +912,11 @@
 
 < Monitoring-Event-Configuration > ::= < AVP-Header: 3122 10415 >
 [ SCEF-Reference-ID ]
+[ SCEF-Reference-ID-Ext ]
 { SCEF-ID }
 { Monitoring-Type }
 *[ SCEF-Reference-ID-for-Deletion ]
+*[ SCEF-Reference-ID-for-Deletion-Ext ]
 [ Maximum-Number-of-Reports ]
 [ Monitoring-Duration ]
 [ Charged-Party ]
@@ -917,8 +930,10 @@
 
 < Report > ::= < AVP-Header: 3123 10415 >
 { SCEF-Reference-ID }
+[ SCEF-Reference-ID-Ext ]
 [ SCEF-ID ]
 [ Reachability-Information ]
+[ Reachability-Cause ]
 [ EPS-Location-Information ]
 [ Monitoring-Type ]
 [ Loss-Of-Connectivity-Reason ]
@@ -951,7 +966,7 @@
 
 < V2X-Subscription-Data > ::= < AVP-Header: 1688 10415 >
 [ V2X-Permission ]
-[UE-PC5-AMBR ]
+[ UE-PC5-AMBR ]
 *[AVP]
 
 < eDRX-Cycle-Length > ::= < AVP-Header: 1691 10415 >
@@ -972,3 +987,42 @@
 < eDRX-Related-RAT > ::= < AVP-Header: 1705 10415 >
 1 * { RAT-Type }
 *[AVP]
+
+< V2X-Subscription-Data-Nr > ::= < AVP-Header: 1710 10415 >
+[ V2X-Permission ]
+[ UE-PC5-AMBR ]
+[ UE-PC5-QoS ]
+*[AVP]
+
+< UE-PC5-QoS > ::= < AVP-Header: 1711 10415 >
+1*{ PC5-QoS-Flow }
+[ PC5-Link-AMBR ]
+*[AVP]
+
+< PC5-QoS-Flow > ::= < AVP-Header: 1712 10415 >
+{ 5QI }
+[ PC5-Flow-Bitrates ]
+[ PC5-Range ]
+*[AVP]
+
+< PC5-Flow-Bitrates > ::= < AVP-Header: 1714 10415 >
+[ Guaranteed-Flow-Bitrates ]
+[ Maximum-Flow-Bitrates ]
+
+< MDT-Configuration-NR > ::= < AVP-Header: 1720 10415 >
+{ Job-Type }
+[ Area-Scope ]
+[ List-Of-Measurements ]
+[ Reporting-Trigger ]
+[ Report-Interval ]
+[ Report-Amount ]
+[ Event-Threshold-RSRP ]
+[ Event-Threshold-RSRQ ]
+[ Event-Threshold-SINR ]
+[ Collection-Period-RRM-NR ]
+[ Collection-Period-M6-NR ]
+[ Collection-Period-M7-NR ]
+[ Positioning-Method ]
+*[ Sensor-Measurement ]
+*[ MDT-Allowed-PLMN-Id ]
+*[ AVP ]

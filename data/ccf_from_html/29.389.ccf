@@ -36,6 +36,7 @@
 
 < V2X-Authorization-Data > ::= < AVP-Header: 4700 10415 >
 [ V2X-Permission-in-VPLMN ]
+*[ PC5-RAT-Type ]
 *[ V2X-Application-Server ]
 *[AVP]
 
@@ -43,3 +44,5 @@
 { Application-Server }
 *[ Geographical-Information ]
 *[AVP]
+
+The PC5-RAT-Type AVP (AVP code 4604) is of type Enumerated

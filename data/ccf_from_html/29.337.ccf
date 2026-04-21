@@ -74,6 +74,12 @@
 *[ Route-Record ]
 
 < Serving-Node > ::= < AVP-Header: 2401 10415 >
+[ SMSF-3GPP-Name ]
+[ SMSF-3GPP-Realm ]
+[ SMSF-3GPP-Number ]
+[ SMSF-Non-3GPP-Name ]
+[ SMSF-Non-3GPP-Realm ]
+[ SMSF-Non-3GPP-Number ]
 [ SGSN-Name ]
 [ SGSN-Realm ]
 [ SGSN-Number ]
@@ -87,6 +93,12 @@
 *[AVP]
 
 < Additional-Serving-Node > ::= < AVP-Header: 2406 10415 >
+[ SMSF-3GPP-Name ]
+[ SMSF-3GPP-Realm ]
+[ SMSF-3GPP-Number ]
+[ SMSF-Non-3GPP-Name ]
+[ SMSF-Non-3GPP-Realm ]
+[ SMSF-Non-3GPP-Number ]
 [ SGSN-Name ]
 [ SGSN-Realm ]
 [ SGSN-Number ]

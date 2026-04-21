@@ -27,13 +27,13 @@
 * [ Framed-Compression ]
 [ Framed-Interface-Id ]
 [ Framed-IP-Address ]
-* [ Framed-Ipv6-Prefix ]
-* [ Delegated-Ipv6-Prefix ]
+* [ Framed-IPv6-Prefix ]
+* [ Delegated-IPv6-Prefix ]
 [ Framed-IP-Netmask ]
 [ Framed-MTU ]
 [ Framed-Protocol ]
 * [ Login-IP-Host ]
-* [ Login-Ipv6-Host ]
+* [ Login-IPv6-Host ]
 [ Login-LAT-Group ]
 [ Login-LAT-Node ]
 [ Login-LAT-Port ]
@@ -54,9 +54,9 @@
 [ 3GPP-NSAPI ]
 [ 3GPP-Selection-Mode ]
 [ 3GPP-Charging-Characteristics ]
-[ 3GPP-CG-Ipv6-Address ]
-[ 3GPP-SGSN-Ipv6-Address ]
-[ 3GPP-GGSN-Ipv6-Address ]
+[ 3GPP-CG-IPv6-Address ]
+[ 3GPP-SGSN-IPv6-Address ]
+[ 3GPP-GGSN-IPv6-Address ]
 [ 3GPP-SGSN-MCC-MNC ]
 [ 3GPP-User-Location-Info ]
 [ 3GPP-RAT-Type ]
@@ -64,6 +64,8 @@
 [ 3GPP-Negotiated-DSCP ]
 [ 3GPP-Allocate-IP-Type ]
 [ TWAN-Identifier ]
+[ 3GPP-UE-Local-IP-Address ]
+[ 3GPP-UE-Source-Port ]
 * [ AVP ]
 
 < AA-Answer > ::= < Diameter-Header: 265, PXY >
@@ -97,10 +99,10 @@
 * [ Framed-Compression ]
 [ Framed-Interface-Id ]
 [ Framed-IP-Address ]
-* [ Framed-Ipv6-Prefix ]
-[ Framed-Ipv6-Pool ]
-* [ Framed-Ipv6-Route ]
-* [ Delegated-Ipv6-Prefix ]
+* [ Framed-IPv6-Prefix ]
+[ Framed-IPv6-Pool ]
+* [ Framed-IPv6-Route ]
+* [ Delegated-IPv6-Prefix ]
 [ Framed-IP-Netmask ]
 * [ Framed-Route ]
 [ Framed-Pool ]
@@ -109,7 +111,7 @@
 [ Framed-Protocol ]
 [ Framed-Routing ]
 * [ Login-IP-Host ]
-* [ Login-Ipv6-Host ]
+* [ Login-IPv6-Host ]
 [ Login-LAT-Group ]
 [ Login-LAT-Node ]
 [ Login-LAT-Port ]
@@ -123,7 +125,7 @@
 [ Redirect-Host-Usage ]
 [ Redirect-Max-Cache-Time ]
 * [ Proxy-Info ]
-[ 3GPP-Ipv6-DNS-Servers ]
+[ 3GPP-IPv6-DNS-Servers ]
 * [ External-Identifier]
 * [ AVP ]
 
@@ -142,7 +144,7 @@
 [ Acct-Delay-Time ]
 [ NAS-Identifier ]
 [ NAS-IP-Address ]
-[ NAS-Ipv6-Address ]
+[ NAS-IPv6-Address ]
 [ NAS-Port ]
 [ NAS-Port-Id ]
 [ NAS-Port-Type ]
@@ -176,10 +178,10 @@
 [ Framed-Interface-Id ]
 [ Framed-IP-Address ]
 [ Framed-IP-Netmask ]
-* [ Framed-Ipv6-Prefix ]
-[ Framed-Ipv6-Pool ]
-* [ Framed-Ipv6-Route ]
-* [ Delegated-Ipv6-Prefix ]
+* [ Framed-IPv6-Prefix ]
+[ Framed-IPv6-Pool ]
+* [ Framed-IPv6-Route ]
+* [ Delegated-IPv6-Prefix ]
 [ Framed-IPX-Network ]
 [ Framed-MTU ]
 [ Framed-Pool ]
@@ -187,7 +189,7 @@
 * [ Framed-Route ]
 [ Framed-Routing ]
 * [ Login-IP-Host ]
-* [ Login-Ipv6-Host ]
+* [ Login-IPv6-Host ]
 [ Login-LAT-Group ]
 [ Login-LAT-Node ]
 [ Login-LAT-Port ]
@@ -210,9 +212,9 @@
 [ 3GPP-NSAPI ]
 [ 3GPP-Selection-Mode ]
 [ 3GPP-Charging-Characteristics ]
-[ 3GPP-CG-Ipv6-Address ]
-[ 3GPP-SGSN-Ipv6-Address ]
-[ 3GPP-GGSN-Ipv6-Address ]
+[ 3GPP-CG-IPv6-Address ]
+[ 3GPP-SGSN-IPv6-Address ]
+[ 3GPP-GGSN-IPv6-Address ]
 [ 3GPP-SGSN-MCC-MNC ]
 [ 3GPP-IMEISV ]
 [ 3GPP-RAT-Type ]
@@ -224,6 +226,8 @@
 [ TWAN-Identifier ]
 [ 3GPP-User-Location-Info-Time ]
 * [ 3GPP-Secondary-RAT-Usage ]
+[ 3GPP-UE-Local-IP-Address ]
+[ 3GPP-UE-Source-Port ]
 * [ AVP ]
 
 < AC-Answer > ::= < Diameter-Header: 271, PXY >
@@ -242,7 +246,7 @@
 [ Origin-State-Id ]
 [ NAS-Identifier ]
 [ NAS-IP-Address ]
-[ NAS-Ipv6-Address ]
+[ NAS-IPv6-Address ]
 [ NAS-Port ]
 [ NAS-Port-Id ]
 [ NAS-Port-Type ]
@@ -327,7 +331,7 @@
 [ Called-Station-Id ]
 [ Calling-Station-Id ]
 [ Framed-IP-Address]
-[ Framed-Ipv6-Prefix ]
+[ Framed-IPv6-Prefix ]
 [ Framed-Interface-Id ]
 * [ Proxy-Info ]
 * [ Route-Record ]
@@ -394,7 +398,7 @@
 { Re-Auth-Request-Type }
 [ Called-Station-Id ]
 [ Framed-IP-Address]
-[ Framed-Ipv6-Prefix ]
+[ Framed-IPv6-Prefix ]
 [ Framed-Interface-Id ]
 [ MBMS-StartStop-Indication ]
 [ MBMS-Service-Area ]
@@ -406,12 +410,12 @@
 [ MBMS-Session-Repetition-number ]
 [ TMGI ]
 * [ 3GPP-SGSN-Address ] ; broadcast case only
-* [ 3GPP-SGSN-Ipv6-Address ] ; broadcast case only
+* [ 3GPP-SGSN-IPv6-Address ] ; broadcast case only
 [ MBMS-2G-3G-Indicator ]
 [ MBMS-Time-To-Data-Transfer ]
 [ MBMS-User-Data-Mode-Indication ]
 [ MBMS-BMSC-SSM-IP-Address ]
-[ MBMS-BMSC-SSM-Ipv6-Address ]
+[ MBMS-BMSC-SSM-IPv6-Address ]
 [ MBMS-Flow-Identifier ]
 [ CN-IP-Multicast-Distribution ]
 [ MBMS-HC-Indicator ]
@@ -427,7 +431,7 @@
 [ Experimental-Result ]
 [ MBMS-StartStop-Indication ]
 [ MBMS-GGSN-Address ] ; for unicast encapsulated user data
-[ MBMS-GGSN-Ipv6-Address ] ; for unicast encapsulated user data
+[ MBMS-GGSN-IPv6-Address ] ; for unicast encapsulated user data
 [ MBMS-GW-UDP-Port] ; for unicast encapsulated user data
 [ MBMS-User-Data-Mode-Indication ]
 [ Origin-State-Id ]
@@ -474,7 +478,7 @@
 { Re-Auth-Request-Type }
 [ Called-Station-Id ]
 [ Framed-IP-Address]
-[ Framed-Ipv6-Prefix ]
+[ Framed-IPv6-Prefix ]
 [ Framed-Interface-Id ]
 [ MBMS-Access-Indicator ]
 [ MBMS-StartStop-Indication ]
@@ -485,20 +489,20 @@
 [ MBMS-Session-Repetition-number ]
 [ TMGI ]
 * [ 3GPP-SGSN-Address ]
-* [ 3GPP-SGSN-Ipv6-Address ]
+* [ 3GPP-SGSN-IPv6-Address ]
 [ MBMS-Time-To-Data-Transfer ]
 [ MBMS-Data-Transfer-Start ]
 [ MBMS-Data-Transfer-Stop ]
 [ MBMS-Flags ]
 [ MBMS-User-Data-Mode-Indication ]
 [ MBMS-BMSC-SSM-IP-Address ]
-[ MBMS-BMSC-SSM-Ipv6-Address ]
+[ MBMS-BMSC-SSM-IPv6-Address ]
 [ MBMS-Flow-Identifier ]
 [ CN-IP-Multicast-Distribution ]
 [ MBMS-HC-Indicator ]
 [ MBMS-GW-UDP-Port-Indicator] ; for IP unicast encapsulated user data
 [ MBMS-GW-SSM-IP-Address ] ; for IP multicast encapsulated user data
-[ MBMS-GW-SSM-Ipv6-Address ] ; for IP multicast encapsulated user data
+[ MBMS-GW-SSM-IPv6-Address ] ; for IP multicast encapsulated user data
 [ MBMS-BMSC-SSM-UDP-Port ] ; for IP multicast encapsulated user data
 [ MBMS-Cell-List ]
 [ Local-M1-Information ]
@@ -606,11 +610,11 @@ The MBMS-User-Data-Mode-Indication AVP (AVP code 915) is of type Enumerated
 The MBMS-GGSN-Address AVP (AVP code 916) is of type OctetString
 The MBMS-GGSN-Ipv6-Address AVP (AVP code 917) is of type OctetString
 The MBMS-BMSC-SSM-IP-Address AVP (AVP code 918) is of type OctetString
-The MBMS-BMSC-SSM-Ipv6-Address AVP (AVP code 919) is of type OctetString
+The MBMS-BMSC-SSM-IPv6-Address AVP (AVP code 919) is of type OctetString
 The MBMS-Flow-Identifier AVP (AVP code 920) is of type OctetString
 The MBMS-Access-Indicator AVP (AVP code 923) is of type Enumerated
 The MBMS-GW-SSM-IP-Address AVP (AVP code 924) is of type OctetString
-The MBMS-GW-SSM-Ipv6-Address AVP (AVP code 925) is of type OctetString
+The MBMS-GW-SSM-IPv6-Address AVP (AVP code 925) is of type OctetString
 The MBMS-BMSC-SSM-UDP-Port AVP (AVP code 926) is of type OctetString
 The MBMS-GW-UDP-Port AVP (AVP code 927) is of type OctetString
 The MBMS-Data-Transfer-Start AVP (AVP code 929) is of type Unsigned64

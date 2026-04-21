@@ -83,6 +83,7 @@
 { TMGI}
 { MBMS-Flow-Identifier }
 { MBMS-Bearer-Event }
+[ MBMS-Bearer-Event-Diagnostic-Info ]
 *[ Userplane-Protocol‑Result ]
 *[ AVP ]
 
@@ -107,7 +108,7 @@
 [ MBMS-Flow-Identifier ]
 [ MBMS-Session-Duration ]
 [ MBMS-Bearer-Result ]
-[ BMSC-Address ]
+0*2[ BMSC-Address ]
 [ BMSC-Port ]
 [ MB2U-Security ]
 *[ Radio-Frequency ]
@@ -146,7 +147,7 @@
 [ Common-Tunnel-Endpoint-Identifier ]
 
 < Local-MB2-U-Information > ::= < AVP-Header: 3519 >
-[ BMSC-Address ]
+0*2[ BMSC-Address ]
 [ BMSC-Port ]
 
 < ROHC-Request > ::= < AVP-Header: 3525 >

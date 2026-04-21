@@ -1,5 +1,6 @@
 < Provide-Location-Request > ::= < Diameter-Header: 8388620, REQ, PXY, 16777255 >
 < Session-Id >
+[ DRMP ]
 [ Vendor-Specific-Application-Id ]
 { Auth-Session-State }
 { Origin-Host }
@@ -37,6 +38,7 @@
 
 < Provide-Location-Answer > ::= < Diameter-Header: 8388620, PXY, 16777255 >
 < Session-Id >
+[ DRMP ]
 [ Vendor-Specific-Application-Id ]
 [ Result-Code ]
 [ Experimental-Result ]
@@ -66,6 +68,7 @@
 
 < Location-Report-Request > ::= < Diameter-Header: 8388621, REQ, PXY, 16777255 >
 < Session-Id >
+[ DRMP ]
 [ Vendor-Specific-Application-Id ]
 { Auth-Session-State }
 { Origin-Host }
@@ -102,6 +105,7 @@
 
 < Location-Report-Answer > ::= < Diameter-Header: 8388621, PXY, 16777255 >
 < Session-Id >
+[ DRMP ]
 [ Vendor-Specific-Application-Id ]
 [ Result-Code ]
 [ Experimental-Result ]

@@ -49,6 +49,82 @@
 *[ Load ]
 *[ AVP ]
 
+< EC-Request > ::= < Diameter-Header: 8388735, REQ, PXY >
+< Session-Id >
+[ DRMP ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+[ Destination-Host ]
+[ OC-Supported-Features ]
+{ External-Group-Identifier }
+[ Event-Configuration ]
+[ Group-Reporting-Guard-Timer ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[ Supported-Features ]
+*[ AVP ]
+
+< EC-Answer > ::= < Diameter-Header: 8388735, PXY >
+< Session-Id >
+[ DRMP ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm}
+[ Result-Code ]
+[ Experimental-Result ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+[ Failed-AVP ]
+*[ Redirect-Host ]
+[ Redirect-Host-Usage ]
+[ Redirect-Max-Cache-Time ]
+[ OC-Supported-Features ]
+[ OC-OLR ]
+[ Event-Reports ]
+[ Event-Configuration-Status ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[ Supported-Features ]
+*[ Load ]
+*[ AVP ]
+
+< ER-Request > ::= < Diameter-Header: 8388736, REQ, PXY >
+< Session-Id >
+[ DRMP ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm }
+{ Destination-Realm }
+{ Destination-Host }
+[ OC-Supported-Features ]
+[ Event-Reports ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[ AVP ]
+
+< ER-Answer > ::= < Diameter-Header: 8388736, PXY >
+< Session-Id >
+[ DRMP ]
+{ Auth-Session-State }
+{ Origin-Host }
+{ Origin-Realm}
+[ Result-Code ]
+[ Experimental-Result ]
+[ Error-Message ]
+[ Error-Reporting-Host ]
+[ Failed-AVP ]
+*[ Redirect-Host ]
+[ Redirect-Host-Usage ]
+[ Redirect-Max-Cache-Time ]
+[ OC-Supported-Features ]
+[ OC-OLR ]
+*[ Proxy-Info ]
+*[ Route-Record ]
+*[ Load ]
+*[ AVP ]
+
 < Time-window > ::= < AVP-Header: 4204 >
 { Transfer-Start-Time }
 { Transfer-End-Time }
@@ -62,6 +138,37 @@
 [ Max-Requested-Bandwidth-UL ]
 *[ AVP ]
 
+< Access-Network-Reports > ::= < AVP-Header: 4210 >
+[ MSISDN ]
+[ External-Identifier ]
+[ 3GPP-User-Location-Info ]
+[ User-Location-Info-Time ]
+[ 3GPP-SGSN-MCC-MNC ]
+[ 3GPP-MS-TimeZone ]
+[ UE-Local-IP-Address ]
+[ TCP-Source-Port ]
+[ UDP-Source-Port ]
+[ NetLoc-Access-Support ]
+*[ AVP ]
+
+< Event-Configuration > ::= < AVP-Header: 4211 >
+{ Extended-SCEF-Reference-ID }
+{ SCEF-ID }
+{ Monitoring-Type }
+[ Location-Information-Configuration ]
+*[ AVP ]
+
+< Event-Configuration-Status > ::= < AVP-Header: 4213 >
+{ Event-Configuration-State }
+{ Extended-SCEF-Reference-ID }
+*[ AVP ]
+
+< Event-Reports > ::= < AVP-Header: 4215 >
+{ Event-Reporting-Results }
+{ Extended-SCEF-Reference-ID }
+*[ Access-Network-Reports ]
+*[ AVP ]
+
 The Network-Area-Info-List AVP (AVP code 4201) is of type OctetString
 The Reference-Id AVP (AVP code 4202) is of type OctetString
 The Transfer-Request-Type AVP (AVP code 4203) is of type Unsigned32
@@ -71,3 +178,10 @@ The Transfer-Start-Time AVP (AVP code 4206) is of type Time
 The Transfer-Policy AVP (AVP code 4207) is of type Grouped
 The Transfer-Policy-Id AVP (AVP code 4208) is of type Unsigned32
 The Number-Of-UEs AVP (AVP code 4209) is of type Unsigned32
+The Access-Network-Reports AVP (AVP code 4210) is of type Grouped
+The Event-Configuration AVP (AVP code 4211) is of type Grouped
+The Event-Configuration-State AVP (AVP code 4212) is of type Unsigned32
+The Event-Configuration-Status AVP (AVP code 4213) is of type Grouped
+The Event-Reporting-Results AVP (AVP code 4214) is of type Unsigned32
+The Event-Reports AVP (AVP code 4215) is of type Grouped
+The Extended-SCEF-Reference-ID AVP (AVP code 4216) is of type Unsigned64

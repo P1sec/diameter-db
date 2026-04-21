@@ -32,6 +32,7 @@
 [ OC-Supported-Features ]
 [ OC-OLR ]
 *[ Load ]
+[ MPS-Priority ]
 
 < Re-Auth-Request > ::= < Diameter-Header: 258, REQ, PXY, 16777250 >
 < Session-Id >
@@ -107,6 +108,7 @@
 [ Emergency-Info ]
 [ Key ]
 [ ERP-Realm ]
+[ MPS-Priority ]
 
 < Abort-Session-Request > ::= < Diameter-Header: 274, REQ, PXY, 16777250 >
 < Session-Id >
@@ -181,6 +183,7 @@
 [ Access-Network-Info ]
 [ Local-Time-Zone ]
 [ OC-Supported-Features ]
+[ High-Priority-Access-Info ]
 
 < AA-Answer > ::= < Diameter-Header: 265, PXY, 16777250 >
 < Session-Id >
@@ -204,6 +207,7 @@
 [ UE-Usage-Type ]
 [ Emergency-Info]
 *[ Load ]
+[ MPS-Priority ]
 
 < Session-Termination-Request > ::= < Diameter-Header: 275, REQ, PXY, 16777250 >
 < Session-Id >
@@ -284,6 +288,7 @@
 [ OC-Supported-Features ]
 [ Terminal-Information ]
 [ Emergency- Services ]
+[ High-Priority-Access-Info ]
 
 < Diameter-EAP-Answer > ::= < Diameter-Header: 268, PXY, 16777264 >
 < Session-Id >
@@ -315,6 +320,7 @@
 [ UE-Usage-Type ]
 [ Emergency-Info ]
 [ Core-Network-Restrictions ]
+[ MPS-Priority ]
 
 < AA-Request > ::= < Diameter-Header: 265, REQ, PXY, 16777264 >
 < Session-Id >
@@ -329,6 +335,7 @@
 [ OC-Supported-Features ]
 [ AAR-Flags ]
 [ UE-Local-IP-Address ]
+[ High-Priority-Access-Info ]
 
 < AA-Answer > ::= < Diameter-Header: 265, REQ, PXY, 16777264 >
 < Session-Id >
@@ -350,6 +357,8 @@
 *[ Load ]
 [ Access-Network-Info ]
 [ User-Location-Info-Time ]
+[ Core-Network-Restrictions ]
+[ MPS-Priority ]
 
 < Session-Termination-Request > ::= < Diameter-Header: 275, REQ, PXY, 16777264 >
 < Session-Id >
@@ -444,6 +453,7 @@
 [ Destination-Host ]
 { User-Name }
 [ RAT-Type ]
+[ AN-Trusted ]
 [ ANID ]
 [ Visited-Network-Identifier]
 [ Terminal-Information ]
@@ -784,6 +794,7 @@
 [ Emergency-Info ]
 [ ERP-Authorization ]
 [ Core-Network-Restrictions ]
+[ MPS-Priority ]
 *[ AVP ]
 
 < Subscription-Id > ::= < AVP-Header: 443 >
@@ -830,6 +841,7 @@ The TWAN-Connection-Mode AVP (AVP Code 1527) is of type Unsigned32
 The TWAN-S2a-Failure-Cause AVP (AVP Code 1533) is of type Unsigned32
 The WLCP-Key AVP (AVP Code 1535) is of type OctetString
 The IMEI-Check-In-VPLMN-Result AVP (AVP Code 1540) is of type Unsigned32
+The High-Priority-Access-Info AVP (AVP code 1542) is of type Unsigned32
 The Non-3GPP-IP-Access AVP (AVP code 1501) is of type Enumerated
 The Non-3GPP-IP-Access-APN AVP (AVP code 1502) is of type Enumerated
 The RAT-Type AVP (AVP code 1032) is of type Enumerated

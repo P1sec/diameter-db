@@ -33,16 +33,21 @@
 *[ Supported-Features ]
 [ Serving-Node ]
 [ Additional-Serving-Node ]
+[ SMSF-3GPP-Address ]
+[ SMSF-Non-3GPP-Address ]
 [ LMSI ]
 [ User-Identifier ]
 [ MWD-Status ]
 [ MME-Absent-User-Diagnostic-SM ]
 [ MSC-Absent-User-Diagnostic-SM ]
 [ SGSN-Absent-User-Diagnostic-SM ]
+[ SMSF-3GPP-Absent-User-Diagnostic-SM ]
+[ SMSF-Non-3GPP-Absent-User-Diagnostic-SM ]
 *[ AVP ]
 [ Failed-AVP ]
 *[ Proxy-Info ]
 *[ Route-Record ]
+[ MPS-Priority]
 
 < Alert-Service-Centre-Request > ::= < Diameter-Header: 8388648, REQ, PXY, 16777312 >
 < Session-Id >
@@ -94,6 +99,10 @@
 { SC-Address }
 { SM-Delivery-Outcome }
 [ RDR-Flags ]
+[ Serving-Node ]
+[ Additional-Serving-Node ]
+[ SMSF-3GPP-Address ]
+[ SMSF-Non-3GPP-Address ]
 *[ AVP ]
 *[ Proxy-Info ]
 *[ Route-Record ]
@@ -109,6 +118,10 @@
 { Origin-Realm }
 *[ Supported-Features ]
 [ User-Identifier ]
+[ Serving-Node ]
+[ Additional-Serving-Node ]
+[ SMSF-3GPP-Address ]
+[ SMSF-Non-3GPP-Address ]
 *[ AVP ]
 [ Failed-AVP ]
 *[ Proxy-Info ]
@@ -127,9 +140,12 @@
 [ OFR-Flags ]
 *[ Supported-Features ]
 { User-Identifier }
+[ EPS-Location-Information ]
+[ NR-Cell-Global-Identity ]
 { SM-RP-UI }
 [ SMSMI-Correlation-ID ]
 [ SM-Delivery-Outcome ]
+[ MPS-Priority ]
 *[ AVP ]
 *[ Proxy-Info ]
 *[ Route-Record ]
@@ -144,7 +160,7 @@
 { Origin-Host }
 { Origin-Realm }
 *[ Supported-Features ]
-[ SM-Delivery- Failure-Cause ]
+[ SM-Delivery-Failure-Cause ]
 [ SM-RP-UI ]
 [ External-Identifier ]
 *[ AVP ]
@@ -173,6 +189,7 @@
 [ SM-Delivery-Start-Time ]
 [ Maximum-Retransmission-Time ]
 [ SMS-GMSC-Address ]
+[ MPS-Priority ]
 *[ AVP ]
 *[ Proxy-Info ]
 *[ Route-Record ]
@@ -188,10 +205,12 @@
 { Origin-Realm }
 *[ Supported-Features ]
 [ Absent-User-Diagnostic-SM ]
-[ SM-Delivery- Failure-Cause ]
+[ SM-Delivery-Failure-Cause ]
 [ SM-RP-UI ]
 [ Requested-Retransmission-Time ]
 [ User-Identifier ]
+[ EPS-Location-Information ]
+[ NR-Cell-Global-Identity ]
 *[ AVP ]
 [ Failed-AVP ]
 *[ Proxy-Info ]
@@ -208,6 +227,7 @@
 [ IP-SM-GW-Number ]
 [ IP-SM-GW-Name ]
 [ IP-SM-GW-Realm ]
+[ IP-SM-GW-SBI-Support-Indicator ]
 *[AVP]
 
 < Additional-Serving-Node > ::= < AVP-Header: 2406 10415 >
@@ -224,7 +244,9 @@
 [ MME-SM-Delivery-Outcome ]
 [ MSC-SM-Delivery-Outcome ]
 [ SGSN-SM-Delivery-Outcome ]
-[ IP-SM-GW-SM-Delivery-Outcome]
+[ IP-SM-GW-SM-Delivery-Outcome ]
+[ SMSF-3GPP-SM-Delivery-Outcome ]
+[ SMSF-Non-3GPP-SM-Delivery-Outcome ]
 *[AVP]
 
 < MSC-SM-Delivery-Outcome > ::= < AVP-Header: 3318 10415 >
@@ -239,7 +261,21 @@
 [ SM-Delivery-Cause ]
 [ Absent-User-Diagnostic-SM ]
 
-< SM-Delivery-Failure-Cause > ::= < AVP-Header: 3304 10415 >
+< SMSF-3GPP-Address > ::= < AVP-Header: 3344 10415 >
+[ SMSF-3GPP-Number ]
+[ SMSF-3GPP-Name ]
+[ SMSF-3GPP-Realm ]
+[ SMSF-3GPP-SBI-Support-Indicator ]
+*[AVP]
+
+< SMSF-Non-3GPP-Address > ::= < AVP-Header: 3345 10415 >
+[ SMSF-Non-3GPP-Number ]
+[ SMSF-Non-3GPP-Name ]
+[ SMSF-Non-3GPP-Realm ]
+[ SMSF-Non-3GPP-SBI-Support-Indicator ]
+*[AVP]
+
+< SM-Delivery-Failure-Cause > ::= < AVP-Header: 3303 10415 >
 { SM-Enumerated-Delivery-Failure-Cause }
 [ SM-Diagnostic-Info ]
 *[ AVP ]

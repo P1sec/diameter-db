@@ -26,6 +26,7 @@
 [ Public-Identity ] ; IMPU
 [ SIP-Auth-Data-Item ]
 [ GBA-UserSecSettings ] ; GUSS
+[ SHA-256-Indication ] ; UICC supports SHA-256
 *[ AVP ]
 *[ Proxy-Info ]
 *[ Route-Record ]

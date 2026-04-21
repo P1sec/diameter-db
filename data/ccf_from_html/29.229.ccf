@@ -59,6 +59,7 @@
 [ Multiple-Registration-Indication ]
 [ Session-Priority ]
 [ SAR-Flags ]
+[ Failed-PCSCF ]
 *[ AVP ]
 *[ Proxy-Info ]
 *[ Route-Record ]
@@ -306,6 +307,8 @@
 [ Digest-Algorithm ]
 { Digest-QoP }
 { Digest-HA1}
+[ Alternate-Digest-Algorithm ]
+[ Alternate-Digest-HA1 ]
 *[ AVP ]
 
 < SCSCF-Restoration-Info > ::= < AVP-Header: 639, 10415 >
@@ -341,6 +344,14 @@
 { Public-Identity }
 *[ AVP ]
 
+< OC-OLR > ::= < AVP-Header: 623 >
+< OC-Sequence-Number >
+< OC-Report-Type >
+[ OC-Reduction-Percentage ]
+[ OC-Validity-Duration ]
+[ OC-Reg-Timer-Ext ]
+* [ AVP ]
+
 < Allowed-WAF-WWSF-Identities > ::= < AVP-Header: 656 10415 >
 *[ WebRTC-Authentication-Function-Name ]
 *[ WebRTC-Web-Server-Function-Name ]
@@ -351,4 +362,9 @@
 { From-SIP-Header }
 { To-SIP-Header }
 { Contact }
+*[ AVP ]
+
+< Failed-PCSCF > ::= < AVP-Header: 664, 10415 >
+[ PCSCF-FQDN ]
+*[ PCSCF-IP-Address ]
 *[ AVP ]

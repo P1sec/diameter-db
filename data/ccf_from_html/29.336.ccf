@@ -212,9 +212,11 @@
 
 < Monitoring-Event-Configuration > ::= < AVP-Header: 3122 10415 >
 [ SCEF-Reference-ID ]
+[ SCEF-Reference-ID-Ext ]
 { SCEF-ID }
 { Monitoring-Type }
 *[ SCEF-Reference-ID-for-Deletion ]
+*[ SCEF-Reference-ID-for-Deletion-Ext ]
 [ Maximum-Number-of-Reports ]
 [ Monitoring-Duration ]
 [ Charged-Party ]
@@ -226,17 +228,22 @@
 [ PLMN-ID-Requested ]
 [ MTC-Provider-Info ]
 [ PDN-Connectivity-Status-Configuration ]
+[ Exclude-Identifiers ]
+[ Include-Identifiers ]
 *[AVP]
 
 < Monitoring-Event-Report > ::= < AVP-Header: 3123 10415 >
 { SCEF-Reference-ID }
+[ SCEF-Reference-ID-Ext ]
 [ SCEF-ID ]
 [ SCEF-Reference-ID-for-Deletion ]
+[ SCEF-Reference-ID-for-Deletion-Ext ]
 [ Visited-PLMN-Id ]
 [ Roaming-Information ]
 [ IMEI-Change ]
 [ Terminal-Information ]
 [ Reachability-Information ]
+[ Reachability-Cause ]
 [ Maximum-UE-Availability-Time ]
 [ EPS-Location-Information ]
 [ Monitoring-Type ]
@@ -268,13 +275,16 @@
 < Monitoring-Event-Config-Status > ::= < AVP-Header: 3142 10415 >
 *[ Service-Report ]
 { SCEF-Reference-ID }
+[ SCEF-Reference-ID-Ext ]
 [ SCEF-ID ]
 *[AVP]
 
 < AESE-Communication-Pattern > ::= < AVP-Header: 3113 10415 >
 [ SCEF-Reference-ID ]
+[ SCEF-Reference-ID-Ext ]
 { SCEF-ID }
 *[ SCEF-Reference-ID-for-Deletion ]
+*[ SCEF-Reference-ID-for-Deletion-Ext ]
 *[ Communication-Pattern-Set ]
 [ MTC-Provider-Info ]
 *[ AVP ]
@@ -298,6 +308,7 @@
 
 < AESE-Communication-Pattern-Config-Status > ::= < AVP-Header: 3120 10415 >
 { SCEF-Reference-ID }
+[ SCEF-Reference-ID-Ext ]
 [ SCEF-ID ]
 [ AESE-Error-Report ]
 *[AVP]
@@ -383,6 +394,7 @@
 
 < Group-Report > ::= < AVP-Header: 3165 10415 >
 { SCEF-Reference-ID }
+[ SCEF-Reference-ID-Ext ]
 [ SCEF-ID ]
 *[ Group-Report-Item ]
 *[AVP]
@@ -402,6 +414,10 @@
 [ Reporting-Time-Stamp ]
 [ Updated-Network-Configuration ]
 *[ SCEF-Reference-ID-for-Deletion ]
+*[ SCEF-Reference-ID-for-Deletion-Ext ]
+[ Event-Handling ]
+[ Loss-Of-Connectivity-Reason ]
+*[ PDN-Connectivity-Status-Report ]
 *[AVP]
 
 < APN-Validity-Time > ::= < AVP-Header: 3169 10415 >
@@ -411,16 +427,20 @@
 
 < Suggested-Network-Configuration > ::= < AVP-Header: 3170 10415 >
 { SCEF-Reference-ID }
+[ SCEF-Reference-ID-Ext ]
 { SCEF-ID }
 [ Subscribed-Periodic-RAU-TAU-Timer ]
 [ Active-Time ]
 [ DL-Buffering-Suggested-Packet-Count ]
 [ MTC-Provider-Info ]
 *[ SCEF-Reference-ID-for-Deletion ]
+*[ SCEF-Reference-ID-for-Deletion-Ext ]
+[ MPS-Priority ]
 *[AVP]
 
 < Monitoring-Event-Report-Status > ::= < AVP-Header: 3171 10415 >
 { SCEF-Reference-ID }
+[ SCEF-Reference-ID-Ext ]
 { SCEF-ID }
 [ Result-Code ]
 [ Experimental-Result-Code ]
@@ -456,8 +476,20 @@
 < Updated-Network-Configuration > ::= < AVP-Header: 3184 10415 >
 { SCEF-ID }
 [ SCEF-Reference-ID ]
+[ SCEF-Reference-ID-Ext ]
 *[ SCEF-Reference-ID-for-Deletion ]
+*[ SCEF-Reference-ID-for-Deletion-Ext ]
 [ Subscribed-Periodic-RAU-TAU-Timer ]
 [ Active-Time ]
 [ DL-Buffering-Suggested-Packet-Count ]
+*[AVP]
+
+< Exclude-Identifiers > ::= < AVP-Header: 3188 10415 >
+*[ External-Identifier ]
+*[ MSISDN ]
+*[AVP]
+
+< Include-Identifiers > ::= < AVP-Header: 3189 10415 >
+*[ External-Identifier ]
+*[ MSISDN ]
 *[AVP]

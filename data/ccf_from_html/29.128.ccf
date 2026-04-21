@@ -8,6 +8,8 @@
 { Destination-Realm }
 *[ Supported-Features ]
 *[ Monitoring-Event-Configuration ]
+*[ Monitoring-Event-Report ]
+[ User-Identifier ]
 *[ Proxy-Info ]
 *[ Route-Record ]
 *[AVP]
@@ -81,6 +83,7 @@
 [ RAT-Type ]
 [ Terminal-Information ]
 [ Visited-PLMN-Id ]
+[ APN-Rate-Control-Status ]
 *[ Proxy-Info ]
 *[ Route-Record ]
 *[AVP]
@@ -99,6 +102,7 @@
 *[ Supported-Features ]
 [ PDN-Connection-Charging-Id ]
 [ Extended-PCO ]
+[ APN-Rate-Control-Status ]
 [ Failed-AVP ]
 *[ Proxy-Info ]
 *[ Route-Record ]
@@ -179,9 +183,11 @@
 
 < Monitoring-Event-Configuration > ::= < AVP-Header: 3122 10415 >
 [ SCEF-Reference-ID ]
+[ SCEF-Reference-ID-Ext ]
 { SCEF-ID }
 { Monitoring-Type }
 *[ SCEF-Reference-ID-for-Deletion ]
+*[ SCEF-Reference-ID-for-Deletion-Ext ]
 [ Maximum-Number-of-Reports ]
 [ Monitoring-Duration ]
 [ Charged-Party ]
@@ -192,6 +198,7 @@
 
 < Monitoring-Event-Report > ::= < AVP-Header: 3123 10415 >
 { SCEF-Reference-ID }
+[ SCEF-Reference-ID-Ext ]
 [ SCEF-ID ]
 [ Monitoring-Type ]
 [ Reachability-Information ]
@@ -204,6 +211,8 @@
 [ Reporting-Time-Stamp ]
 [ Maximum-UE-Availability-Time ]
 *[ PDN-Connectivity-Status-Report ]
+[ SAT-SF-Operation-Info ]
+[ Reachability-Cause ]
 *[AVP]
 
 < Communication-Failure-Information > ::= < AVP-Header: 4300 10415 >
@@ -247,4 +256,15 @@
 [ Subscribed-Periodic-RAU-TAU-Timer ]
 [ eDRX-Cycle-Length ]
 [ DL-Buffering-Suggested-Packet-Count ]
+*[AVP]
+
+< SAT-SF-Operation-Info > ::= < AVP-Header: 4333 10415 >
+{ SF-Operation-Status }
+[ DL-Estimated-Delivery-Time ]
+[ Feeder-Link-Availability-Period ]
+*[AVP]
+
+< Feeder-Link-Availability-Period > ::= < AVP-Header: 4334 10415 >
+{ Availability-Start-Time }
+{ Availability-End-Time }
 *[AVP]

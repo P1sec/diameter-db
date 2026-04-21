@@ -30,6 +30,7 @@
 [ RAT-Type ]
 [ Termination-Cause ]
 [ User-Equipment-Info ]
+[ User-Equipment-Info-Extension ]
 [ QoS-Information ]
 [ QoS-Negotiation ]
 [ QoS-Upgrade ]
@@ -167,6 +168,7 @@
 [ PRA-Install ]
 [ PRA-Remove ]
 *[ CSG-Information-Reporting ]
+[ PC-Session-Recovery-Status ]
 *[ Proxy-Info ]
 *[ Route-Record ]
 *[ AVP ]
@@ -196,6 +198,7 @@
 [ 3GPP-MS-TimeZone ]
 [ Default-QoS-Information ]
 *[ Charging-Rule-Report]
+[ PC-Session-Recovery-Status ]
 [ Error-Message ]
 [ Error-Reporting-Host ]
 [ Failed-AVP ]
@@ -225,6 +228,7 @@
 [ RAT-Type ]
 [ Termination-Cause ]
 [ User-Equipment-Info ]
+[ User-Equipment-Info-Extension ]
 [ QoS-Information ]
 [ Default-EPS-Bearer-QoS ]
 0*2 [ AN-GW-Address ]
@@ -346,6 +350,7 @@
 [ RAT-Type ]
 [ AN-Trusted]
 [ User-Equipment-Info ]
+[ User-Equipment-Info-Extension ]
 [ QoS-Information ]
 0*2 [ AN-GW-Address ]
 [ 3GPP-SGSN-Address ]
@@ -1053,10 +1058,6 @@
 [ CS-Service-Resource-Result-Operation ]
 [ CS-Service-Resource-Failure-Cause ]
 
-The Redirect-Support AVP (AVP Code 1086) is of type Enumerated
-The Application-Detection-Information AVP (AVP code 1098) is of type Grouped
-The Mute-Notification AVP (AVP code 2809) is of type Enumerated
-The ADC-Rule-Report AVP (AVP code 1097) is of type Grouped
 The Bearer-Usage AVP (AVP code 1000) is of type Enumerated
 The Charging-Rule-Install AVP (AVP code 1001) is of type Grouped
 The Charging-Rule-Remove AVP (AVP code 1002) is of type Grouped

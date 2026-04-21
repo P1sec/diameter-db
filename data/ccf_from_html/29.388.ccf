@@ -142,4 +142,12 @@
 
 < V2X-PC5-Allowed-PLMN > ::= < AVP-Header: 4600 10415 >
 *[ Visited-PLMN-Id ]
+*[ PLMN-Allowed-PC5-RATs ]
 *[AVP]
+
+< V2X-PC5-Allowed-PLMN > ::= < AVP-Header: 4603 10415 >
+{ Visited-PLMN-Id }
+1*{ PC5-RAT-Type }
+*[AVP]
+
+The PC5-RAT-Type AVP (AVP code 4604) is of type Enumerated
