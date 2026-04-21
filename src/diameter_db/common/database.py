@@ -22,7 +22,7 @@ DIAMETER_DB_DIR = dirname(realpath(SRC_DIR))
 
 """
     CCF = Command Code Format = Diameter's custom ABNF,
-    defined in https://tools.ietf.org/html/rfc6733#section-3.2
+    defined in https://datatracker.ietf.org/doc/html/rfc6733#section-3.2
 """
 
 SQLITE_URI = f'sqlite:///' + DIAMETER_DB_DIR + '/database.sqlite3'

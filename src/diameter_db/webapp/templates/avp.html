@@ -94,7 +94,7 @@
                 {% endfor %}
             </table>
         
-            Its <a href="https://tools.ietf.org/html/rfc6733#section-4.4">AVP-header format</a> definition is the following:
+            Its <a href="https://datatracker.ietf.org/doc/html/rfc6733#section-4.4">AVP-header format</a> definition is the following:
             
             <pre>&lt; {{ avp.avp_name }} &gt; ::= &lt; AVP-Header: {{ avp.avp_code }}{% if avp.vendor_id %}, {{ avp.vendor_id }}{% endif %} &gt; {% for nested_avp in avp.nested_avps %}
 {% if not (nested_avp.avp_requirement == DiameterAVPRequirement.optional and (nested_avp.min_occurrences, nested_avp.max_occurrences) == (0, 1)) and not (nested_avp.avp_requirement in (DiameterAVPRequirement.fixed, DiameterAVPRequirement.required) and nested_avp.min_occurrences == nested_avp.max_occurrences ==     1) -%}
