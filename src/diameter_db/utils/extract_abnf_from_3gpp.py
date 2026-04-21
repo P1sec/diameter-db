@@ -2,6 +2,7 @@
 # -*- encoding: Utf-8 -*-
 
 from re import sub, findall, search, IGNORECASE, MULTILINE, DOTALL
+from datetime import datetime
 from html import unescape
 from os.path import join
 from os import listdir
@@ -37,6 +38,10 @@ for revision in map(
     for file_name in listdir(join(HTML_3GPP_DOCS_PATH, revision)):
         if file_name in already_processed:
             continue
+        print(
+            '[%s] Scanning %s/%s...'
+            % (datetime.now().isoformat(), revision, file_name)
+        )
 
         obtained_ccf_contents = ''
 
@@ -53,6 +58,8 @@ for revision in map(
                 and 'is of type' not in file_contents
             ):
                 continue  # Optimization
+
+            print('(may contain AVP data)')
 
             for cmd_code_name, cmd_code_header, cmd_code_elements in findall(
                 CCF_MESSAGE_REGEX, file_contents, flags=IGNORECASE
