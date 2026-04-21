@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- encoding: Utf-8 -*-
 
-from re import findall, IGNORECASE, MULTILINE, search
+from re import findall, IGNORECASE, MULTILINE, DOTALL, search
 from lxml.etree import XMLParser, parse, dump
 from os.path import dirname, realpath, join
 from typing import Dict, Set, List
@@ -12,7 +12,7 @@ from io import StringIO
 from typing import Set
 from os import listdir
 
-from diameter_db.common.database_protorisk import obtain_spec_from_code
+from diameter_db.common.protorisk_data import obtain_spec_from_code
 
 SCRIPT_DIR = dirname(realpath(__file__))
 MODULE_DIR = dirname(realpath(SCRIPT_DIR))
@@ -126,15 +126,16 @@ try:
                     search(
                         r'<title>(.+?)</title>',
                         get(
-                            'https://tools.ietf.org/html/rfc%s' % rfc_code
+                            'https://datatracker.ietf.org/doc/html/rfc%s' % rfc_code
                         ).text,
+                        DOTALL
                     )
                     .group(1)
                     .split('-', 1)[1]
                     .strip()
                 )
 
-                spec_url = 'https://tools.ietf.org/html/rfc%s' % rfc_code
+                spec_url = 'https://datatracker.ietf.org/doc/html/rfc%s' % rfc_code
 
         sql_session.add(
             DiameterApplication(

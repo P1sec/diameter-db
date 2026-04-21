@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- encoding: Utf-8 -*-
 
+from re import findall, search, sub, match, IGNORECASE, DOTALL, MULTILINE
 from lxml.etree import XMLParser, parse, dump, tostring, _Comment
-from re import findall, search, sub, match, IGNORECASE, MULTILINE
 from os.path import dirname, realpath, join
 from typing import Set, List, Dict, Union
 from collections import defaultdict
@@ -15,7 +15,7 @@ from requests import get
 from io import StringIO
 from time import time
 
-from diameter_db.common.database_protorisk import obtain_spec_from_code
+from diameter_db.common.protorisk_data import obtain_spec_from_code
 
 SCRIPT_DIR = dirname(realpath(__file__))
 MODULE_DIR = dirname(realpath(SCRIPT_DIR))
@@ -40,7 +40,7 @@ IETF_RFCS_FOLDER = realpath(DATA_DIR + '/ietf_rfcs')
     which will be called if needed) and/or
     resources from Diafuzzer
     
-    CCF is specified here: https://tools.ietf.org/html/rfc6733#section-3.2
+    CCF is specified here: https://datatracker.ietf.org/doc/html/rfc6733#section-3.2
 """
 
 CCF_AVP_REGEX = r'(?:[\d\s]*\*[\d\s]*)?(?:\s*\[[^\]]+?\s*\]\s*|\s*<[^>]+?\s*>(?!\s*::)\s*|\s*\{[^\}]*?\s*\}\s*)(?:;[^\n\]\[{}<>*]*[^0-9\n\]\[{}<>*]\s*)?'
@@ -300,7 +300,7 @@ try:
                 findall(CCF_AVP_REGEX, cmd_code_elements)
             ):
                 # See here for parsing individual AVP occurrence
-                # references: https://tools.ietf.org/html/rfc6733#section-3.2
+                # references: https://datatracker.ietf.org/doc/html/rfc6733#section-3.2
 
                 print(
                     '=====>>>>   DEBUG     AVP      =====+>>>>>>    ',
@@ -475,7 +475,7 @@ try:
         extracted further:
         
         -  Grouped AVPs definitions (as defined in
-           https://tools.ietf.org/html/rfc6733#section-4.4)
+           https://datatracker.ietf.org/doc/html/rfc6733#section-4.4)
         -  AVP types definitions
     """
 
@@ -1392,7 +1392,7 @@ try:
                     file_contents,
                     rfc_number,
                     source=DiameterDataSource.ietf_specifications,
-                    source_url='https://tools.ietf.org/html/rfc%d'
+                    source_url='https://datatracker.ietf.org/doc/html/rfc%d'
                     % rfc_number,
                     also_parse_grouped_avps=also_parse_grouped_avps,
                 )
@@ -1428,7 +1428,7 @@ try:
 
             rfc_number = int(search(r'\d+', file_entry.name).group(0))
 
-            source_url = 'https://tools.ietf.org/html/rfc%d' % rfc_number
+            source_url = 'https://datatracker.ietf.org/doc/html/rfc%d' % rfc_number
 
             parse_extracted_ccf(
                 file_contents,
@@ -1441,8 +1441,9 @@ try:
                     long_spec_name_suffix=search(
                         r'<title>(.+?)</title>',
                         get(
-                            'https://tools.ietf.org/html/rfc%s' % rfc_number
+                            'https://datatracker.ietf.org/doc/html/rfc%s' % rfc_number
                         ).text,
+                        DOTALL
                     )
                     .group(1)
                     .split('-', 1)[1]

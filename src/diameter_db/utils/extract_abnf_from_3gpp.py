@@ -15,7 +15,7 @@ from diameter_db.common.config import (
     from all 3GPP specifications, and put these
     in text files
     
-    CCF is specified here: https://tools.ietf.org/html/rfc6733#section-3.2
+    CCF is specified here: https://datatracker.ietf.org/doc/html/rfc6733#section-3.2
 """
 
 CCF_AVP_REGEX = r'(?:[\d\s]*\*[\d\s]*)?(?:\s*\[[^\]]+?\s*\]\s*|\s*<[^>]+?\s*>(?!\s*::)\s*|\s*\{[^\}]*?\s*\}\s*)(?:;[^\n\]\[{}<>*]*[^0-9\n\]\[{}<>*]\s*)?'

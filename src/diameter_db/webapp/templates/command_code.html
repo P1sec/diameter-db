@@ -64,7 +64,7 @@
                 {% endfor %}
             </table>
         
-            Its <a href="https://tools.ietf.org/html/rfc6733#section-3.2" title="Command Code Format">CCF</a> definition is the following:
+            Its <a href="https://datatracker.ietf.org/doc/html/rfc6733#section-3.2" title="Command Code Format">CCF</a> definition is the following:
             
             <pre>&lt; {{ command.command_name }} &gt; ::= &lt; Diameter-Header: {{ command.command_code }}{% if command.req_bit %}, REQ{% endif %}
             {%- if command.pxy_bit %}, PXY{% endif -%}

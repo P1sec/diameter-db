@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- encoding: Utf-8 -*-
 
+from re import findall, search, match, IGNORECASE, DOTALL, MULTILINE
 from lxml.etree import XMLParser, parse, dump, tostring, _Comment
-from re import findall, search, match, IGNORECASE, MULTILINE
 from os.path import dirname, realpath, join
 from typing import Set, List, Dict, Union
 from typing import Dict, Set, List
@@ -14,7 +14,7 @@ from requests import get
 from io import StringIO
 from time import time
 
-from diameter_db.common.database_protorisk import obtain_spec_from_code
+from diameter_db.common.protorisk_data import obtain_spec_from_code
 
 SCRIPT_DIR = dirname(realpath(__file__))
 MODULE_DIR = dirname(realpath(SCRIPT_DIR))
@@ -39,7 +39,7 @@ IETF_RFCS_FOLDER = realpath(DATA_DIR + '/ietf_rfcs')
     which will be called if needed) and/or
     resources from Diafuzzer
     
-    CCF is specified here: https://tools.ietf.org/html/rfc6733#section-3.2
+    CCF is specified here: https://datatracker.ietf.org/doc/html/rfc6733#section-3.2
 """
 
 CCF_AVP_REGEX = r'(?:[\d\s]*\*[\d\s]*)?(?:\s*\[[^\]]+?\s*\]\s*|\s*<[^>]+?\s*>(?!\s*::)\s*|\s*\{[^\}]*?\s*\}\s*)(?:;[^\n\]\[{}<>*]*[^0-9\n\]\[{}<>*]\s*)?'
@@ -305,7 +305,7 @@ try:
             and application_tag.get('uri')
             and 'rfc' in application_tag.get('uri')
         ):
-            rfc_code = search('rfc([\d+])', application_tag.get('uri')).group(
+            rfc_code = search(r'rfc([\d+])', application_tag.get('uri')).group(
                 1
             )
 
@@ -341,13 +341,14 @@ try:
 
         elif rfc_code:
             spec_information = dict(
-                spec_url='https://tools.ietf.org/html/rfc%s' % rfc_code,
+                spec_url='https://datatracker.ietf.org/doc/html/rfc%s' % rfc_code,
                 alternate_spec_url=None,
                 short_spec_name='RFC ' + rfc_code,
                 long_spec_name_prefix='IETF RFC ' + rfc_code,
                 long_spec_name_suffix=search(
                     r'<title>(.+?)</title>',
-                    get('https://tools.ietf.org/html/rfc%s' % rfc_code).text,
+                    get('https://datatracker.ietf.org/doc/html/rfc%s' % rfc_code).text,
+                    DOTALL
                 )
                 .group(1)
                 .split('-', 1)[1]
@@ -449,7 +450,7 @@ try:
 
             rfc_number = int(search(r'\d+', file_entry.name).group(0))
 
-            source_url = 'https://tools.ietf.org/html/rfc%d' % rfc_number
+            source_url = 'https://datatracker.ietf.org/doc/html/rfc%d' % rfc_number
 
             parse_extracted_ccf(
                 file_contents,
@@ -462,8 +463,9 @@ try:
                     long_spec_name_suffix=search(
                         '<title>(.+?)</title>',
                         get(
-                            'https://tools.ietf.org/html/rfc%s' % rfc_number
+                            'https://datatracker.ietf.org/doc/html/rfc%s' % rfc_number
                         ).text,
+                        DOTALL
                     )
                     .group(1)
                     .split('-', 1)[1]
