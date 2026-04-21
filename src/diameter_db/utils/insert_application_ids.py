@@ -24,7 +24,7 @@ OLD_DIAFUZZER_DATA_DIR = realpath(
     ROOT_DIR + '/compare_data_sources/diafuzzer/specs/'
 )
 WIRESHARK_DATA_DIR = realpath(
-    ROOT_DIR + '/compare_data_sources/wireshark/diameter/'
+    ROOT_DIR + '/compare_data_sources/wireshark/resources/protocols/diameter/'
 )
 
 EXTRACTED_CCF_FROM_3GPP_PATH = realpath(DATA_DIR + '/ccf_from_html')

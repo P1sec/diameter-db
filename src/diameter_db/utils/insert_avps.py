@@ -27,7 +27,7 @@ OLD_DIAFUZZER_DATA_DIR = realpath(
     ROOT_DIR + '/compare_data_sources/diafuzzer/specs/'
 )
 WIRESHARK_DATA_DIR = realpath(
-    ROOT_DIR + '/compare_data_sources/wireshark/diameter/'
+    ROOT_DIR + '/compare_data_sources/wireshark/resources/protocols/diameter/'
 )
 
 EXTRACTED_CCF_FROM_3GPP_PATH = realpath(DATA_DIR + '/ccf_from_html')
@@ -1163,7 +1163,7 @@ try:
 
         # Evaluate the different information bit flags
         # that may be assigned to a Diameter object
-        # (see https://github.com/wireshark/wireshark/blob/master/diameter/dictionary.dtd#L50)
+        # (see https://github.com/wireshark/wireshark/blob/master/resources/protocols/diameter/dictionary.dtd#L50)
 
         mandatory_flag = None
         if avp_tag.get('mandatory') == 'must':
@@ -1351,7 +1351,7 @@ try:
             list_of_grouped_avp_row_dicts=list_of_grouped_avp_row_dicts,
             source_row_dict=dict(  # DiameterObjectUpdate without "object_id"
                 source=DiameterDataSource.wireshark_database,
-                source_url='https://github.com/wireshark/wireshark/tree/master/diameter',
+                source_url='https://github.com/wireshark/wireshark/tree/master/resources/protocols/diameter',
                 source_information_html_excerpts=None,
                 #   source_update_date = ,
                 insertion_date=datetime.now(),
@@ -1537,7 +1537,7 @@ try:
 
             source_row_dict = dict(  # DiameterObjectUpdate without "object_id"
                 source=DiameterDataSource.wireshark_database,
-                source_url='https://github.com/wireshark/wireshark/tree/master/diameter',
+                source_url='https://github.com/wireshark/wireshark/tree/master/resources/protocols/diameter',
                 source_information_html_excerpts=None,
                 #   source_update_date = ,
                 insertion_date=datetime.now(),

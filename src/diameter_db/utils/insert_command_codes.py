@@ -26,7 +26,7 @@ OLD_DIAFUZZER_DATA_DIR = realpath(
     ROOT_DIR + '/compare_data_sources/diafuzzer/specs/'
 )
 WIRESHARK_DATA_DIR = realpath(
-    ROOT_DIR + '/compare_data_sources/wireshark/diameter/'
+    ROOT_DIR + '/compare_data_sources/wireshark/resources/protocols/diameter/'
 )
 
 EXTRACTED_CCF_FROM_3GPP_PATH = realpath(DATA_DIR + '/ccf_from_html')
@@ -401,7 +401,7 @@ try:
             dict(  # DiameterObjectUpdate without "object_id"
                 #   object_id = 'cmd_%d_%d' % (command_code, req_bit),
                 source=DiameterDataSource.wireshark_database,
-                source_url='https://github.com/wireshark/wireshark/tree/master/diameter',
+                source_url='https://github.com/wireshark/wireshark/tree/master/resources/protocols/resources/protocols/diameter',
                 # source_update_date = ,
                 insertion_date=datetime.now(),
             ),
