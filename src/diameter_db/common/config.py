@@ -28,15 +28,13 @@ if not listdir(HTML_3GPP_DOCS_PATH):
         'Note: going to mount the remote 3GPP .HTML specifications from the Protorisk server, please make sure that you can access the Protorisk server with one of your local public keys'
     )
 
-    run(
-        split('fusermount -u ' + quote(HTML_3GPP_DOCS_PATH)),
-        check=False,
-        stderr=DEVNULL,
-        stdout=DEVNULL,
-    )
+    # run(
+    #     split('fusermount -u ' + quote(HTML_3GPP_DOCS_PATH)),
+    #     check=False,
+    # )
     run(
         split(
-            'sshfs p1sec@protorisk:protorisk/data/html '
+            'sshfs p1sec@protorisk:protorisk/data/html_word '
             + quote(HTML_3GPP_DOCS_PATH)
             + ' -C -o allow_other -o ro'
         ),

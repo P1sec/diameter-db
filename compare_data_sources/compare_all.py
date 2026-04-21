@@ -12,7 +12,9 @@ from typing import Set
 SCRIPT_DIR = dirname(realpath(__file__))
 
 OLD_DIAFUZZER_DATA_DIR = realpath(SCRIPT_DIR + '/diafuzzer/specs/')
-WIRESHARK_DATA_DIR = realpath(SCRIPT_DIR + '/wireshark/resources/protocols/diameter/')
+WIRESHARK_DATA_DIR = realpath(
+    SCRIPT_DIR + '/wireshark/resources/protocols/diameter/'
+)
 
 EXTRACTED_CCF_FROM_3GPP_PATH = realpath(SCRIPT_DIR + '/../data/ccf_from_html')
 

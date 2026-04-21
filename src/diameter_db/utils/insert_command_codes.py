@@ -47,7 +47,7 @@ CCF_AVP_REGEX = r'(?:[\d\s]*\*[\d\s]*)?(?:\s*\[[^\]]+?\s*\]\s*|\s*<[^>]+?\s*>(?!
 CCF_MESSAGE_REGEX = (
     r'<?\s*([^<>\n ]+?)\s*>?\s*::\s*=\s*<\s*Diameter[-\s_]*Header([^>]*?)\s*>'
 )
-CCF_MESSAGE_REGEX += r'((?:' + CCF_AVP_REGEX + ')+)'
+CCF_MESSAGE_REGEX += r'((?:' + CCF_AVP_REGEX + r')+)'
 
 
 # Ensure that we have messages defined in the CCF
