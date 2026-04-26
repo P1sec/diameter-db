@@ -35,7 +35,7 @@ already_processed = set()
 for revision in map(
     str, reversed(sorted(map(int, listdir(HTML_3GPP_DOCS_PATH))))
 ):
-    for file_name in listdir(sorted(join(HTML_3GPP_DOCS_PATH, revision))):
+    for file_name in sorted(listdir(join(HTML_3GPP_DOCS_PATH, revision))):
         if file_name in already_processed:
             continue
         print(

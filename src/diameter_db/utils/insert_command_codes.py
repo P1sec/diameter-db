@@ -54,10 +54,12 @@ CCF_MESSAGE_REGEX += r'((?:' + CCF_AVP_REGEX + r')+)'
 # format and extracted from 3GPP specifications
 # at our disposal
 
-most_recent_ccf_extraction_date: int = None
+most_recent_ccf_extraction_date: int = 0
 
 for file_entry in scandir(EXTRACTED_CCF_FROM_3GPP_PATH):
-    most_recent_ccf_extraction_date = file_entry.stat().st_mtime
+    most_recent_ccf_extraction_date = max(
+        most_recent_ccf_extraction_date, file_entry.stat().st_mtime
+    )
 
 if (
     not most_recent_ccf_extraction_date
