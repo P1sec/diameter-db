@@ -12,7 +12,7 @@ In order to clone it including the `compare_data_sources/{wireshark,diafuzzer}` 
 
 ```bash
 sudo apt install git
-git clone --recursive https://github.com/P1sec/diameter-db
+git clone --recursive ssh://git@codeberg.org/marin-m/diameter-db.git
 cd diameter-db/
 ```
 
