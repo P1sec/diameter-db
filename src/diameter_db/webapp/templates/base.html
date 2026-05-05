@@ -2,34 +2,36 @@
 <html>
     <head>
         <title>{{ title }} - diameter-db</title>
-        
+
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
         <style>
             body {
-                font-family: 'Liberation Sans', sans-serif;
+                font-family: "Open Sans", sans-serif;
                 margin: 0;
                 margin-top: 158px;
                 padding: 0;
-                font-size: 12px;
+                font-size: 16px;
             }
             
             header {
-                background: url(/static/header_background.png); /* linear-gradient(rgba(0, 0, 0, 0.025), rgba(0, 0, 0, 0.2)), */
+                background: #333; /* linear-gradient(rgba(0, 0, 0, 0.025), rgba(0, 0, 0, 0.2)), */
                 /*background-cover: cover;*/
                 font-family: 'DejaVu Sans', sans-serif;
-                text-shadow: 0 0 10px #333;
+                color: white;
                 background-position: top center;
                 background-size: 100% auto;
                 background-repeat: no-repeat;
                 display: block;
                 /*height: 100px;*/
                 padding: 46px 45px;
+                padding-bottom: 28px;
                 top: 0;
                 font-size: 48px;
                 box-shadow: 0 0 15px #333;
                 position: fixed;
                 width: calc(100% - 90px);
                 /*  z-index: 1; */
-                color: white;
             }
             
             header a {
@@ -174,7 +176,7 @@
     <body>
         <header>
             <a href="/" >
-                <img src="/static/white_p1sec_logo.svg" style="float: right; margin-top: -14px" height="80"> diameter-db
+                <img src="/static/p1sec.png" style="float: right; margin-top: -14px" height="90"> diameter-db
             </a>
 
             <form id="search-form" action="/search">
