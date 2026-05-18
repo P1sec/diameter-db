@@ -158,7 +158,7 @@ try:
                 object_id='app_' + str(application_id),
                 source=DiameterDataSource.wireshark_database,
                 insertion_date=datetime.now(),
-                source_url='https://github.com/wireshark/wireshark/tree/master/diameter',
+                source_url='https://github.com/wireshark/wireshark/tree/master/resources/protocols/diameter',
             )
         )
 
