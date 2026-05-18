@@ -6,4 +6,5 @@ html_from_doc/
 __pycache__/
 
 flask_salt.py
+*.kate-swp
 *.swp
