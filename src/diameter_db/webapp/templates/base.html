@@ -75,6 +75,34 @@
                 padding-right: 15px;
                 width: 160px;
             }
+
+            @media (prefers-color-scheme: dark) {
+                body {
+                    background: #262a2b;
+                    color: #ccc;
+                }
+
+                aside {
+                    box-shadow: -10px 0 15px -10px #1d1d1d inset;
+                }
+
+                header {
+                    background: #35393b;
+                    box-shadow: 0 -10px 30px -10px black;
+                }
+
+                a {
+                    color: #0679ff;
+                }
+
+                a:hover {
+                    opacity: 0.8;
+                }
+
+                header img {
+                    filter: invert(1);
+                }
+            }
             
             .tree-item {
                 padding: 3px;
