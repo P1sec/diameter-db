@@ -221,6 +221,12 @@ try:
                 and header_informations[-1].isdigit()
             ):
                 application_id = int(header_informations[-1])
+                # ⚠️ TODO: When the application_id is not
+                #  explictly specified, cross-link data
+                #  from diameter_application.spec_url
+                #  when it matches
+                #  'http://www.3gpp.org/DynaReport/%s.htm'
+                #  with the code of the current spec
             else:
                 application_id = None
 
