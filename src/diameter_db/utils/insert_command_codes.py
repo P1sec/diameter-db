@@ -221,14 +221,22 @@ try:
                 and header_informations[-1].isdigit()
             ):
                 application_id = int(header_informations[-1])
-                # ⚠️ TODO: When the application_id is not
-                #  explictly specified, cross-link data
+            else:
+                # ⚠️ When the application_id is not
+                #  explictly specified, cross-link data
                 #  from diameter_application.spec_url
                 #  when it matches
                 #  'http://www.3gpp.org/DynaReport/%s.htm'
                 #  with the code of the current spec
-            else:
-                application_id = None
+                diameter_application = (
+                    sql_session.query(DiameterApplication)
+                    .filter_by(spec_url=source_url)
+                    .first()
+                )
+                if diameter_application:
+                    application_id = diameter_application.application_id
+                else:
+                    application_id = None
 
             req_bit = 'REQ' in header_informations
             pxy_bit = 'PXY' in header_informations
@@ -275,9 +283,8 @@ try:
                 else None,
                 dict(  # DiameterObjectUpdate without "object_id"
                     #   object_id = 'cmd_%d_%d' % (command_code, req_bit),
-                    source=DiameterDataSource.tgpp_specifications,
-                    source_url='http://www.3gpp.org/DynaReport/%s.htm'
-                    % tgpp_spec_name.replace('.', ''),
+                    source=source,
+                    source_url=source_url,
                     # source_update_date = ,
                     insertion_date=datetime.now(),
                 ),
