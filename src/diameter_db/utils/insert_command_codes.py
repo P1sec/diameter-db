@@ -216,27 +216,23 @@ try:
                 continue
 
             command_code = int(header_informations[0])
+            application_ids = set()
             if (
                 len(header_informations) > 1
                 and header_informations[-1].isdigit()
             ):
-                application_id = int(header_informations[-1])
-            else:
-                # ⚠️ When the application_id is not
-                #  explictly specified, cross-link data
-                #  from diameter_application.spec_url
-                #  when it matches
-                #  'http://www.3gpp.org/DynaReport/%s.htm'
-                #  with the code of the current spec
-                diameter_application = (
-                    sql_session.query(DiameterApplication)
-                    .filter_by(spec_url=source_url)
-                    .first()
-                )
-                if diameter_application:
-                    application_id = diameter_application.application_id
-                else:
-                    application_id = None
+                application_ids.add(int(header_informations[-1]))
+
+            #  Augment data with Wireshark info: cross-link data
+            #  from diameter_application.spec_url when it matches
+            #  'http://www.3gpp.org/DynaReport/%s.htm'
+            #  with the code of the current spec
+            for diameter_application in (
+                sql_session.query(DiameterApplication)
+                .filter_by(spec_url=source_url)
+                .all()
+            ):
+                application_ids.add(diameter_application.application_id)
 
             req_bit = 'REQ' in header_informations
             pxy_bit = 'PXY' in header_informations
@@ -263,32 +259,33 @@ try:
                     + three_char_prefix_regex.group(2)
                 )
 
-            create_or_merge_command_code(
-                dict(  # DiameterCommand row
-                    object_id='cmd_%d_%d' % (command_code, req_bit),
-                    command_code=command_code,
-                    req_bit=req_bit,
-                    pxy_bit=pxy_bit,
-                    command_name=cmd_code_name,
-                    command_three_char_abbreviation=command_three_char_abbreviation,
-                    **spec_metadata_row_dict,
-                ),
-                dict(  # DiameterCommandApplicationOccurrence row
-                    object_id='cmd_app_%d_%d_%d'
-                    % (command_code, req_bit, application_id),
-                    application_id=application_id,
-                    command_code=command_code,
+            for application_id in sorted(application_ids or {None}):
+                create_or_merge_command_code(
+                    dict(  # DiameterCommand row
+                        object_id='cmd_%d_%d' % (command_code, req_bit),
+                        command_code=command_code,
+                        req_bit=req_bit,
+                        pxy_bit=pxy_bit,
+                        command_name=cmd_code_name,
+                        command_three_char_abbreviation=command_three_char_abbreviation,
+                        **spec_metadata_row_dict,
+                    ),
+                    dict(  # DiameterCommandApplicationOccurrence row
+                        object_id='cmd_app_%d_%d_%d'
+                        % (command_code, req_bit, application_id),
+                        application_id=application_id,
+                        command_code=command_code,
+                    )
+                    if application_id
+                    else None,
+                    dict(  # DiameterObjectUpdate without "object_id"
+                        #   object_id = 'cmd_%d_%d' % (command_code, req_bit),
+                        source=source,
+                        source_url=source_url,
+                        # source_update_date = ,
+                        insertion_date=datetime.now(),
+                    ),
                 )
-                if application_id
-                else None,
-                dict(  # DiameterObjectUpdate without "object_id"
-                    #   object_id = 'cmd_%d_%d' % (command_code, req_bit),
-                    source=source,
-                    source_url=source_url,
-                    # source_update_date = ,
-                    insertion_date=datetime.now(),
-                ),
-            )
 
     """
         Parse command codes extracted from wireshark (XML tags or comments)

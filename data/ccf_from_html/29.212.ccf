@@ -85,6 +85,7 @@
 *[ Proxy-Info ]
 *[ Route-Record ]
 [ 3GPP-PS-Data-Off-Status ]
+[ UHRR-Capability ]
 *[ AVP ]
 
 < CC-Answer > ::= < Diameter-Header: 272, PXY >
@@ -507,6 +508,7 @@
 [ Error-Reporting-Host ]
 [ Failed-AVP ]
 *[ Proxy-Info ]
+[ UHRR-Capability ]
 *[ Load ]
 *[ AVP ]
 
@@ -752,6 +754,7 @@
 [ Content-Version ]
 *[ Calling-Party-Address ]
 [ Callee-Information ]
+[ UHRR-Enable-Indication ]
 *[ AVP ]
 
 < TFT-Packet-Filter-Information > ::= < AVP-Header: 1013 >

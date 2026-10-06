@@ -81,6 +81,7 @@
 [ Redirect-Max-Cache-Time ]
 *[ Proxy-Info ]
 *[ Load ]
+[ UHRR-Capability ]
 *[ AVP ]
 
 < RA-Request > ::= < Diameter-Header: 258, REQ, PXY >
@@ -123,6 +124,7 @@
 *[ Class ]
 *[ Proxy-Info ]
 *[ Route-Record ]
+[ UHRR-Capability ]
 *[ AVP ]
 
 < RA-Answer > ::= < Diameter-Header: 258, PXY >
@@ -281,6 +283,7 @@
 [ Max-PLR-UL ]
 [ Desired-Max-Latency ]
 [ Desired-Max-Loss ]
+[ UHRR-Enable-Indication ]
 *[ AVP ]
 
 < Media-Sub-Component > ::= < AVP-Header: 519 >
@@ -417,4 +420,6 @@ The Line-Type AVP (AVP code 581) is of type Unsigned32
 The MPS-Action AVP (AVP code 582) is of type Enumerated
 The Serving-Satellite-Identity AVP (AVP code 583) is of type OctetString
 The PC-Session-Recovery-Status AVP (AVP code 584) is of type Enumerated
+The UHRR-Capability AVP (AVP code 585) is of type Enumerated
+The UHRR-Enable-Indication AVP (AVP code 586) is of type Enumerated
 The Experimental-Result-Code AVP (AVP Code 298) is of type Unsigned32
