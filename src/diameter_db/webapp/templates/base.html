@@ -15,7 +15,7 @@
             }
             
             header {
-                background: #333; /* linear-gradient(rgba(0, 0, 0, 0.025), rgba(0, 0, 0, 0.2)), */
+                background: black; /* linear-gradient(rgba(0, 0, 0, 0.025), rgba(0, 0, 0, 0.2)), */
                 /*background-cover: cover;*/
                 font-family: 'DejaVu Sans', sans-serif;
                 color: white;
@@ -24,8 +24,8 @@
                 background-repeat: no-repeat;
                 display: block;
                 /*height: 100px;*/
-                padding: 46px 45px;
-                padding-bottom: 28px;
+                padding: 36px 45px;
+                padding-bottom: 18px;
                 top: 0;
                 font-size: 48px;
                 box-shadow: 0 0 15px #e1e1e1;
@@ -61,14 +61,16 @@
             
             main {
                 margin-left: calc(150px + 25px * 2);
-                padding: 25px;
+                padding: 35px;
+                padding-top: 0px;
+                margin-top: 165px;
             }
             
             aside {
                 position: fixed;
                 overflow-y: auto;
-                top: 150px;
-                height: calc(100% -  150px);
+                top: 130px;
+                height: calc(100% -  130px);
                 box-shadow: 0 0 15px #e1e1e1;   /* Maybe the tone should be lowered to contrast the header's shadow?   */
                 padding: 25px;
                 padding-top: 22px;
@@ -78,16 +80,17 @@
 
             @media (prefers-color-scheme: dark) {
                 html, body {
-                    background: #262a2b;
+                    background: #111;
                     color: #ccc;
                 }
 
                 aside {
-                    box-shadow: -10px 0 15px -10px #1d1d1d inset;
+                    box-shadow: -10px 0 15px -12px #0a0a0a inset;
+                    background: #0e0e0e;
                 }
 
                 header {
-                    background: #35393b;
+                    /* background: #35393b; */
                     box-shadow: 0 -10px 30px -10px black;
                 }
 
