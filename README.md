@@ -1,5 +1,3 @@
-# diameter-db
-
 The purpose of this application is to aggregate Diameter AVPs/command codes/application IDs from different sources, and to put all this in a common sourced and historized backend, which should then be fetchable from an unique web frontend, and possibly exportable into other formats such as SQLite or CSV (why not later Lua or ABNF), etc.
 
 It currently aggregates data from five different sources: [Wireshark](https://github.com/wireshark/wireshark/tree/master/resources/protocols/diameter), [Diafuzzer](https://github.com/Orange-OpenSource/diafuzzer), IETF specifications, 3GPP specifications and [IANA](https://www.iana.org/assignments/aaa-parameters/aaa-parameters.xhtml).
@@ -14,7 +12,7 @@ In order to clone it including the `compare_data_sources/{wireshark,diafuzzer}` 
 
 ```bash
 sudo apt install git
-git clone --recursive git@github.com:P1sec/diameter-db.git
+git clone --recursive ssh://git@codeberg.org/marin-m/diameter-db.git
 cd diameter-db/
 ```
 
@@ -63,11 +61,23 @@ diameter-db-regenerate
 
 ## How to run the application locally
 
-You will find the commands which allow to install the dependencies for the web application above.
+You will find the command which is able to install the dependencies for the web application above.
 
-In order to run the application, Python 3.7+ is required.
+In order to run the application, Python 3.7+ (present in Ubuntu 18.04 LTS repositories, not as the default `python` (2.7) or `python3` (3.6) command but `python3.7`) is required.
 
-And create a vhost under `*.p1sec.fr`:
+itsdangerous==0.24 is also required, because itsdangerous 1.1.0 will not accept cookies signed by 0.24, while 0.24 will accepts cookies signed by 1.1.0, and Protorisk originally runs on 0.24; upgrading Protorisk to 1.0 would unnecessarily log off users; 1.1.0 is the version that comes just after 0.24, despite its name)
+
+Before running your application, you should known that is shares its authentication mechanisms with the Protorisk SSO. As such, it should be put under a `.p1sec.fr` or `.p1sec.com` domain (if needed through your hosts file).
+
+You should also adapt the Flask session cookie salt, in order to provide correct interoperability with the Protorisk SSO:
+
+```bash
+cd src/diameter_db/webapp/
+cp flask_salt.sample.py flask_salt.py 
+nano flask_salt.py
+```
+
+And create a vhost under `*.p1sec.fr` for cross-domain authentication:
 
 ```bash
 echo 127.0.0.1 diameter-db-local.p1sec.fr | sudo tee -a /etc/hosts
@@ -80,7 +90,7 @@ diameter-db-webapp
 xdg-open http://diameter-db-local.p1sec.fr:9999
 ```
 
-## Install the application on a shared Nginx server
+## Install the application on the Protorisk server
 
 You should run the following commands:
 
