@@ -58,7 +58,6 @@ app.jinja_env.filters['zip'] = zip
 
 
 @app.route('/')
-@login_required
 async def index():
 
     sql_session = Session()
@@ -92,7 +91,6 @@ async def index():
 
 
 @app.route('/application/<object_id>')  # object_id of DiameterApplication here
-@login_required
 async def serve_application(object_id):
     object_id_arborescence: List[str] = []
 
@@ -128,7 +126,6 @@ async def serve_application(object_id):
 
 
 @app.route('/command-code/<object_id>')  # object_id of DiameterCommand
-@login_required
 async def serve_command_code(object_id):
     object_id_arborescence: List[str] = []
 
@@ -165,7 +162,6 @@ async def serve_command_code(object_id):
 
 
 @app.route('/avp/<object_id>')  # object_id of DiameterAVPDefinition
-@login_required
 async def serve_avp(object_id):
     object_id_arborescence: List[str] = []
 
