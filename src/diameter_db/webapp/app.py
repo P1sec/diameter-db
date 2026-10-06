@@ -37,16 +37,8 @@ path.append(SRC_DIR)
 chdir(dirname(__file__))
 
 from diameter_db.common.database import *
-from diameter_db.webapp.authentication import (
-    login_required,
-    verify_and_decode_legacy_cookie,
-)
-
-from diameter_db.webapp.flask_salt import FLASK_SALT
 
 app = Flask('diameter-db')
-
-app.secret_key = FLASK_SALT
 
 app.config['PROPAGATE_EXCEPTIONS'] = True
 
@@ -58,7 +50,6 @@ app.jinja_env.filters['zip'] = zip
 
 
 @app.route('/')
-@login_required
 async def index():
 
     sql_session = Session()
@@ -92,7 +83,6 @@ async def index():
 
 
 @app.route('/application/<object_id>')  # object_id of DiameterApplication here
-@login_required
 async def serve_application(object_id):
     object_id_arborescence: List[str] = []
 
@@ -128,7 +118,6 @@ async def serve_application(object_id):
 
 
 @app.route('/command-code/<object_id>')  # object_id of DiameterCommand
-@login_required
 async def serve_command_code(object_id):
     object_id_arborescence: List[str] = []
 
@@ -165,7 +154,6 @@ async def serve_command_code(object_id):
 
 
 @app.route('/avp/<object_id>')  # object_id of DiameterAVPDefinition
-@login_required
 async def serve_avp(object_id):
     object_id_arborescence: List[str] = []
 
@@ -232,39 +220,6 @@ async def expanded_arborescence_item():  # Called through Ajax when expanding a 
 
     finally:
         sql_session.close
-
-
-@app.route(
-    '/jevoudraisdussoafindemidentifierencrossdomainpourdesraisonsdegouvernancesurnosracinesdnsinternes',
-    methods=['POST'],
-)
-async def sso_endpoint():
-
-    form = await request.form
-
-    try:
-        try:
-            remote_session = app.session_interface.get_signing_serializer(
-                app
-            ).loads(
-                form['cookie'],
-                max_age=app.permanent_session_lifetime.total_seconds(),
-            )
-
-        except BadSignature:
-            remote_session = verify_and_decode_legacy_cookie(form['cookie'])
-
-        print('==>', remote_session)
-
-        for key, value in remote_session.items():
-            print(key, '=>', value)
-            session[key] = value
-
-    except BadSignature:
-        return Response('cookie deserialization error')
-
-    else:
-        return redirect(form['return_to'])
 
 
 @app.route('/search', methods=['GET'])
