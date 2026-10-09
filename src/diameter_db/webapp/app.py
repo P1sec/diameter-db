@@ -58,6 +58,13 @@ app.jinja_env.auto_reload = True
 app.jinja_env.filters['zip'] = zip
 
 
+@app.route('/login')
+@login_required
+async def login():
+
+    return redirect('/')
+
+
 @app.route('/')
 async def index():
 
@@ -66,6 +73,7 @@ async def index():
     try:
         return await render_template(
             'index.html',
+            is_authenticated=is_authenticated(),
             all_applications=sql_session.query(DiameterApplication)
             .order_by(DiameterApplication.application_name.asc())
             .all(),

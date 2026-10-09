@@ -43,4 +43,12 @@
         <input type="submit" value="Download the .csv in .zip export of the SQLite database">
     </form>
 
+    {% if not is_authenticated %}
+        <br><br>
+        <hr>
+        <br><br>
+
+        If you are a P1 employee, <a href="/">click here</a> in order to enable accessing Protorisk links from the UI.
+    {% endif %}
+
 {% endblock %}
