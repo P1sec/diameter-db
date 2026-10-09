@@ -39,6 +39,7 @@ chdir(dirname(__file__))
 from diameter_db.common.database import *
 from diameter_db.webapp.authentication import (
     login_required,
+    is_authenticated,
     verify_and_decode_legacy_cookie,
 )
 
@@ -112,6 +113,9 @@ async def serve_application(object_id):
             return abort(404)
         return await render_template(
             'application.html',
+            spec_url=application.alternate_spec_url
+            if (application.alternate_spec_url and is_authenticated())
+            else application.spec_url,
             application=application,
             all_applications=sql_session.query(DiameterApplication)
             .order_by(DiameterApplication.application_name.asc())
@@ -147,6 +151,9 @@ async def serve_command_code(object_id):
             return abort(404)
         return await render_template(
             'command_code.html',
+            spec_url=command.alternate_spec_url
+            if (command.alternate_spec_url and is_authenticated())
+            else command.spec_url,
             command=command,
             DiameterAVPRequirement=DiameterAVPRequirement,
             all_applications=sql_session.query(DiameterApplication)
@@ -183,6 +190,9 @@ async def serve_avp(object_id):
             return abort(404)
         return await render_template(
             'avp.html',
+            spec_url=avp.alternate_spec_url
+            if (avp.alternate_spec_url and is_authenticated())
+            else avp.spec_url,
             avp=avp,
             DiameterAVPRequirement=DiameterAVPRequirement,
             all_applications=sql_session.query(DiameterApplication)

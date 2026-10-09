@@ -111,7 +111,7 @@ class OpenProjectUser:
 # it was not the case)
 
 
-async def is_authenticated():
+def is_authenticated():
 
     is_project_authenticated = (
         session.get('authenticated')
@@ -134,7 +134,7 @@ def login_required(function):
     @wraps(function)
     async def decorated_function(*args, **kwargs):
 
-        if not await is_authenticated():
+        if not is_authenticated():
             return redirect_authentication()
 
         return await function(*args, **kwargs)

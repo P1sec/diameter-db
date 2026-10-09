@@ -31,8 +31,8 @@
     
     {% endif %}
     
-    {% if avp.spec_url and avp.spec_url != 'none' %}
-        <p>It is defined in the <a target="_blank" href="{{ avp.alternate_spec_url or  avp.spec_url }}">{% if avp.long_spec_name_prefix -%} {{- avp.long_spec_name_prefix or '' -}} {%- if avp.long_spec_name_suffix %}: {{ avp.long_spec_name_suffix or '' -}} {%- endif -%} {%- else -%} {{- avp.spec_url -}} {%- endif %}</a> specification.</p>
+    {% if spec_url and spec_url != 'none' %}
+        <p>It is defined in the <a target="_blank" href="{{ spec_url }}">{% if avp.long_spec_name_prefix -%} {{- avp.long_spec_name_prefix or '' -}} {%- if avp.long_spec_name_suffix %}: {{ avp.long_spec_name_suffix or '' -}} {%- endif -%} {%- else -%} {{- spec_url -}} {%- endif %}</a> specification.</p>
     {% endif %}
     
     {% if avp.enum_values %}
